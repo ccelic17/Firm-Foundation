@@ -1,0 +1,2470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firm Foundation — Don't Drift</title>
+<template id="__bundler_thumbnail" data-bg-color="#04060E">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#04060E"/>
+    <g transform="translate(600 400)" fill="none" stroke-width="22" stroke-linecap="round">
+      <circle r="220" stroke="#1A2544" stroke-dasharray="1152 1382"  transform="rotate(135)"/>
+      <circle r="220" stroke="#27AE60" stroke-dasharray="900 1382" transform="rotate(135)"/>
+      <circle r="170" stroke="#1A2544" stroke-dasharray="890 1068" transform="rotate(135)"/>
+      <circle r="170" stroke="#F5C842" stroke-dasharray="600 1068" transform="rotate(135)"/>
+      <circle r="120" stroke="#1A2544" stroke-dasharray="628 754" transform="rotate(135)"/>
+      <circle r="120" stroke="#2E6FD4" stroke-dasharray="450 754" transform="rotate(135)"/>
+    </g>
+    <text x="600" y="730" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" letter-spacing="6" fill="#F5C842">FIRM FOUNDATION</text>
+  </svg>
+</template>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080B14;--surface:#0F1525;--elevated:#192036;
+  --gold:#F5C842;--gold-dim:rgba(245,200,66,0.12);--gold-border:rgba(245,200,66,0.22);
+  --blue:#2E6FD4;--blue-dim:rgba(46,111,212,0.12);--blue-border:rgba(46,111,212,0.25);
+  --green:#27AE60;--yellow:#F39C12;--red:#E74C3C;
+  --tp:#FFFFFF;--ts:#8A94A6;--border:#2D3A5C;
+  --fd:'Barlow Condensed',sans-serif;--fb:'DM Sans',sans-serif;
+}
+html,body{background:#04060E;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:32px 0 64px;font-family:var(--fb);}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(245,200,66,0.04) 0%,transparent 60%);pointer-events:none;}
+
+.brand-header{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0.7;}
+.brand-name{font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.proto-badge{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--ts);text-transform:uppercase;border:1px solid var(--border);border-radius:4px;padding:2px 7px;}
+.proto-tag{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--ts);text-transform:uppercase;}
+
+.phone-outer{position:relative;width:390px;height:844px;}
+.phone-frame{position:absolute;inset:-13px;border-radius:60px;background:linear-gradient(150deg,#2E2E35 0%,#1A1A20 45%,#0E0E12 100%);box-shadow:0 0 0 1px rgba(255,255,255,0.07),inset 0 0 0 1px rgba(255,255,255,0.03),0 60px 120px rgba(0,0,0,0.9),0 30px 60px rgba(0,0,0,0.7);}
+.phone-frame::before{content:'';position:absolute;right:-16px;top:140px;width:4px;height:60px;background:#1A1A20;border-radius:2px;box-shadow:0 80px 0 #1A1A20;}
+.phone-frame::after{content:'';position:absolute;left:-16px;top:180px;width:4px;height:90px;background:#1A1A20;border-radius:2px;box-shadow:0 -80px 0 #1A1A20,0 -50px 0 #1A1A20;}
+.phone-screen{position:relative;width:390px;height:844px;border-radius:47px;overflow:hidden;background:var(--bg);}
+.dyn-island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:122px;height:36px;background:#000;border-radius:20px;z-index:100;}
+.status-bar{position:absolute;top:0;left:0;right:0;height:56px;padding:18px 28px 0 28px;display:flex;align-items:center;justify-content:space-between;z-index:60;pointer-events:none;}
+.sb-time{font-size:15px;font-weight:600;letter-spacing:-0.2px;color:var(--tp);}
+.sb-icons{display:flex;align-items:center;gap:5px;}
+.noise{position:absolute;inset:0;border-radius:47px;pointer-events:none;z-index:4;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:120px;}
+
+.screens{position:absolute;top:56px;left:0;right:0;bottom:84px;overflow:hidden;}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;transform:translateX(18px);transition:opacity 0.22s ease,transform 0.22s ease;scrollbar-width:none;-ms-overflow-style:none;}
+.screen::-webkit-scrollbar{display:none;}
+.screen.active{opacity:1;pointer-events:auto;transform:translateX(0);}
+.scroll-end{height:28px;}
+
+.tab-bar{position:absolute;bottom:0;left:0;right:0;height:84px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:flex-start;padding-top:12px;z-index:50;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:none;border:none;cursor:pointer;color:var(--ts);font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:0.3px;transition:color 0.2s;}
+.tab.active{color:var(--gold);}
+.tab svg{transition:transform 0.2s;}
+.tab.active svg{transform:scale(1.08);}
+
+.section-label{display:flex;align-items:center;gap:7px;font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--ts);text-transform:uppercase;margin-bottom:10px;}
+.ff-divider{color:var(--gold);opacity:0.45;flex-shrink:0;}
+.section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.section-row .section-label{margin-bottom:0;}
+.section-add-btn{background:transparent;border:none;color:var(--gold);font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;padding:4px 8px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:background 0.15s;}
+.section-add-btn:active{background:var(--gold-dim);}
+.screen-title{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:5px;}
+
+.today-hd{padding:16px 22px 0;}
+.today-date{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--ts);text-transform:uppercase;margin-bottom:4px;}
+.today-greeting{font-family:var(--fd);font-size:25px;font-weight:800;line-height:1.05;color:var(--tp);text-transform:uppercase;letter-spacing:0.3px;}
+
+.three-rings{padding:18px 8px 6px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.ring-wrap{position:relative;flex-shrink:0;}
+.ring-wrap.sm{width:96px;height:96px;}
+.ring-wrap.ctr{width:122px;height:122px;}
+.ring-wrap svg{display:block;}
+.ring-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;}
+.ring-pct{font-family:var(--fd);font-weight:900;line-height:1;letter-spacing:-0.5px;}
+.ring-pct.sm{font-size:24px;}
+.ring-pct.ctr{font-size:32px;}
+.ring-lbl{font-size:8px;font-weight:700;letter-spacing:1.6px;color:var(--ts);text-transform:uppercase;margin-top:3px;line-height:1.3;}
+.whoop-tag{display:flex;justify-content:center;margin-top:4px;}
+.whoop-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:99px;background:rgba(46,111,212,0.08);border:1px solid rgba(46,111,212,0.2);font-size:8.5px;font-weight:700;letter-spacing:1.5px;color:var(--ts);text-transform:uppercase;cursor:pointer;}
+.whoop-chip .whoop-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);}
+.whoop-chip.synced .whoop-dot{background:var(--green);}
+.whoop-chip.error .whoop-dot{background:var(--red);box-shadow:0 0 5px var(--red);}
+
+.cta-card{margin:14px 22px 12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.15s;}
+.cta-card:active{background:var(--elevated);}
+.cta-icon-box{width:38px;height:38px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px;}
+.cta-body{flex:1;}
+.cta-title{font-size:13px;font-weight:600;color:var(--tp);margin-bottom:2px;}
+.cta-sub{font-size:11px;color:var(--ts);}
+.cta-chev{color:var(--gold);font-size:16px;}
+
+.sw{padding:0 22px 14px;}
+.priority-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(45,58,92,0.4);}
+.priority-row:last-child{border-bottom:none;}
+.p-num{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--gold);line-height:1;min-width:20px;}
+.p-text{font-size:13px;font-weight:500;color:var(--tp);line-height:1.35;padding-top:2px;flex:1;}
+.p-text.empty{color:var(--ts);font-style:italic;font-weight:400;}
+.p-box{width:22px;height:22px;border:2px solid var(--border);border-radius:6px;flex-shrink:0;margin-top:1px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.p-box.checked{background:var(--gold);border-color:var(--gold);}
+
+.spirit-snap{margin:0 22px 14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;}
+.streak-pill{display:flex;flex-direction:column;align-items:center;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:11px;padding:7px 12px;flex-shrink:0;min-width:54px;}
+.streak-n{font-family:var(--fd);font-size:26px;font-weight:900;color:var(--gold);line-height:1;}
+.streak-lbl{font-size:8px;font-weight:600;letter-spacing:1.5px;color:var(--ts);text-transform:uppercase;margin-top:1px;text-align:center;}
+.verse-snip{flex:1;min-width:0;}
+.verse-ref{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:2px;}
+.verse-txt{font-size:11px;color:var(--ts);line-height:1.4;font-style:italic;}
+.prayer-col{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;}
+.prayer-n{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--tp);line-height:1;}
+.prayer-lbl{font-size:8px;font-weight:600;letter-spacing:1px;color:var(--ts);text-transform:uppercase;text-align:center;}
+
+.health-strip{margin:0 22px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.hs-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:11px 9px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;min-height:80px;}
+.hs-lbl{font-size:8.5px;font-weight:700;letter-spacing:1.5px;color:var(--ts);text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.hs-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.hs-val-row{display:flex;align-items:baseline;gap:4px;margin-top:8px;}
+.hs-val{font-family:var(--fd);font-size:26px;font-weight:800;line-height:1;letter-spacing:-0.5px;color:var(--tp);}
+.hs-unit{font-size:10px;font-weight:600;color:var(--ts);letter-spacing:0.5px;}
+.hs-sub{font-size:9.5px;font-weight:500;color:var(--ts);margin-top:3px;}
+
+/* Manageable item rows (Non-Negotiables, Disciplines, Verses) */
+.item-list{display:flex;flex-direction:column;gap:7px;}
+.nn-item{display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:default;}
+.nn-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.nn-text{font-family:var(--fd);font-size:16px;font-weight:800;color:var(--tp);letter-spacing:0.5px;text-transform:uppercase;flex:1;line-height:1.15;cursor:pointer;}
+.nn-chk{width:22px;height:22px;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;cursor:pointer;}
+.nn-chk.done{background:var(--gold);border-color:var(--gold);}
+.row-actions{display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.row-icon-btn{background:transparent;border:none;width:26px;height:26px;border-radius:7px;color:var(--ts);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;padding:0;}
+.row-icon-btn:active{background:var(--elevated);color:var(--tp);}
+.row-icon-btn.del:active{background:rgba(231,76,60,0.15);color:var(--red);}
+.empty-list{padding:14px;background:var(--surface);border:1px dashed var(--border);border-radius:12px;text-align:center;font-size:12px;color:var(--ts);font-style:italic;}
+
+/* Disciplines item */
+.disc-item{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;}
+.disc-body{flex:1;min-width:0;cursor:pointer;}
+.disc-title{font-size:14px;font-weight:600;color:var(--tp);line-height:1.25;}
+.disc-sub{font-size:11px;color:var(--ts);margin-top:2px;line-height:1.35;}
+.sw-track{width:44px;height:26px;background:var(--elevated);border-radius:13px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
+.sw-track.on{background:var(--gold);}
+.sw-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.4);}
+.sw-track.on .sw-knob{transform:translateX(18px);}
+
+/* Verses */
+.verse-item{padding:14px;background:var(--elevated);border:1px solid var(--border);border-radius:14px;display:flex;gap:12px;align-items:flex-start;}
+.verse-body{flex:1;min-width:0;cursor:pointer;}
+.verse-item-ref{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.verse-item-text{font-size:13px;color:var(--tp);line-height:1.55;font-style:italic;}
+
+/* SPIRIT */
+.spirit-hd{padding:22px 22px 0;}
+.streak-hero{margin:16px 22px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px;text-align:center;position:relative;overflow:hidden;}
+.streak-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(245,200,66,0.08) 0%,transparent 60%);pointer-events:none;}
+.streak-fire{font-size:36px;animation:flame 2s ease-in-out infinite;display:inline-block;}
+@keyframes flame{0%,100%{transform:scale(1) rotate(-2deg);opacity:1;}50%{transform:scale(1.15) rotate(2deg);opacity:0.88;}}
+.streak-big{font-family:var(--fd);font-size:80px;font-weight:900;color:var(--gold);line-height:0.9;letter-spacing:-2px;}
+.streak-big-lbl{font-size:11px;font-weight:600;letter-spacing:2.5px;color:var(--ts);text-transform:uppercase;margin-top:8px;}
+.wow-card{margin:0 22px 14px;background:var(--elevated);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:4px 16px 16px 4px;padding:16px 16px 16px 18px;}
+.wow-eyebrow{font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+.wow-ref{font-size:12px;color:var(--ts);margin-bottom:6px;}
+.wow-text{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--tp);line-height:1.18;text-transform:uppercase;}
+
+.votd-card{margin:0 22px 14px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;}
+.votd-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.votd-verse{font-size:15px;font-weight:400;color:var(--tp);line-height:1.65;font-style:italic;margin-bottom:6px;}
+.votd-bottom{display:flex;align-items:center;justify-content:space-between;}
+.votd-ref{font-size:12px;color:var(--ts);}
+.votd-save{font-size:22px;cursor:pointer;line-height:1;}
+
+.prayer-card{margin:0 22px 14px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;}
+.prayer-arc-row{display:flex;align-items:center;gap:16px;}
+.prayer-arc-svg{width:72px;height:72px;flex-shrink:0;}
+.prayer-info{flex:1;}
+.prayer-big{font-family:var(--fd);font-size:36px;font-weight:800;color:var(--tp);line-height:1;}
+.prayer-goal{font-size:12px;color:var(--ts);margin-top:2px;line-height:1.4;}
+
+.aip-card{margin:0 22px 14px;background:var(--surface);border:1px solid var(--gold-border);border-radius:18px;padding:16px;position:relative;overflow:hidden;}
+.aip-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,rgba(245,200,66,0.06) 0%,transparent 50%);pointer-events:none;}
+.aip-eyebrow{display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.aip-spark{font-size:11px;}
+.aip-title{font-family:var(--fd);font-size:20px;font-weight:800;color:var(--tp);line-height:1.15;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:10px;}
+.aip-text{font-size:13.5px;color:var(--tp);line-height:1.55;margin-bottom:14px;display:none;font-style:italic;padding-left:11px;border-left:2px solid var(--gold-border);}
+.aip-text.shown{display:block;}
+.aip-btn{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);border-radius:10px;padding:9px 16px;font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.15s;}
+.aip-btn:active:not(:disabled){background:rgba(245,200,66,0.2);}
+.aip-btn:disabled{opacity:0.6;cursor:wait;}
+
+/* JOURNAL */
+.journal-hd{padding:22px 22px 0;}
+.j-tabs{display:flex;gap:8px;margin:14px 22px 0;}
+.j-tab{flex:1;padding:9px;background:var(--elevated);border:1px solid var(--border);border-radius:10px;font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--ts);text-align:center;cursor:pointer;transition:all 0.2s;}
+.j-tab.active{background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold);}
+.j-pane{display:none;}
+.j-pane.active{display:block;}
+.prayer-list{padding:14px 22px 0;}
+.prayer-entry{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:10px;}
+.pe-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px;}
+.pe-date{font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--ts);text-transform:uppercase;}
+.pe-status{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;flex-shrink:0;}
+.pe-status.active-p{color:var(--blue);}
+.pe-status.answered{color:var(--green);}
+.pe-text{font-size:14px;color:var(--tp);line-height:1.55;}
+.pe-mark-btn{margin-top:11px;background:transparent;border:1px solid var(--gold-border);color:var(--gold);font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:8px;padding:7px 12px;cursor:pointer;transition:background 0.15s;}
+.pe-mark-btn:active{background:var(--gold-dim);}
+.pe-answered-note{margin-top:10px;padding:10px 12px;background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);border-radius:10px;}
+.pe-answered-lbl{font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:3px;}
+.pe-answered-text{font-size:13px;color:var(--tp);line-height:1.4;}
+.empty-msg{text-align:center;padding:30px 22px;color:var(--ts);font-size:13px;font-style:italic;line-height:1.55;}
+.add-prayer-btn{margin:12px 22px 0;background:var(--surface);border:1px dashed var(--border);border-radius:14px;padding:14px;width:calc(100% - 44px);font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ts);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+.add-prayer-btn:active{color:var(--gold);border-color:var(--gold-border);}
+
+.timeline{padding:14px 22px 0;}
+.tl-item{display:flex;gap:14px;margin-bottom:18px;}
+.tl-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);flex-shrink:0;margin-top:4px;}
+.tl-track{flex:1;width:2px;background:var(--border);min-height:24px;}
+.tl-body{flex:1;padding-bottom:18px;}
+.tl-date{font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.tl-text{font-size:13px;color:var(--ts);line-height:1.6;cursor:pointer;}
+.tl-more{color:var(--gold);font-weight:600;font-size:12px;letter-spacing:0.3px;}
+
+.answered-header{text-align:center;padding:22px 22px 16px;border-bottom:1px solid rgba(39,174,96,0.12);}
+.answered-title{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--tp);text-transform:uppercase;letter-spacing:2px;margin-top:10px;}
+.answered-sub{font-size:12px;color:var(--ts);margin-top:6px;font-style:italic;line-height:1.55;}
+.answered-list{padding:16px 22px 0;}
+.answered-entry{background:rgba(39,174,96,0.04);border:1px solid rgba(39,174,96,0.16);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden;}
+.answered-entry::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green);}
+.ae-date-range{font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:6px;}
+.ae-prayer{font-size:13px;color:var(--ts);font-style:italic;margin-bottom:10px;line-height:1.55;}
+.ae-answer-lbl{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:4px;}
+.ae-answer-text{font-size:14px;color:var(--tp);line-height:1.5;}
+
+/* PROFILE */
+.profile-hd{padding:22px 22px 0;}
+.avatar-row{display:flex;align-items:center;gap:14px;margin:16px 22px 6px;}
+.avatar-circle{width:56px;height:56px;border-radius:50%;background:var(--gold-dim);border:2px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:22px;font-weight:800;color:var(--gold);flex-shrink:0;}
+.avatar-info{flex:1;min-width:0;}
+.avatar-name{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--tp);text-transform:uppercase;letter-spacing:0.5px;}
+.avatar-sub{font-size:12px;color:var(--ts);margin-top:2px;}
+.member-badge{margin:0 22px 18px;display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:10px;}
+.mb-icon{flex-shrink:0;}
+.mb-text{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;}
+
+.profile-section{margin:0 22px 14px;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+.profile-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(45,58,92,0.4);cursor:pointer;}
+.profile-row:last-child{border-bottom:none;}
+.profile-row-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center;}
+.profile-row-label{flex:1;font-size:14px;font-weight:500;color:var(--tp);}
+.profile-row-val{font-size:13px;color:var(--ts);}
+.profile-row-chev{color:var(--ts);font-size:14px;}
+.signout-btn{margin:0 22px;background:transparent;color:var(--red);border:1px solid rgba(231,76,60,0.4);border-radius:14px;padding:13px;font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:calc(100% - 44px);}
+
+/* WHOOP banner on profile */
+.whoop-bnr{margin:0 22px 14px;display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;}
+.whoop-bnr-icon{width:36px;height:36px;border-radius:10px;background:rgba(46,111,212,0.12);border:1px solid rgba(46,111,212,0.25);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0;}
+.whoop-bnr-body{flex:1;min-width:0;}
+.whoop-bnr-title{font-size:13px;font-weight:600;color:var(--tp);}
+.whoop-bnr-sub{font-size:11px;color:var(--ts);margin-top:1px;}
+.whoop-bnr-btn{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);border-radius:8px;padding:6px 12px;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;flex-shrink:0;}
+.whoop-bnr-btn:active{background:rgba(245,200,66,0.18);}
+
+/* MODAL — base */
+.modal{position:absolute;inset:0;background:rgba(4,6,14,0.94);backdrop-filter:blur(16px);z-index:200;display:none;flex-direction:column;border-radius:47px;overflow:hidden;}
+.modal.open{display:flex;}
+.modal-bar{padding:20px 22px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.modal-close{background:none;border:none;color:var(--ts);font-size:26px;cursor:pointer;line-height:1;padding:0;width:32px;text-align:left;}
+.modal-back{background:none;border:none;color:var(--ts);font-size:26px;cursor:pointer;line-height:1;padding:0;width:32px;text-align:right;visibility:hidden;}
+.modal-prog{display:flex;gap:5px;align-items:center;}
+.mpd{width:6px;height:6px;border-radius:50%;background:var(--border);transition:all 0.25s;}
+.mpd.cur{background:var(--gold);width:18px;border-radius:3px;}
+.mpd.done{background:rgba(245,200,66,0.35);}
+.modal-title{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;}
+
+/* CHECK-IN */
+.ci-step{flex:1;display:none;flex-direction:column;padding:28px 24px 24px;overflow:hidden;}
+.ci-step.active{display:flex;}
+.ci-step-num{font-size:10px;font-weight:600;letter-spacing:2.5px;color:var(--ts);text-transform:uppercase;margin-bottom:10px;}
+.ci-q{font-family:var(--fd);font-size:30px;font-weight:800;color:var(--tp);line-height:1.05;text-transform:uppercase;margin-bottom:22px;}
+.ci-textarea{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:15px;color:var(--tp);font-family:var(--fb);font-size:15px;resize:none;width:100%;flex:1;min-height:110px;outline:none;transition:border-color 0.2s;}
+.ci-textarea:focus{border-color:rgba(245,200,66,0.35);}
+.ci-input{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 15px;color:var(--tp);font-family:var(--fb);font-size:15px;width:100%;outline:none;margin-bottom:9px;transition:border-color 0.2s;}
+.ci-input:focus{border-color:rgba(245,200,66,0.35);}
+.ci-mins-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+.ci-min-btn{padding:9px 14px;background:var(--elevated);border:1px solid var(--border);border-radius:10px;font-family:var(--fd);font-size:16px;font-weight:700;color:var(--ts);cursor:pointer;transition:all 0.2s;}
+.ci-min-btn.sel{background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold);}
+.ci-custom-wrap{margin-top:10px;display:none;}
+.ci-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-top:8px;}
+.ci-toggle-label{font-size:15px;font-weight:500;color:var(--tp);}
+.ci-next{background:var(--gold);color:#080B14;border:none;border-radius:14px;padding:16px;font-family:var(--fd);font-size:20px;font-weight:900;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;margin-top:auto;flex-shrink:0;}
+.ci-next:active{opacity:0.85;}
+
+/* GENERIC SIMPLE MODAL */
+.simple-body{flex:1;display:flex;flex-direction:column;padding:20px 24px 24px;overflow-y:auto;scrollbar-width:none;}
+.simple-body::-webkit-scrollbar{display:none;}
+.simple-q{font-family:var(--fd);font-size:26px;font-weight:800;color:var(--tp);line-height:1.05;text-transform:uppercase;margin-bottom:6px;}
+.simple-sub{font-size:13px;color:var(--ts);line-height:1.5;margin-bottom:18px;}
+.field-lbl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:7px;margin-top:12px;}
+.field-lbl:first-of-type{margin-top:0;}
+.modal-primary-btn{background:var(--gold);color:#080B14;border:none;border-radius:14px;padding:16px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;margin-top:18px;flex-shrink:0;}
+.modal-primary-btn.green{background:var(--green);color:#fff;}
+.modal-primary-btn.red{background:transparent;color:var(--red);border:1px solid rgba(231,76,60,0.4);margin-top:10px;}
+.modal-primary-btn:active{opacity:0.85;}
+.modal-primary-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+@keyframes fo{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
+
+/* ═══ BIOMETRIC SOURCES PANEL (Profile) ═══ */
+.bio-panel{margin:0 22px 14px;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+.bio-hd{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 8px;}
+.bio-hd-title{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;}
+.bio-hd-sub{font-size:10px;color:var(--ts);letter-spacing:0.5px;}
+.bio-row{display:flex;align-items:center;gap:11px;padding:11px 16px;border-top:1px solid rgba(45,58,92,0.4);}
+.bio-row-icon{width:30px;height:30px;border-radius:9px;background:rgba(46,111,212,0.10);border:1px solid rgba(46,111,212,0.22);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0;}
+.bio-row.connected .bio-row-icon{background:rgba(39,174,96,0.10);border-color:rgba(39,174,96,0.28);color:var(--green);}
+.bio-row-body{flex:1;min-width:0;}
+.bio-row-name{font-size:13px;font-weight:600;color:var(--tp);display:flex;align-items:center;gap:7px;}
+.bio-row-name .pill{font-family:var(--fd);font-size:8.5px;font-weight:800;letter-spacing:1.3px;background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);padding:1px 6px;border-radius:4px;}
+.bio-row-meta{font-size:11px;color:var(--ts);margin-top:1px;}
+.bio-row-actions{display:flex;gap:6px;}
+.bio-toggle{font-family:var(--fd);font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:6px 10px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--ts);cursor:pointer;}
+.bio-toggle.on{background:var(--gold-dim);color:var(--gold);border-color:var(--gold-border);}
+.bio-toggle.sync{background:rgba(46,111,212,0.10);color:var(--blue);border-color:rgba(46,111,212,0.28);}
+.bio-priority{font-size:10.5px;color:var(--ts);padding:8px 16px 12px;display:flex;align-items:center;gap:6px;border-top:1px solid rgba(45,58,92,0.4);}
+.bio-priority svg{flex-shrink:0;color:var(--gold);}
+
+/* ═══ 90-DAY GOAL ENGINE ═══ */
+.g90{margin:0 22px 14px;background:linear-gradient(135deg, rgba(245,200,66,0.06), rgba(46,111,212,0.04));border:1px solid var(--gold-border);border-radius:18px;padding:14px;}
+.g90-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.g90-title{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+.g90-title svg{color:var(--gold);}
+.g90-edit{font-family:var(--fd);font-size:10.5px;font-weight:700;letter-spacing:1.3px;color:var(--ts);background:transparent;border:1px solid var(--border);padding:5px 9px;border-radius:7px;cursor:pointer;text-transform:uppercase;}
+.g90-empty{padding:6px 4px 4px;}
+.g90-empty-q{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--tp);line-height:1.15;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:6px;}
+.g90-empty-sub{font-size:11.5px;color:var(--ts);line-height:1.45;margin-bottom:10px;}
+.g90-empty-btn{width:100%;background:var(--gold);color:#080B14;border:none;border-radius:11px;padding:11px;font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;cursor:pointer;}
+.g90-goal{font-size:13px;font-weight:600;color:var(--tp);line-height:1.35;margin-bottom:11px;}
+.g90-progress{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--ts);margin-bottom:11px;}
+.g90-progress-bar{flex:1;height:5px;background:rgba(245,200,66,0.10);border-radius:3px;overflow:hidden;}
+.g90-progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width 0.6s ease;}
+.g90-phase-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:11px;}
+.g90-phase{background:rgba(15,21,37,0.55);border:1px solid var(--border);border-radius:9px;padding:7px 8px;}
+.g90-phase.now{border-color:var(--gold-border);background:rgba(245,200,66,0.08);}
+.g90-phase-num{font-family:var(--fd);font-size:8.5px;font-weight:800;letter-spacing:1.3px;color:var(--gold);text-transform:uppercase;}
+.g90-phase-title{font-size:10.5px;font-weight:600;color:var(--tp);line-height:1.2;margin-top:2px;}
+.g90-week{font-size:10.5px;color:var(--ts);margin-bottom:7px;}
+.g90-week b{color:var(--tp);font-weight:600;}
+.g90-actions{display:flex;flex-direction:column;gap:5px;}
+.g90-action{display:flex;align-items:center;gap:9px;padding:7px 9px;background:rgba(15,21,37,0.55);border:1px solid var(--border);border-radius:9px;cursor:pointer;}
+.g90-action.done{opacity:0.55;border-color:rgba(39,174,96,0.28);background:rgba(39,174,96,0.06);}
+.g90-action .box{width:16px;height:16px;border:1.5px solid var(--ts);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:transparent;}
+.g90-action.done .box{background:var(--green);border-color:var(--green);}
+.g90-action-text{font-size:11.5px;color:var(--tp);line-height:1.3;flex:1;}
+.g90-action.done .g90-action-text{text-decoration:line-through;color:var(--ts);}
+.g90-loading{padding:14px;text-align:center;font-size:11px;color:var(--ts);font-family:var(--fd);letter-spacing:1.2px;text-transform:uppercase;}
+.g90-loading .pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:7px;animation:gpulse 1s ease-in-out infinite;}
+@keyframes gpulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* ═══ VERSE SEARCH BAR ═══ */
+.verse-search{margin-bottom:9px;display:flex;gap:6px;}
+.verse-search-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--tp);font-family:var(--fb);font-size:12px;outline:none;}
+.verse-search-input::placeholder{color:var(--ts);}
+.verse-search-input:focus{border-color:var(--gold-border);}
+.verse-search-btn{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);border-radius:10px;padding:0 11px;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:5px;}
+.verse-search-btn:disabled{opacity:0.45;cursor:wait;}
+.verse-ai-result{margin-bottom:9px;padding:11px 12px;background:linear-gradient(135deg, rgba(245,200,66,0.08), rgba(46,111,212,0.04));border:1px solid var(--gold-border);border-radius:11px;display:none;}
+.verse-ai-result.show{display:block;}
+.verse-ai-result-lbl{font-family:var(--fd);font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.verse-ai-result-ref{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--tp);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.verse-ai-result-text{font-size:11.5px;color:var(--tp);line-height:1.5;margin-bottom:7px;font-style:italic;}
+.verse-ai-result-actions{display:flex;gap:6px;}
+.verse-ai-mini{font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:1.2px;padding:5px 10px;border-radius:7px;cursor:pointer;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--ts);}
+.verse-ai-mini.primary{background:var(--gold);color:#080B14;border-color:var(--gold);}
+
+/* ═══ SCRIPTURE ALERT BANNER ═══ */
+.scripture-alert{position:absolute;top:60px;left:14px;right:14px;z-index:50;background:var(--elevated);border:1px solid var(--gold-border);border-radius:14px;padding:13px;box-shadow:0 12px 32px rgba(0,0,0,0.5);transform:translateY(-140%);transition:transform 0.45s cubic-bezier(0.2,0.9,0.3,1.1);}
+.scripture-alert.show{transform:translateY(0);}
+.scripture-alert.body{border-color:rgba(231,76,60,0.45);box-shadow:0 12px 32px rgba(231,76,60,0.18);}
+.scripture-alert.spirit{border-color:rgba(245,200,66,0.45);box-shadow:0 12px 32px rgba(245,200,66,0.18);}
+.scripture-alert.mind{border-color:rgba(46,111,212,0.45);box-shadow:0 12px 32px rgba(46,111,212,0.18);}
+.sa-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.sa-tag{font-family:var(--fd);font-size:9px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.sa-tag .dot{width:6px;height:6px;border-radius:50%;}
+.scripture-alert.body .sa-tag{color:#E74C3C;} .scripture-alert.body .sa-tag .dot{background:#E74C3C;box-shadow:0 0 6px #E74C3C;}
+.scripture-alert.spirit .sa-tag{color:var(--gold);} .scripture-alert.spirit .sa-tag .dot{background:var(--gold);box-shadow:0 0 6px var(--gold);}
+.scripture-alert.mind .sa-tag{color:var(--blue);} .scripture-alert.mind .sa-tag .dot{background:var(--blue);box-shadow:0 0 6px var(--blue);}
+.sa-close{background:transparent;border:none;color:var(--ts);font-size:16px;cursor:pointer;padding:0 4px;line-height:1;}
+.sa-ref{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--tp);text-transform:uppercase;letter-spacing:0.5px;}
+.sa-text{font-size:11.5px;color:var(--tp);line-height:1.45;margin-top:3px;font-style:italic;}
+.sa-cta{margin-top:9px;background:var(--gold);color:#080B14;border:none;border-radius:8px;padding:8px;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;cursor:pointer;width:100%;}
+
+/* ═══ SABBATH MODE ═══ */
+.sabbath-overlay{margin:0 22px 14px;background:linear-gradient(135deg, rgba(245,200,66,0.10), rgba(46,111,212,0.06));border:1px solid var(--gold-border);border-radius:18px;padding:18px;}
+.sabbath-eye{font-family:var(--fd);font-size:9.5px;font-weight:800;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+.sabbath-q{font-family:var(--fd);font-size:24px;font-weight:800;color:var(--tp);line-height:1.05;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:9px;}
+.sabbath-body{font-size:12px;color:var(--ts);line-height:1.55;margin-bottom:14px;}
+.sabbath-verse{padding:11px 13px;background:rgba(15,21,37,0.55);border-left:3px solid var(--gold);border-radius:0 9px 9px 0;margin-bottom:14px;}
+.sabbath-verse-ref{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+.sabbath-verse-text{font-size:12px;color:var(--tp);line-height:1.5;font-style:italic;}
+.sabbath-actions{display:flex;gap:8px;}
+.sabbath-btn{flex:1;padding:11px;border-radius:11px;font-family:var(--fd);font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;cursor:pointer;}
+.sabbath-btn.primary{background:var(--gold);color:#080B14;border:none;}
+.sabbath-btn.ghost{background:transparent;color:var(--ts);border:1px solid var(--border);}
+.sabbath-active{margin:0 22px 14px;padding:18px;background:linear-gradient(135deg, rgba(245,200,66,0.12), rgba(15,21,37,0.6));border:1px solid var(--gold-border);border-radius:18px;text-align:center;}
+.sabbath-active-eye{font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:9px;}
+.sabbath-active-h{font-family:var(--fd);font-size:32px;font-weight:800;color:var(--tp);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+.sabbath-active-sub{font-size:12px;color:var(--ts);line-height:1.55;margin-bottom:14px;}
+.sabbath-active-time{font-family:var(--fd);font-size:11px;color:var(--gold);letter-spacing:1.2px;margin-bottom:14px;}
+.sabbath-exit{background:transparent;color:var(--ts);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;}
+
+/* hide sections during sabbath */
+.sabbath-hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<div class="brand-header">
+  <svg width="20" height="26" viewBox="0 0 20 26" fill="none">
+    <polygon points="10,0 11.8,5 8.2,5" fill="#F5C842"/>
+    <rect x="2" y="5" width="16" height="3" rx="1" fill="#F5C842"/>
+    <rect x="4" y="11" width="12" height="3" rx="1" fill="#F5C842"/>
+    <rect x="8.5" y="5" width="3" height="16" fill="#F5C842"/>
+    <polygon points="10,26 11.8,21 8.2,21" fill="#F5C842"/>
+  </svg>
+  <span class="brand-name">Firm Foundation</span>
+  <span class="proto-tag">Body · Spirit · Mind</span>
+  <span class="proto-badge">MVP</span>
+</div>
+
+<div class="phone-outer">
+  <div class="phone-frame"></div>
+  <div class="phone-screen">
+    <div class="dyn-island"></div>
+
+    <div class="status-bar">
+      <span class="sb-time">9:41</span>
+      <div class="sb-icons">
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="white"><rect x="0" y="3" width="3" height="9" rx="1" opacity="0.4"/><rect x="4.5" y="2" width="3" height="10" rx="1" opacity="0.6"/><rect x="9" y="0" width="3" height="12" rx="1" opacity="0.8"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><path d="M8 2.5C10.2 2.5 12.2 3.4 13.6 4.9L15 3.5C13.2 1.6 10.7 0.5 8 0.5C5.3 0.5 2.8 1.6 1 3.5L2.4 4.9C3.8 3.4 5.8 2.5 8 2.5Z" opacity="0.4"/><path d="M8 5.5C9.5 5.5 10.8 6.1 11.8 7L13.2 5.6C11.8 4.3 10 3.5 8 3.5C6 3.5 4.2 4.3 2.8 5.6L4.2 7C5.2 6.1 6.5 5.5 8 5.5Z" opacity="0.7"/><circle cx="8" cy="10" r="1.5"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23 4.5V7.5C23.8 7.2 24.5 6.5 24.5 6C24.5 5.5 23.8 4.8 23 4.5Z" fill="white" opacity="0.4"/></svg>
+      </div>
+    </div>
+
+    <div class="noise"></div>
+
+    <div class="screens">
+
+      <!-- ═══ SCRIPTURE ALERT BANNER (biometric-triggered) ═══ -->
+      <div class="scripture-alert" id="scripture-alert">
+        <div class="sa-hd">
+          <div class="sa-tag"><span class="dot"></span><span id="sa-tag-text">Low Body</span></div>
+          <button class="sa-close" onclick="dismissScriptureAlert()">✕</button>
+        </div>
+        <div class="sa-ref" id="sa-ref">Isaiah 40:29</div>
+        <div class="sa-text" id="sa-text"></div>
+        <button class="sa-cta" id="sa-cta" style="display:none;" onclick="alertCtaAction()">Step away · 2-min prayer</button>
+      </div>
+
+      <!-- ═══ TODAY ═══ -->
+      <div class="screen active" id="s-today" data-screen-label="01 Today">
+        <div class="today-hd">
+          <div class="today-date" id="today-date-label">—</div>
+          <div class="today-greeting">The morning is a gift.<br>Use it well.</div>
+        </div>
+
+        <div class="three-rings">
+          <!-- BODY (WHOOP-style dynamic color) -->
+          <div class="ring-wrap sm">
+            <div id="body-glow" style="position:absolute;inset:-10px;border-radius:50%;background:radial-gradient(circle,rgba(39,174,96,0.15) 0%,transparent 65%);pointer-events:none;transition:background 0.4s;"></div>
+            <svg width="96" height="96" viewBox="0 0 200 200">
+              <defs><filter id="gf-body" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+              <circle cx="100" cy="100" r="72" fill="none" stroke="#1A2544" stroke-width="12" stroke-dasharray="377 453" stroke-linecap="round" transform="rotate(210 100 100)"/>
+              <circle id="arc-body" cx="100" cy="100" r="72" fill="none" stroke="#27AE60" stroke-width="12" stroke-dasharray="0 453" stroke-linecap="round" transform="rotate(210 100 100)" filter="url(#gf-body)"/>
+            </svg>
+            <div class="ring-inner">
+              <div class="ring-pct sm" id="ring-body-val">—</div>
+              <div class="ring-lbl">Body</div>
+            </div>
+          </div>
+
+          <!-- SPIRIT -->
+          <div class="ring-wrap ctr">
+            <div style="position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle,rgba(245,200,66,0.16) 0%,transparent 65%);pointer-events:none;"></div>
+            <svg width="122" height="122" viewBox="0 0 200 200">
+              <defs><filter id="gf-s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+              <circle cx="100" cy="100" r="72" fill="none" stroke="#1A2544" stroke-width="14" stroke-dasharray="377 453" stroke-linecap="round" transform="rotate(210 100 100)"/>
+              <circle id="arc-spirit" cx="100" cy="100" r="72" fill="none" stroke="#F5C842" stroke-width="14" stroke-dasharray="0 453" stroke-linecap="round" transform="rotate(210 100 100)" filter="url(#gf-s)"/>
+            </svg>
+            <div class="ring-inner">
+              <div class="ring-pct ctr" id="ring-spirit-val" style="color:var(--gold)">—</div>
+              <div class="ring-lbl">Spirit</div>
+            </div>
+          </div>
+
+          <!-- MIND -->
+          <div class="ring-wrap sm">
+            <div style="position:absolute;inset:-10px;border-radius:50%;background:radial-gradient(circle,rgba(46,111,212,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+            <svg width="96" height="96" viewBox="0 0 200 200">
+              <defs><filter id="gf-m" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+              <circle cx="100" cy="100" r="72" fill="none" stroke="#1A2544" stroke-width="12" stroke-dasharray="377 453" stroke-linecap="round" transform="rotate(210 100 100)"/>
+              <circle id="arc-mind" cx="100" cy="100" r="72" fill="none" stroke="#2E6FD4" stroke-width="12" stroke-dasharray="0 453" stroke-linecap="round" transform="rotate(210 100 100)" filter="url(#gf-m)"/>
+            </svg>
+            <div class="ring-inner">
+              <div class="ring-pct sm" id="ring-mind-val" style="color:var(--blue)">—</div>
+              <div class="ring-lbl">Mind</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="whoop-tag">
+          <div class="whoop-chip synced" id="whoop-chip" onclick="syncWhoop()">
+            <span class="whoop-dot"></span>
+            <span id="whoop-chip-text">WHOOP · Synced 8:47 AM</span>
+          </div>
+        </div>
+
+        <div class="cta-card" onclick="openCheckin()">
+          <div class="cta-icon-box">☀️</div>
+          <div class="cta-body">
+            <div class="cta-title">Start your morning with intention</div>
+            <div class="cta-sub">Morning check-in · 2 min</div>
+          </div>
+          <div class="cta-chev">›</div>
+        </div>
+
+        <div class="sw">
+          <div class="section-row">
+            <div class="section-label">
+              <svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>
+              Today's Priorities
+            </div>
+            <button class="section-add-btn" onclick="openItemModal('prio')">+ Add</button>
+          </div>
+          <div class="item-list" id="priorities-list"></div>
+        </div>
+
+        <div class="spirit-snap">
+          <div class="streak-pill">
+            <div class="streak-n" id="snap-streak">0</div>
+            <div class="streak-lbl">Day Streak</div>
+          </div>
+          <div class="verse-snip">
+            <div class="verse-ref" id="snap-verse-ref">—</div>
+            <div class="verse-txt" id="snap-verse-txt">—</div>
+          </div>
+          <div class="prayer-col">
+            <div class="prayer-n" id="snap-prayer-min">0</div>
+            <div class="prayer-lbl">Prayer<br>Min</div>
+          </div>
+        </div>
+
+        <div class="sw" style="padding-bottom:0;">
+          <div class="section-label">
+            <svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>
+            Body Metrics · WHOOP
+          </div>
+        </div>
+        <div class="health-strip">
+          <div class="hs-card">
+            <div class="hs-lbl"><span class="hs-dot" id="hs-recovery-dot" style="background:var(--green);box-shadow:0 0 5px var(--green);"></span>Recovery</div>
+            <div>
+              <div class="hs-val-row"><div class="hs-val" id="hs-recovery">—</div><div class="hs-unit">%</div></div>
+              <div class="hs-sub" id="hs-recovery-sub">Optimal</div>
+            </div>
+          </div>
+          <div class="hs-card">
+            <div class="hs-lbl"><span class="hs-dot" style="background:var(--blue);"></span>Sleep</div>
+            <div>
+              <div class="hs-val-row"><div class="hs-val">7.2</div><div class="hs-unit">hrs</div></div>
+              <div class="hs-sub">Last night</div>
+            </div>
+          </div>
+          <div class="hs-card">
+            <div class="hs-lbl"><span class="hs-dot" style="background:var(--yellow);"></span>HRV</div>
+            <div>
+              <div class="hs-val-row"><div class="hs-val">68</div><div class="hs-unit">ms</div></div>
+              <div class="hs-sub">7-day avg</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sw">
+          <div class="section-row">
+            <div class="section-label">
+              <svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>
+              Non-Negotiables
+            </div>
+            <button class="section-add-btn" onclick="openItemModal('nonneg')">+ Add</button>
+          </div>
+          <div class="item-list" id="nonneg-list"></div>
+        </div>
+
+        <!-- 90-Day Performance Engine -->
+        <div class="sw" id="g90-section" style="padding-bottom:8px;">
+          <div class="g90" id="g90-card">
+            <div class="g90-hd">
+              <div class="g90-title">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.2 9 2 9.5l5.5 5L6 22l6-3.5 6 3.5-1.5-7.5L22 9.5 14.8 9z"/></svg>
+                90-Day Engine
+              </div>
+              <button class="g90-edit" id="g90-edit-btn" onclick="openGoalModal()" style="display:none;">Edit Goal</button>
+            </div>
+            <div id="g90-body"></div>
+          </div>
+        </div>
+
+        <div class="scroll-end"></div>
+      </div>
+
+      <!-- ═══ SPIRIT ═══ -->
+      <div class="screen" id="s-spirit" data-screen-label="02 Spirit">
+        <div class="spirit-hd">
+          <div class="screen-title">Spirit</div>
+          <div style="font-family:var(--fd);font-size:28px;font-weight:800;color:var(--tp);text-transform:uppercase;">Don't let the<br>fire go out.</div>
+        </div>
+
+        <div class="streak-hero">
+          <div class="streak-fire">🔥</div>
+          <div class="streak-big" id="spirit-streak-big">0</div>
+          <div class="streak-big-lbl">Day streak · Keep the fire burning</div>
+        </div>
+
+        <div class="sw" style="padding-bottom:0;"><div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Word for the Week</div></div>
+        <div class="wow-card">
+          <div class="wow-eyebrow">May 5–11 · Anchor Passage</div>
+          <div class="wow-ref">Romans 8:28 (NIV)</div>
+          <div class="wow-text">"And we know that in all things God works for the good of those who love him."</div>
+        </div>
+
+        <div class="sw" style="padding-bottom:0;"><div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Verse of the Day</div></div>
+        <div class="votd-card">
+          <div class="votd-eyebrow">Today's Word</div>
+          <div class="votd-verse" id="votd-verse">—</div>
+          <div class="votd-bottom">
+            <div class="votd-ref" id="votd-ref">—</div>
+            <div class="votd-save" id="votd-save" onclick="saveVOTD()">🤍</div>
+          </div>
+        </div>
+
+        <div class="sw" style="padding-bottom:0;"><div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Today's Prayer</div></div>
+        <div class="prayer-card">
+          <div class="prayer-arc-row">
+            <svg class="prayer-arc-svg" viewBox="0 0 72 72">
+              <circle cx="36" cy="36" r="28" fill="none" stroke="#1A2544" stroke-width="7" stroke-dasharray="150 175.9" stroke-linecap="round" transform="rotate(135 36 36)"/>
+              <circle id="prayer-arc-fill" cx="36" cy="36" r="28" fill="none" stroke="#F5C842" stroke-width="7" stroke-dasharray="0 175.9" stroke-linecap="round" transform="rotate(135 36 36)" opacity="0.9"/>
+              <text id="prayer-arc-text" x="36" y="41" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="800" fill="white">0</text>
+            </svg>
+            <div class="prayer-info">
+              <div class="prayer-big"><span id="prayer-cur">0</span> <span style="font-size:16px;color:var(--ts);font-weight:500;">/ <span id="prayer-goal-num">20</span> min</span></div>
+              <div class="prayer-goal">Still a few minutes for the most important conversation of your day.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="aip-card">
+          <div class="aip-eyebrow"><span class="aip-spark">✦</span> Prompt from above</div>
+          <div class="aip-title">Not sure what<br>to pray?</div>
+          <div class="aip-text" id="ai-prayer-text"></div>
+          <button class="aip-btn" id="ai-prayer-btn" onclick="getAIPrayerPrompt()">Get a prompt →</button>
+        </div>
+
+        <div class="sw" style="padding-bottom:0;">
+          <div class="section-row">
+            <div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Spiritual Disciplines</div>
+            <button class="section-add-btn" onclick="openItemModal('disc')">+ Add</button>
+          </div>
+          <div class="item-list" id="disc-list"></div>
+        </div>
+
+        <div class="sw" style="padding-bottom:8px;">
+          <div class="section-row">
+            <div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Saved Verses</div>
+            <button class="section-add-btn" onclick="openItemModal('verse')">+ Add</button>
+          </div>
+          <div class="verse-search">
+            <input type="text" class="verse-search-input" id="verse-search" placeholder="Search verses or describe how you feel…" oninput="filterVerses()" />
+            <button class="verse-search-btn" id="verse-ai-btn" onclick="aiVerseSearch()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.5L20 10l-6.2 1.5L12 18l-1.8-6.5L4 10l6.2-1.5z"/></svg>
+              Ask
+            </button>
+          </div>
+          <div class="verse-ai-result" id="verse-ai-result">
+            <div class="verse-ai-result-lbl">✦ Scripture for this moment</div>
+            <div class="verse-ai-result-ref" id="verse-ai-ref"></div>
+            <div class="verse-ai-result-text" id="verse-ai-text"></div>
+            <div class="verse-ai-result-actions">
+              <button class="verse-ai-mini primary" onclick="saveAiVerse()">Save to Library</button>
+              <button class="verse-ai-mini" onclick="dismissAiVerse()">Dismiss</button>
+            </div>
+          </div>
+          <div class="item-list" id="verses-list"></div>
+        </div>
+        <div class="scroll-end"></div>
+      </div>
+
+      <!-- ═══ JOURNAL ═══ -->
+      <div class="screen" id="s-journal" data-screen-label="03 Journal">
+        <div class="journal-hd">
+          <div class="screen-title">Journal</div>
+          <div style="font-family:var(--fd);font-size:30px;font-weight:800;color:var(--tp);text-transform:uppercase;">Prayer &amp; Reflection</div>
+        </div>
+        <div class="j-tabs">
+          <div class="j-tab active" data-pane="j-prayers" onclick="switchJTab(this)">Prayers</div>
+          <div class="j-tab" data-pane="j-answered" onclick="switchJTab(this)">Answered</div>
+          <div class="j-tab" data-pane="j-timeline" onclick="switchJTab(this)">God Moved</div>
+        </div>
+
+        <div class="j-pane active" id="j-prayers">
+          <div class="prayer-list" id="prayer-list"></div>
+          <button class="add-prayer-btn" onclick="openAddPrayer()">+ Add Prayer</button>
+          <div class="scroll-end"></div>
+        </div>
+
+        <div class="j-pane" id="j-answered">
+          <div class="answered-header">
+            <svg width="32" height="42" viewBox="0 0 20 26" fill="none" opacity="0.6">
+              <polygon points="10,0 11.8,5 8.2,5" fill="#27AE60"/>
+              <rect x="2" y="5" width="16" height="3" rx="1" fill="#27AE60"/>
+              <rect x="4" y="11" width="12" height="3" rx="1" fill="#27AE60"/>
+              <rect x="8.5" y="5" width="3" height="16" fill="#27AE60"/>
+              <polygon points="10,26 11.8,21 8.2,21" fill="#27AE60"/>
+            </svg>
+            <div class="answered-title">Answered Prayer Wall</div>
+            <div class="answered-sub">"Every stone here is a moment<br>God showed up for you."</div>
+          </div>
+          <div class="answered-list" id="answered-list"></div>
+          <div class="scroll-end"></div>
+        </div>
+
+        <div class="j-pane" id="j-timeline">
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-line"><div class="tl-dot"></div><div class="tl-track"></div></div>
+              <div class="tl-body">
+                <div class="tl-date">May 6 · Evening</div>
+                <div class="tl-text" data-full="Had a conversation with my brother I've been avoiding for months. God clearly opened the door — he texted out of nowhere asking to talk. Restoration is happening." onclick="tlExpand(this)">Had a conversation with my brother I've been avoiding for months…<span class="tl-more"> Read more</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-line"><div class="tl-dot"></div><div class="tl-track"></div></div>
+              <div class="tl-body">
+                <div class="tl-date">May 4 · Evening</div>
+                <div class="tl-text" data-full="During my run I felt this overwhelming sense of gratitude. Nothing changed in my circumstances but something shifted inside. That's grace — it doesn't need a reason." onclick="tlExpand(this)">During my run I felt this overwhelming sense of gratitude. Nothing changed…<span class="tl-more"> Read more</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-line"><div class="tl-dot"></div><div style="width:2px;"></div></div>
+              <div class="tl-body">
+                <div class="tl-date">May 2 · Evening</div>
+                <div class="tl-text" data-full="The job offer came through. Prayed for clarity for 10 days. Complete peace when I said yes. He was already there before I even asked." onclick="tlExpand(this)">The job offer came through. Prayed for clarity for 10 days…<span class="tl-more"> Read more</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-end"></div>
+        </div>
+      </div>
+
+      <!-- ═══ PROFILE ═══ -->
+      <div class="screen" id="s-profile" data-screen-label="04 Profile">
+        <div class="profile-hd"><div class="screen-title">Profile</div></div>
+        <div class="avatar-row">
+          <div class="avatar-circle">CC</div>
+          <div class="avatar-info">
+            <div class="avatar-name">Collin Celic</div>
+            <div class="avatar-sub"><span id="profile-streak">0</span>-day streak</div>
+          </div>
+        </div>
+        <div class="member-badge">
+          <svg class="mb-icon" width="14" height="18" viewBox="0 0 14 18" fill="#F5C842"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>
+          <div class="mb-text">Firm Foundation Member · Est. <span id="member-since">Jan 2025</span></div>
+        </div>
+
+        <!-- Biometric sources panel -->
+        <div class="bio-panel">
+          <div class="bio-hd">
+            <div class="bio-hd-title">Biometric Sources</div>
+            <div class="bio-hd-sub" id="bio-active-source">Active: WHOOP</div>
+          </div>
+          <div id="bio-rows"></div>
+          <div class="bio-priority">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.2 9 2 9.5l5.5 5L6 22l6-3.5 6 3.5-1.5-7.5L22 9.5 14.8 9z"/></svg>
+            Priority: WHOOP → Garmin → Apple Health
+          </div>
+        </div>
+
+        <div class="sw" style="padding-bottom:0;"><div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Reminders</div></div>
+        <div class="profile-section">
+          <div class="profile-row"><div class="profile-row-icon">☀️</div><div class="profile-row-label">Morning Check-in</div><div class="profile-row-val">6:30 AM</div><div class="profile-row-chev">›</div></div>
+          <div class="profile-row"><div class="profile-row-icon">🌙</div><div class="profile-row-label">Evening Check-in</div><div class="profile-row-val">9:00 PM</div><div class="profile-row-chev">›</div></div>
+          <div class="profile-row"><div class="profile-row-icon">📖</div><div class="profile-row-label">Daily Scripture</div><div class="profile-row-val">7:00 AM</div><div class="profile-row-chev">›</div></div>
+        </div>
+
+        <button class="signout-btn">Sign Out</button>
+        <div style="text-align:center;font-size:11px;color:var(--border);margin:16px 0 20px;letter-spacing:1px;">FIRM FOUNDATION · v0.4.0 · MVP</div>
+        <div class="scroll-end"></div>
+      </div>
+
+    </div>
+
+    <!-- TAB BAR -->
+    <div class="tab-bar">
+      <button class="tab active" data-tab="today" onclick="switchTab('today',this)">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="9"/><path d="M11 7v4l2.5 2.5"/></svg>
+        Today
+      </button>
+      <button class="tab" data-tab="spirit" onclick="switchTab('spirit',this)">
+        <svg width="15" height="20" viewBox="0 0 20 26" fill="currentColor"><polygon points="10,0 11.8,5 8.2,5"/><rect x="2" y="5" width="16" height="3" rx="1"/><rect x="4" y="11" width="12" height="3" rx="1"/><rect x="8.5" y="5" width="3" height="16"/><polygon points="10,26 11.8,21 8.2,21"/></svg>
+        Spirit
+      </button>
+      <button class="tab" data-tab="journal" onclick="switchTab('journal',this)">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="16" height="16" rx="2"/><path d="M7 9h8M7 13h5"/></svg>
+        Journal
+      </button>
+      <button class="tab" data-tab="profile" onclick="switchTab('profile',this)">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="8" r="3.5"/><path d="M4 19c0-3.866 3.134-7 7-7h0c3.866 0 7 3.134 7 7"/></svg>
+        Profile
+      </button>
+    </div>
+
+    <!-- ═══ MORNING CHECK-IN MODAL ═══ -->
+    <div class="modal" id="ci-modal">
+      <div class="modal-bar">
+        <button class="modal-close" onclick="closeCheckin()">✕</button>
+        <div class="modal-title">Morning Check-in</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="modal-prog" id="modal-prog"></div>
+          <button class="modal-back" id="ci-back" onclick="prevStep()">‹</button>
+        </div>
+      </div>
+      <div class="ci-step active" id="ci-1">
+        <div class="ci-step-num">Step 1 of 6</div>
+        <div class="ci-q">What is God<br>saying to you?</div>
+        <textarea class="ci-textarea" id="ci-listen" placeholder="Write freely. No right answer. Just listen…"></textarea>
+        <button class="ci-next" onclick="nextStep(2)">Continue</button>
+      </div>
+      <div class="ci-step" id="ci-2">
+        <div class="ci-step-num">Step 2 of 6</div>
+        <div class="ci-q">How long will<br>you pray today?</div>
+        <div class="ci-mins-row" id="ci-mins-row">
+          <div class="ci-min-btn" data-min="5" onclick="selMin(this)">5 min</div>
+          <div class="ci-min-btn sel" data-min="10" onclick="selMin(this)">10 min</div>
+          <div class="ci-min-btn" data-min="15" onclick="selMin(this)">15 min</div>
+          <div class="ci-min-btn" data-min="20" onclick="selMin(this)">20 min</div>
+          <div class="ci-min-btn" data-min="30" onclick="selMin(this)">30 min</div>
+          <div class="ci-min-btn" data-min="45" onclick="selMin(this)">45 min</div>
+          <div class="ci-min-btn" id="ci-custom-chip" onclick="showCustomMin(this)">Custom</div>
+        </div>
+        <div class="ci-custom-wrap" id="ci-custom-wrap">
+          <input type="number" class="ci-input" id="ci-custom-val" placeholder="Enter minutes…" min="1" max="240" style="margin-bottom:0;">
+        </div>
+        <button class="ci-next" style="margin-top:auto;" onclick="nextStep(3)">Continue</button>
+      </div>
+      <div class="ci-step" id="ci-3">
+        <div class="ci-step-num">Step 3 of 6</div>
+        <div class="ci-q">Three things<br>you're grateful for</div>
+        <input class="ci-input" id="ci-g1" type="text" placeholder="1. I'm grateful for…">
+        <input class="ci-input" id="ci-g2" type="text" placeholder="2. I'm grateful for…">
+        <input class="ci-input" id="ci-g3" type="text" placeholder="3. I'm grateful for…">
+        <button class="ci-next" onclick="nextStep(4)">Continue</button>
+      </div>
+      <div class="ci-step" id="ci-4">
+        <div class="ci-step-num">Step 4 of 6</div>
+        <div class="ci-q">What's your<br>intention today?</div>
+        <textarea class="ci-textarea" id="ci-intent" placeholder="How do you want to show up? One sentence."></textarea>
+        <button class="ci-next" onclick="nextStep(5)">Continue</button>
+      </div>
+      <div class="ci-step" id="ci-5">
+        <div class="ci-step-num">Step 5 of 6</div>
+        <div class="ci-q">Name your<br>3 priorities</div>
+        <input class="ci-input" id="ci-p1" type="text" placeholder="Priority 1 — the most important thing">
+        <input class="ci-input" id="ci-p2" type="text" placeholder="Priority 2">
+        <input class="ci-input" id="ci-p3" type="text" placeholder="Priority 3">
+        <button class="ci-next" onclick="nextStep(6)">Continue</button>
+      </div>
+      <div class="ci-step" id="ci-6">
+        <div class="ci-step-num">Step 6 of 6</div>
+        <div class="ci-q">Scripture<br>read today?</div>
+        <div class="ci-toggle-row"><div class="ci-toggle-label">Mark scripture as read</div><div class="sw-track on" id="ci-scripture-sw" onclick="toggleSw(this)"><div class="sw-knob"></div></div></div>
+        <div style="flex:1;"></div>
+        <button class="ci-next" onclick="submitCheckin()" style="background:var(--green);color:#fff;">Complete Check-in ✓</button>
+      </div>
+    </div>
+
+    <!-- ═══ ADD/EDIT ITEM MODAL (Non-Negotiables, Disciplines, Verses) ═══ -->
+    <div class="modal" id="item-modal">
+      <div class="modal-bar">
+        <button class="modal-close" onclick="closeItemModal()">✕</button>
+        <div class="modal-title" id="item-modal-title">New Item</div>
+        <div style="width:32px;"></div>
+      </div>
+      <div class="simple-body">
+        <div class="simple-q" id="item-q">New entry</div>
+        <div class="simple-sub" id="item-sub">—</div>
+        <!-- Non-negotiable / discipline title -->
+        <div id="item-title-wrap">
+          <div class="field-lbl" id="item-title-lbl">Title</div>
+          <input class="ci-input" type="text" id="item-title-input" placeholder="e.g. Word & Prayer">
+        </div>
+        <!-- discipline subtitle -->
+        <div id="item-subtitle-wrap" style="display:none;">
+          <div class="field-lbl">Subtitle (optional)</div>
+          <input class="ci-input" type="text" id="item-subtitle-input" placeholder="e.g. Daily reading complete">
+        </div>
+        <!-- verse ref -->
+        <div id="item-ref-wrap" style="display:none;">
+          <div class="field-lbl">Reference</div>
+          <input class="ci-input" type="text" id="item-ref-input" placeholder="e.g. Romans 8:28">
+        </div>
+        <!-- verse text -->
+        <div id="item-text-wrap" style="display:none;">
+          <div class="field-lbl">Verse</div>
+          <textarea class="ci-textarea" id="item-text-input" style="min-height:130px;flex:0 0 auto;" placeholder="Type or paste the verse…"></textarea>
+        </div>
+        <button class="modal-primary-btn" id="item-save-btn" onclick="saveItem()">Save</button>
+        <button class="modal-primary-btn red" id="item-delete-btn" style="display:none;" onclick="deleteItem()">Delete</button>
+      </div>
+    </div>
+
+    <!-- ═══ ADD PRAYER MODAL ═══ -->
+    <div class="modal" id="prayer-modal">
+      <div class="modal-bar">
+        <button class="modal-close" onclick="closeAddPrayer()">✕</button>
+        <div class="modal-title">New Prayer</div>
+        <div style="width:32px;"></div>
+      </div>
+      <div class="simple-body">
+        <div class="simple-q">What are you<br>praying for?</div>
+        <div class="simple-sub">Cast it on Him. He's listening, and He'll move.</div>
+        <textarea class="ci-textarea" id="new-prayer-text" placeholder="Lord, I'm asking…" style="min-height:160px;"></textarea>
+        <button class="modal-primary-btn" onclick="savePrayer()">Save Prayer</button>
+      </div>
+    </div>
+
+    <!-- ═══ MARK ANSWERED MODAL ═══ -->
+    <div class="modal" id="answered-modal">
+      <div class="modal-bar">
+        <button class="modal-close" onclick="closeAnsweredModal()">✕</button>
+        <div class="modal-title">Mark Answered</div>
+        <div style="width:32px;"></div>
+      </div>
+      <div class="simple-body">
+        <div class="simple-q">How did<br>He answer?</div>
+        <div class="simple-sub">Write it down. Build the wall. You'll need to remember on the dark days.</div>
+        <div class="field-lbl">Original prayer</div>
+        <div id="answered-orig-prayer" style="font-style:italic;color:var(--ts);font-size:13px;line-height:1.55;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:6px;"></div>
+        <div class="field-lbl">His answer</div>
+        <textarea class="ci-textarea" id="answer-text" placeholder="What happened? When? How did you know it was Him?" style="min-height:130px;"></textarea>
+        <button class="modal-primary-btn green" onclick="confirmAnswered()">Mark Answered ✓</button>
+      </div>
+    </div>
+
+    <!-- ═══ 90-DAY GOAL MODAL ═══ -->
+    <div class="modal" id="goal-modal">
+      <div class="modal-bar">
+        <button class="modal-close" onclick="closeGoalModal()">✕</button>
+        <div class="modal-title">90-Day Vision</div>
+        <div style="width:32px;"></div>
+      </div>
+      <div class="simple-body">
+        <div class="simple-q">What is the<br>vision?</div>
+        <div class="simple-sub">One sentence. Specific. Measurable. The AI will break it into monthly phases, weekly milestones, and daily actions tied to your Mind ring.</div>
+        <div class="field-lbl">Your 90-day goal</div>
+        <textarea class="ci-textarea" id="goal-input" placeholder="e.g. Lose 15 lbs and run a sub-25 5K · Launch the side project to 100 paying users · Read the Bible cover-to-cover with my wife" style="min-height:120px;"></textarea>
+        <button class="modal-primary-btn" id="goal-generate-btn" onclick="generateGoalPlan()">Generate Plan with AI</button>
+        <button class="modal-primary-btn red" id="goal-clear-btn" style="display:none;" onclick="clearGoalPlan()">Clear &amp; Start Over</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// VERSE-OF-THE-DAY ROTATION POOL (system-curated; separate from user's saved verses)
+// ═══════════════════════════════════════════════════════════════════
+const VERSES_POOL = [
+  {ref:"Psalm 46:10", text:"Be still and know that I am God."},
+  {ref:"Phil 4:13", text:"I can do all things through Christ who strengthens me."},
+  {ref:"Joshua 1:9", text:"Be strong and courageous. Do not be afraid; do not be discouraged."},
+  {ref:"Prov 3:5-6", text:"Trust in the Lord with all your heart and lean not on your own understanding."},
+  {ref:"Romans 8:28", text:"In all things God works for the good of those who love him."},
+  {ref:"Isaiah 40:31", text:"Those who hope in the Lord will renew their strength."},
+  {ref:"James 1:2-3", text:"Consider it pure joy whenever you face trials of many kinds."},
+  {ref:"Jer 29:11", text:"For I know the plans I have for you, declares the Lord."},
+  {ref:"Matt 6:33", text:"Seek first his kingdom and his righteousness, and all these things will be given to you."},
+  {ref:"Gal 5:22-23", text:"The fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness and self-control."},
+  {ref:"1 Cor 16:13", text:"Be on your guard; stand firm in the faith; be courageous; be strong."},
+  {ref:"Heb 12:1", text:"Let us run with perseverance the race marked out for us."},
+  {ref:"2 Tim 1:7", text:"For God has not given us a spirit of timidity, but of power, love and self-discipline."},
+  {ref:"Prov 27:17", text:"As iron sharpens iron, so one person sharpens another."},
+  {ref:"Micah 6:8", text:"Act justly, love mercy, and walk humbly with your God."},
+  {ref:"Romans 12:2", text:"Do not conform to the pattern of this world, but be transformed by the renewing of your mind."},
+  {ref:"Eph 6:10", text:"Be strong in the Lord and in his mighty power."},
+  {ref:"Col 3:23", text:"Whatever you do, work at it with all your heart, as working for the Lord."},
+  {ref:"1 Tim 4:8", text:"Physical training has some value, but godliness has value for all things."},
+  {ref:"Psalm 27:1", text:"The Lord is my light and my salvation — whom shall I fear?"},
+  {ref:"Rom 5:3-4", text:"We also glory in our sufferings, because suffering produces perseverance; perseverance, character; and character, hope."},
+  {ref:"1 Pet 5:8", text:"Be sober-minded; be watchful. Your adversary the devil prowls around like a roaring lion."},
+  {ref:"Dan 1:8", text:"Daniel resolved not to defile himself."},
+  {ref:"Prov 4:23", text:"Above all else, guard your heart, for everything you do flows from it."},
+  {ref:"Matt 5:16", text:"Let your light shine before others, that they may see your good deeds and glorify your Father in heaven."},
+  {ref:"Psalm 119:11", text:"I have hidden your word in my heart that I might not sin against you."},
+  {ref:"Heb 10:24", text:"Let us consider how we may spur one another on toward love and good deeds."},
+  {ref:"John 15:5", text:"I am the vine; you are the branches. Apart from me you can do nothing."},
+  {ref:"Lam 3:22-23", text:"His mercies are new every morning; great is your faithfulness."},
+  {ref:"Psalm 1:1-2", text:"Blessed is the man who does not walk in the counsel of the wicked."}
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════════════════════════════
+const ls = {
+  get(k, d){ try{ const v=localStorage.getItem(k); return v===null?d:JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const todayStr = () => new Date().toDateString();
+const yesterdayStr = () => new Date(Date.now()-86400000).toDateString();
+const uid = () => 'i'+Date.now()+Math.random().toString(36).slice(2,7);
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE  (all persisted to localStorage)
+// ═══════════════════════════════════════════════════════════════════
+let state = {
+  streak:        ls.get('ff_streak', 47),
+  lastCheckin:   ls.get('ff_last_checkin', null),
+
+  // Today's priorities — full CRUD list (auto-migrated from legacy 3-slot shape)
+  priorities:    ls.get('ff_priorities_v2', null) || (function(){
+    const old = ls.get('ff_priorities', null);
+    const oldChecks = ls.get('ff_priority_checks', null);
+    if(Array.isArray(old) && old.length && typeof old[0] === 'string'){
+      return old.filter(t=>t).map((t,i)=>({id:uid(), text:t, done:!!(oldChecks && oldChecks[i])}));
+    }
+    if(Array.isArray(old) && old.length && typeof old[0] === 'object') return old;
+    return [
+      {id:uid(), text:"Complete Q2 product roadmap review with engineering leads", done:false},
+      {id:uid(), text:"45-minute lift session — upper body push focus", done:true},
+      {id:uid(), text:"Call Mom — been two weeks", done:false}
+    ];
+  })(),
+
+  // CRUD: Non-Negotiables
+  nonneg:        ls.get('ff_nonneg_v2', [
+    {id:uid(), text:"Word & Prayer", done:true},
+    {id:uid(), text:"Train or Move", done:true},
+    {id:uid(), text:"No Alcohol", done:false},
+    {id:uid(), text:"Serve Someone", done:false}
+  ]),
+
+  // CRUD: Spiritual Disciplines
+  disciplines:   ls.get('ff_disciplines_v2', [
+    {id:uid(), title:"Scripture Read", sub:"Mark today's reading complete", on:true},
+    {id:uid(), title:"Fasting Today",  sub:"Intermittent · 18:6 · 4 hrs remaining", on:true},
+    {id:uid(), title:"Tithing",        sub:"Weekly giving committed", on:false}
+  ]),
+
+  // CRUD: Saved Verses (user-owned library)
+  verses:        ls.get('ff_verses_v2', [
+    {id:uid(), ref:"Jer 29:11", text:"\"For I know the plans I have for you,\" declares the Lord."},
+    {id:uid(), ref:"Isaiah 40:31", text:"Those who hope in the Lord will renew their strength."},
+    {id:uid(), ref:"Prov 3:5-6", text:"Trust in the Lord with all your heart and lean not on your own understanding."},
+    {id:uid(), ref:"James 1:2-3", text:"Consider it pure joy whenever you face trials of many kinds."}
+  ]),
+
+  prayers:       ls.get('ff_prayers', [
+    {id:'seed1', date:'May 5', dateMs:Date.now()-2*86400000, text:"Help me be consistent — in my health, in my relationships, in my word. I want to be a man of my word.", status:'active'},
+    {id:'seed2', date:'May 1', dateMs:Date.now()-6*86400000, text:"Pray for Dad's health. The diagnosis scared all of us. I trust you, Lord, but I need your strength right now to keep trusting.", status:'active'},
+    {id:'seed3', date:'Apr 22', dateMs:Date.now()-15*86400000, text:"Lord, give me clarity on whether to take the leadership role at work. I need your peace to guide me.", status:'answered', answeredText:"Got the call Thursday. Felt an overwhelming peace — accepted. He was already ahead of me.", answeredDate:'May 2', answeredMs:Date.now()-5*86400000}
+  ]),
+
+  prayerMin:     ls.get('ff_prayer_min', 12),
+  prayerGoal:    ls.get('ff_prayer_goal', 20),
+
+  // WHOOP integration (kept for backwards compat — now routed through `sources`)
+  whoop: ls.get('ff_whoop', {
+    connected: true,
+    recovery: 83,
+    lastSync: '8:47 AM',
+    error: null
+  }),
+
+  // Universal biometric sources — priority order: WHOOP → Garmin → Apple Health
+  sources: ls.get('ff_sources', [
+    {id:'whoop',  name:'WHOOP',        metric:'Recovery',    connected:true,  value:83, lastSync:'8:47 AM'},
+    {id:'garmin', name:'Garmin',       metric:'Body Battery',connected:false, value:null, lastSync:null},
+    {id:'apple',  name:'Apple Health', metric:'Readiness',   connected:false, value:null, lastSync:null}
+  ]),
+
+  // 90-Day Performance Engine
+  goal90: ls.get('ff_goal90', null),
+  // shape: {goal, generatedAt, phases:[{month,title,focus}], milestones:[{week,title,actions:[]}],
+  //         dailyActions:[{id,text,date,done}], completedToday:0}
+  dailyActionChecks: ls.get('ff_daily_action_checks', {}),
+  // {actionId: ISO-date when last completed}
+
+  // Sabbath Mode + low-gauge tracking
+  lowSince:    ls.get('ff_low_since', {body:null, spirit:null, mind:null}),
+  sabbath:     ls.get('ff_sabbath', {active:false, startedAt:null, dismissedAt:null}),
+  alertsShown: ls.get('ff_alerts_shown', {}),  // {body:dateStr, spirit:dateStr, mind:dateStr}
+
+  memberSince:   ls.get('ff_member_since', 'Jan 2025'),
+};
+
+function persist(){
+  ls.set('ff_streak', state.streak);
+  ls.set('ff_last_checkin', state.lastCheckin);
+  ls.set('ff_priorities_v2', state.priorities);
+  ls.set('ff_nonneg_v2', state.nonneg);
+  ls.set('ff_disciplines_v2', state.disciplines);
+  ls.set('ff_verses_v2', state.verses);
+  ls.set('ff_prayers', state.prayers);
+  ls.set('ff_prayer_min', state.prayerMin);
+  ls.set('ff_prayer_goal', state.prayerGoal);
+  ls.set('ff_whoop', state.whoop);
+  ls.set('ff_member_since', state.memberSince);
+  ls.set('ff_sources', state.sources);
+  ls.set('ff_goal90', state.goal90);
+  ls.set('ff_daily_action_checks', state.dailyActionChecks);
+  ls.set('ff_low_since', state.lowSince);
+  ls.set('ff_sabbath', state.sabbath);
+  ls.set('ff_alerts_shown', state.alertsShown);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// WHOOP API HOOK (OAuth 2.0 placeholder)
+// ═══════════════════════════════════════════════════════════════════
+//
+// Real implementation reference:
+//   1. Register OAuth app at https://developer.whoop.com → get CLIENT_ID
+//   2. Auth flow:    GET https://api.prod.whoop.com/oauth/oauth2/auth
+//                    ?client_id=...&redirect_uri=...&response_type=code
+//                    &scope=read:recovery%20read:sleep%20read:profile
+//   3. Exchange:     POST https://api.prod.whoop.com/oauth/oauth2/token
+//                    {grant_type:'authorization_code', code, client_id, client_secret, redirect_uri}
+//                    → {access_token, refresh_token, expires_in}
+//   4. Store tokens in secure backend; refresh access_token before expiry.
+//   5. Fetch:        GET https://api.prod.whoop.com/developer/v1/recovery
+//                    Authorization: Bearer <access_token>
+//                    → {records:[{score:{recovery_score, hrv_rmssd_milli, resting_heart_rate}}]}
+//
+// In this MVP, fetchWhoopRecovery() returns a simulated value.
+// ═══════════════════════════════════════════════════════════════════
+
+const WHOOP_CONFIG = {
+  CLIENT_ID:    'YOUR_WHOOP_CLIENT_ID',           // ← set in production
+  REDIRECT_URI: 'https://app.firmfoundation.com/oauth/whoop/callback',
+  SCOPES:       ['read:recovery','read:sleep','read:profile','read:cycles'],
+  AUTH_URL:     'https://api.prod.whoop.com/oauth/oauth2/auth',
+  TOKEN_URL:    'https://api.prod.whoop.com/oauth/oauth2/token',
+  API_BASE:     'https://api.prod.whoop.com/developer/v1'
+};
+
+async function fetchWhoopRecovery(){
+  // ─── PRODUCTION (uncomment when wired to backend) ───
+  // const tok = ls.get('ff_whoop_token', null);
+  // if(!tok || Date.now() > tok.expiresAt){
+  //   await refreshWhoopToken();
+  // }
+  // const res = await fetch(`${WHOOP_CONFIG.API_BASE}/recovery?limit=1`, {
+  //   headers: { 'Authorization': `Bearer ${tok.accessToken}` }
+  // });
+  // if(!res.ok) throw new Error('WHOOP API error: '+res.status);
+  // const data = await res.json();
+  // const rec = data.records[0]?.score;
+  // return {
+  //   recovery: Math.round(rec.recovery_score),
+  //   hrv:      Math.round(rec.hrv_rmssd_milli),
+  //   restingHr:Math.round(rec.resting_heart_rate),
+  //   when:     new Date(data.records[0].created_at).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})
+  // };
+
+  // ─── MOCK (returns realistic value w/ ±5% jitter) ───
+  await new Promise(r => setTimeout(r, 700));
+  const base = state.whoop.recovery || 83;
+  const jitter = Math.round((Math.random()-0.5)*10);
+  const recovery = Math.max(0, Math.min(100, base + jitter));
+  return {
+    recovery,
+    hrv: 68,
+    restingHr: 52,
+    when: new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})
+  };
+}
+
+async function syncWhoop(){ return syncBiometrics(); }
+
+// ═══════════════════════════════════════════════════════════════════
+// UNIVERSAL BIOMETRIC INTEGRATION
+// Priority: WHOOP → Garmin → Apple Health
+// ═══════════════════════════════════════════════════════════════════
+async function fetchSourceValue(srcId){
+  // ─── PRODUCTION reference ────────────────────────────────────────
+  // WHOOP:        GET /developer/v1/recovery        → score.recovery_score
+  // Garmin:       GET /wellness-api/.../bodyBattery → max chargedValue
+  // Apple Health: HKHealthStore.execute(HKStatisticsQuery for HKQuantityTypeIdentifierHeartRateVariabilitySDNN)
+  //               then map HRV → readiness 0-100
+  // ─── MOCK ───────────────────────────────────────────────────────
+  await new Promise(r => setTimeout(r, 600));
+  const src = state.sources.find(s=>s.id===srcId);
+  const base = src.value || {whoop:83, garmin:72, apple:65}[srcId];
+  const jitter = Math.round((Math.random()-0.5)*10);
+  return Math.max(0, Math.min(100, base + jitter));
+}
+
+function activeSource(){
+  // Return first connected source in priority order
+  return state.sources.find(s => s.connected) || null;
+}
+
+async function syncBiometrics(){
+  const active = activeSource();
+  if(!active){
+    state.whoop.error = 'No source connected';
+    renderBiometrics();
+    return;
+  }
+  // Indicate sync state
+  const btn = document.querySelector(`.bio-toggle.sync[data-src="${active.id}"]`);
+  if(btn) btn.textContent = 'Syncing…';
+  try{
+    const value = await fetchSourceValue(active.id);
+    const now = new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+    active.value = value;
+    active.lastSync = now;
+    // Mirror to legacy `whoop` state for backwards compat (drives ring + health-strip)
+    state.whoop.recovery = value;
+    state.whoop.lastSync = now;
+    state.whoop.error = null;
+    persist();
+    renderBiometrics();
+    renderWhoop();
+    animateRings();
+  } catch(e){
+    state.whoop.error = e.message || 'Sync failed';
+    renderBiometrics();
+  }
+}
+
+function toggleSource(srcId){
+  const src = state.sources.find(s => s.id === srcId);
+  if(!src) return;
+  src.connected = !src.connected;
+  if(src.connected && !src.value){
+    // First connect — seed a value
+    src.value = {whoop:83, garmin:72, apple:65}[srcId];
+    src.lastSync = new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+  }
+  // Re-evaluate active source and refresh ring
+  const act = activeSource();
+  if(act){
+    state.whoop.recovery = act.value;
+    state.whoop.lastSync = act.lastSync;
+  }
+  persist();
+  renderBiometrics();
+  renderWhoop();
+  animateRings();
+}
+
+function renderBiometrics(){
+  const wrap = document.getElementById('bio-rows');
+  if(!wrap) return;
+  const act = activeSource();
+  document.getElementById('bio-active-source').textContent = act ? `Active: ${act.name}` : 'No source connected';
+  wrap.innerHTML = '';
+  state.sources.forEach(src => {
+    const isActive = act && act.id === src.id;
+    const row = document.createElement('div');
+    row.className = 'bio-row' + (src.connected ? ' connected' : '');
+    const meta = src.connected
+      ? `${src.metric} ${src.value ?? '—'}${src.value!=null?'%':''} · Last sync ${src.lastSync || '—'}`
+      : `${src.metric} · Not connected`;
+    row.innerHTML = `
+      <div class="bio-row-icon">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+      </div>
+      <div class="bio-row-body">
+        <div class="bio-row-name">${escapeHtml(src.name)}${isActive?'<span class="pill">Active</span>':''}</div>
+        <div class="bio-row-meta">${escapeHtml(meta)}</div>
+      </div>
+      <div class="bio-row-actions">
+        ${src.connected?`<button class="bio-toggle sync" data-src="${src.id}" onclick="syncBiometrics()">Sync</button>`:''}
+        <button class="bio-toggle${src.connected?' on':''}" onclick="toggleSource('${src.id}')">${src.connected?'On':'Connect'}</button>
+      </div>`;
+    wrap.appendChild(row);
+  });
+}
+
+function renderWhoop(){
+  const chipText = document.getElementById('whoop-chip-text');
+  const chip = document.getElementById('whoop-chip');
+  const act = activeSource();
+  const label = act ? act.name.toUpperCase() : 'NO SOURCE';
+  if(state.whoop.error || !act){
+    if(chip) chip.classList.add('error');
+    if(chipText) chipText.textContent = act ? `${label} · Reconnect` : 'No source connected';
+  } else {
+    if(chip) chip.classList.remove('error');
+    if(chipText) chipText.textContent = `${label} · Synced ${state.whoop.lastSync || ''}`.trim();
+  }
+  const rec = state.whoop.recovery;
+  document.getElementById('hs-recovery').textContent = rec;
+  document.getElementById('hs-recovery-sub').textContent = recoveryLabel(rec);
+  const dot = document.getElementById('hs-recovery-dot');
+  const c = recoveryColor(rec);
+  dot.style.background = c;
+  dot.style.boxShadow = `0 0 5px ${c}`;
+}
+
+// WHOOP color thresholds (matches their app: <34 red, 34-66 yellow, ≥67 green)
+function recoveryColor(v){
+  if(v >= 67) return '#27AE60';
+  if(v >= 34) return '#F39C12';
+  return '#E74C3C';
+}
+function recoveryLabel(v){
+  if(v >= 67) return 'Optimal';
+  if(v >= 34) return 'Adequate';
+  return 'Compromised';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 90-DAY PERFORMANCE ENGINE (AI-decomposed goal → phases → milestones → daily actions)
+// ═══════════════════════════════════════════════════════════════════
+function openGoalModal(){
+  document.getElementById('goal-input').value = state.goal90?.goal || '';
+  document.getElementById('goal-clear-btn').style.display = state.goal90 ? 'block' : 'none';
+  document.getElementById('goal-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('goal-input').focus(), 200);
+}
+function closeGoalModal(){ document.getElementById('goal-modal').classList.remove('open'); }
+function clearGoalPlan(){
+  if(!confirm('Clear 90-day plan?')) return;
+  state.goal90 = null;
+  state.dailyActionChecks = {};
+  persist();
+  renderGoal90();
+  closeGoalModal();
+  animateRings();
+}
+
+async function generateGoalPlan(){
+  const goal = document.getElementById('goal-input').value.trim();
+  if(!goal){ document.getElementById('goal-input').focus(); return; }
+  const btn = document.getElementById('goal-generate-btn');
+  btn.disabled = true;
+  btn.textContent = 'Decomposing…';
+  const plan = await aiDecomposeGoal(goal);
+  state.goal90 = {
+    goal,
+    generatedAt: Date.now(),
+    phases: plan.phases,
+    milestones: plan.milestones,
+    dailyActions: plan.dailyActions
+  };
+  persist();
+  renderGoal90();
+  btn.disabled = false;
+  btn.textContent = 'Generate Plan with AI';
+  closeGoalModal();
+  animateRings();
+}
+
+async function aiDecomposeGoal(goal){
+  // Tries window.claude.complete; falls back to deterministic structure if offline.
+  try{
+    if(window.claude && window.claude.complete){
+      const sys = `You are a performance coach. Decompose a 90-day goal into a structured plan. Return ONLY valid JSON, no prose, with this exact shape:
+{"phases":[{"month":1,"title":"…","focus":"…"},{"month":2,…},{"month":3,…}],
+ "milestones":[{"week":1,"title":"…"},{"week":2,…},…through week 12],
+ "dailyActions":[{"text":"…"},{"text":"…"},{"text":"…"},{"text":"…"}]}
+- 3 phases, each ~30 days. Phase titles are 2-4 words, action verbs.
+- 12 weekly milestones, each title <60 chars.
+- Exactly 4 daily actions for THIS week. Each <70 chars, concrete, doable in <30 min.
+- No emoji. No markdown.`;
+      const reply = await window.claude.complete({
+        system: sys,
+        messages: [{role:'user', content:`90-day goal: ${goal}`}]
+      });
+      const json = JSON.parse(reply.match(/\{[\s\S]*\}/)[0]);
+      return {
+        phases:    json.phases || [],
+        milestones:json.milestones || [],
+        dailyActions: (json.dailyActions || []).map(a => ({id:uid(), text:a.text}))
+      };
+    }
+  } catch(e){
+    console.warn('AI decompose failed, using fallback:', e);
+  }
+  // Fallback (works offline)
+  return {
+    phases: [
+      {month:1, title:"Foundation",  focus:"Build the daily reps. Ship Week 1 reliably."},
+      {month:2, title:"Acceleration",focus:"Compound output. Tighten what's working."},
+      {month:3, title:"Crystallize", focus:"Convert effort into the result. Defend wins."}
+    ],
+    milestones: Array.from({length:12}, (_,i) => ({
+      week: i+1,
+      title: `Week ${i+1} milestone — define your own checkpoint`
+    })),
+    dailyActions: [
+      {id:uid(), text:"Block 90 min of deep work toward the goal"},
+      {id:uid(), text:"Move your body — minimum 20 min"},
+      {id:uid(), text:"Capture one lesson learned in writing"},
+      {id:uid(), text:"Review tomorrow's #1 priority before bed"}
+    ]
+  };
+}
+
+function currentWeek(){
+  if(!state.goal90?.generatedAt) return 1;
+  const days = Math.floor((Date.now() - state.goal90.generatedAt) / 86400000);
+  return Math.max(1, Math.min(12, Math.floor(days/7) + 1));
+}
+function currentPhase(){
+  const w = currentWeek();
+  return w <= 4 ? 1 : (w <= 8 ? 2 : 3);
+}
+
+function toggleDailyAction(id){
+  const today = todayStr();
+  if(state.dailyActionChecks[id] === today){
+    delete state.dailyActionChecks[id];
+  } else {
+    state.dailyActionChecks[id] = today;
+  }
+  persist();
+  renderGoal90();
+  animateRings();
+}
+
+function dailyActionsCompletedToday(){
+  if(!state.goal90?.dailyActions) return 0;
+  const today = todayStr();
+  return state.goal90.dailyActions.filter(a => state.dailyActionChecks[a.id] === today).length;
+}
+
+function renderGoal90(){
+  const card = document.getElementById('g90-card');
+  if(!card) return;
+  const body = document.getElementById('g90-body');
+  const editBtn = document.getElementById('g90-edit-btn');
+  if(!state.goal90){
+    editBtn.style.display = 'none';
+    body.innerHTML = `
+      <div class="g90-empty">
+        <div class="g90-empty-q">What's the<br>90-day vision?</div>
+        <div class="g90-empty-sub">Tell the AI your goal. It'll break it into 3 monthly phases, 12 weekly milestones, and the daily actions that move your Mind ring.</div>
+        <button class="g90-empty-btn" onclick="openGoalModal()">Set the Vision</button>
+      </div>`;
+    return;
+  }
+  editBtn.style.display = 'block';
+  const phase = currentPhase();
+  const week = currentWeek();
+  const wk = (state.goal90.milestones || []).find(m => m.week === week) || (state.goal90.milestones || [])[0] || {title:'—'};
+  const completed = dailyActionsCompletedToday();
+  const total = state.goal90.dailyActions.length;
+  const pct = total ? Math.round((completed/total)*100) : 0;
+  const today = todayStr();
+
+  let html = `
+    <div class="g90-goal">${escapeHtml(state.goal90.goal)}</div>
+    <div class="g90-progress">
+      <div class="g90-progress-bar"><div class="g90-progress-fill" style="width:${pct}%"></div></div>
+      <span>${completed}/${total} today · Week ${week}/12</span>
+    </div>
+    <div class="g90-phase-row">`;
+  state.goal90.phases.forEach(p => {
+    html += `<div class="g90-phase${p.month===phase?' now':''}">
+      <div class="g90-phase-num">M${p.month}${p.month===phase?' · NOW':''}</div>
+      <div class="g90-phase-title">${escapeHtml(p.title)}</div>
+    </div>`;
+  });
+  html += `</div>
+    <div class="g90-week"><b>This week:</b> ${escapeHtml(wk.title)}</div>
+    <div class="g90-actions">`;
+  state.goal90.dailyActions.forEach(a => {
+    const done = state.dailyActionChecks[a.id] === today;
+    html += `<div class="g90-action${done?' done':''}" onclick="toggleDailyAction('${a.id}')">
+      <div class="box">${done?'<svg width="10" height="8" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 8L11 1" stroke="#080B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</div>
+      <div class="g90-action-text">${escapeHtml(a.text)}</div>
+    </div>`;
+  });
+  html += `</div>`;
+  body.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SCRIPTURE-TRIGGERED ALERTS (gauge < 30%)
+// ═══════════════════════════════════════════════════════════════════
+const ALERT_VERSES = {
+  body: [
+    {ref:"Isaiah 40:29", text:"He gives strength to the weary and increases the power of the weak."},
+    {ref:"Matthew 11:28", text:"Come to me, all you who are weary and burdened, and I will give you rest."},
+    {ref:"Psalm 23:2-3", text:"He makes me lie down in green pastures; he restores my soul."}
+  ],
+  spirit: [
+    {ref:"Psalm 42:1-2", text:"As the deer pants for streams of water, so my soul pants for you, my God."},
+    {ref:"James 4:8", text:"Draw near to God and He will draw near to you."},
+    {ref:"Psalm 51:10", text:"Create in me a clean heart, O God, and renew a right spirit within me."}
+  ],
+  mind: [
+    {ref:"Proverbs 13:4", text:"The diligent prosper. The soul of the diligent is richly supplied."},
+    {ref:"Matthew 25:21", text:"Well done, good and faithful servant. You have been faithful with a few things."},
+    {ref:"Colossians 3:23", text:"Whatever you do, work at it with all your heart, as working for the Lord."}
+  ]
+};
+const ALERT_LABELS = { body:'Low Body · Rest', spirit:'Low Spirit · Drift Detected', mind:'Low Mind · Diligence' };
+
+function checkAlerts(values){
+  // values = {body, spirit, mind} percentages
+  const today = todayStr();
+  for(const k of ['body','spirit','mind']){
+    if(values[k] < 30 && state.alertsShown[k] !== today){
+      showScriptureAlert(k);
+      state.alertsShown[k] = today;
+      persist();
+      return; // one at a time
+    }
+  }
+}
+function showScriptureAlert(kind){
+  const banner = document.getElementById('scripture-alert');
+  const pool = ALERT_VERSES[kind];
+  const v = pool[Math.floor(Math.random()*pool.length)];
+  banner.classList.remove('body','spirit','mind','show');
+  banner.classList.add(kind);
+  document.getElementById('sa-tag-text').textContent = ALERT_LABELS[kind];
+  document.getElementById('sa-ref').textContent = v.ref;
+  document.getElementById('sa-text').textContent = '"'+v.text+'"';
+  const cta = document.getElementById('sa-cta');
+  if(kind === 'spirit'){
+    cta.style.display = 'block';
+    cta.textContent = 'Step away · 2-min prayer';
+    cta.dataset.kind = 'spirit';
+  } else {
+    cta.style.display = 'none';
+  }
+  setTimeout(()=>banner.classList.add('show'), 30);
+}
+function dismissScriptureAlert(){
+  document.getElementById('scripture-alert').classList.remove('show');
+}
+function alertCtaAction(){
+  // Spirit CTA → go to Spirit tab and open the prayer timer
+  dismissScriptureAlert();
+  const btn = document.querySelector('.tab[data-tab="spirit"]');
+  if(btn) switchTab('spirit', btn);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// VERSE SEARCH (text filter + AI context lookup)
+// ═══════════════════════════════════════════════════════════════════
+let aiVerseSuggestion = null;
+function filterVerses(){
+  const q = (document.getElementById('verse-search').value || '').toLowerCase().trim();
+  const wrap = document.getElementById('verses-list');
+  wrap.innerHTML = '';
+  const list = q ? state.verses.filter(v => v.ref.toLowerCase().includes(q) || v.text.toLowerCase().includes(q)) : state.verses;
+  if(!list.length){
+    wrap.innerHTML = q
+      ? '<div class="empty-list">No verses match. Hit Ask to find a verse for how you feel.</div>'
+      : '<div class="empty-list">No verses saved yet. Tap + Add to start your library.</div>';
+    return;
+  }
+  list.forEach(v => {
+    const div = document.createElement('div');
+    div.className = 'verse-item';
+    div.innerHTML = `
+      <div class="verse-body" onclick="openItemModal('verse','${v.id}')">
+        <div class="verse-item-ref">${escapeHtml(v.ref)}</div>
+        <div class="verse-item-text">${escapeHtml(v.text)}</div>
+      </div>
+      <button class="row-icon-btn del" onclick="deleteItemDirect('verse','${v.id}')" title="Delete">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h9M5 4V2.5h4V4M3.8 4l.6 8h5.2l.6-8M5.5 6.5v3M8.5 6.5v3"/></svg>
+      </button>`;
+    wrap.appendChild(div);
+  });
+}
+async function aiVerseSearch(){
+  const q = (document.getElementById('verse-search').value || '').trim();
+  if(!q){ document.getElementById('verse-search').focus(); return; }
+  const btn = document.getElementById('verse-ai-btn');
+  btn.disabled = true;
+  btn.textContent = '…';
+  try{
+    let v = null;
+    if(window.claude && window.claude.complete){
+      const reply = await window.claude.complete({
+        system: 'You match a feeling/situation to one well-known Bible verse. Return ONLY valid JSON: {"ref":"Book Ch:V","text":"verse text"}. No prose. Use NIV. Verse text under 200 chars.',
+        messages:[{role:'user', content:`How I feel: ${q}`}]
+      });
+      v = JSON.parse(reply.match(/\{[\s\S]*\}/)[0]);
+    }
+    if(!v) v = {ref:'Philippians 4:6-7', text:'Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.'};
+    aiVerseSuggestion = v;
+    document.getElementById('verse-ai-ref').textContent = v.ref;
+    document.getElementById('verse-ai-text').textContent = '"'+v.text+'"';
+    document.getElementById('verse-ai-result').classList.add('show');
+  } catch(e){
+    console.warn('AI verse search failed:', e);
+    aiVerseSuggestion = {ref:'Philippians 4:6-7', text:'Do not be anxious about anything…'};
+    document.getElementById('verse-ai-ref').textContent = aiVerseSuggestion.ref;
+    document.getElementById('verse-ai-text').textContent = '"'+aiVerseSuggestion.text+'"';
+    document.getElementById('verse-ai-result').classList.add('show');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.5L20 10l-6.2 1.5L12 18l-1.8-6.5L4 10l6.2-1.5z"/></svg> Ask';
+}
+function saveAiVerse(){
+  if(!aiVerseSuggestion) return;
+  state.verses.unshift({id:uid(), ref:aiVerseSuggestion.ref, text:aiVerseSuggestion.text});
+  aiVerseSuggestion = null;
+  persist();
+  document.getElementById('verse-ai-result').classList.remove('show');
+  document.getElementById('verse-search').value = '';
+  filterVerses();
+  animateRings();
+}
+function dismissAiVerse(){
+  aiVerseSuggestion = null;
+  document.getElementById('verse-ai-result').classList.remove('show');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SABBATH MODE (Body or Mind in red <20% for 48h → optional rest day)
+// ═══════════════════════════════════════════════════════════════════
+const SABBATH_DURATION = 24*60*60*1000;          // 24h
+const SABBATH_TRIGGER_AFTER = 48*60*60*1000;     // 48h sustained low
+const SABBATH_DISMISS_COOLDOWN = 6*60*60*1000;   // re-prompt window
+
+function updateLowSinceTracking(values){
+  const now = Date.now();
+  ['body','spirit','mind'].forEach(k => {
+    if(values[k] < 20){
+      if(!state.lowSince[k]) state.lowSince[k] = now;
+    } else {
+      state.lowSince[k] = null;
+    }
+  });
+  persist();
+}
+
+function shouldOfferSabbath(){
+  if(state.sabbath.active) return false;
+  const now = Date.now();
+  if(state.sabbath.dismissedAt && (now - state.sabbath.dismissedAt) < SABBATH_DISMISS_COOLDOWN) return false;
+  const bodyLow = state.lowSince.body && (now - state.lowSince.body) >= SABBATH_TRIGGER_AFTER;
+  const mindLow = state.lowSince.mind && (now - state.lowSince.mind) >= SABBATH_TRIGGER_AFTER;
+  return bodyLow || mindLow;
+}
+
+function isSabbathActive(){
+  if(!state.sabbath.active || !state.sabbath.startedAt) return false;
+  if((Date.now() - state.sabbath.startedAt) >= SABBATH_DURATION){
+    state.sabbath.active = false;
+    state.sabbath.startedAt = null;
+    persist();
+    return false;
+  }
+  return true;
+}
+
+function enterSabbath(){
+  state.sabbath.active = true;
+  state.sabbath.startedAt = Date.now();
+  state.sabbath.dismissedAt = null;
+  persist();
+  renderSabbathState();
+}
+function exitSabbath(){
+  state.sabbath.active = false;
+  state.sabbath.startedAt = null;
+  persist();
+  renderSabbathState();
+}
+function dismissSabbathOffer(){
+  state.sabbath.dismissedAt = Date.now();
+  persist();
+  renderSabbathState();
+}
+
+function renderSabbathState(){
+  const sec = document.getElementById('g90-section');
+  const nonneg = document.querySelector('.sw .section-row .section-label')?.closest('.sw');
+  // Find actual non-negotiables wrapper by id
+  const ngWrap = document.getElementById('nonneg-list')?.closest('.sw');
+  const discWrap = document.getElementById('disc-list')?.closest('.sw');
+
+  // Remove previous overlay if present
+  document.querySelectorAll('.sabbath-overlay,.sabbath-active').forEach(n => n.remove());
+
+  if(isSabbathActive()){
+    // Hide trackers, show rest content above the rings? — place above .health-strip
+    [ngWrap, discWrap, sec].forEach(n => n && n.classList.add('sabbath-hidden'));
+    const remainHrs = Math.max(0, Math.ceil((SABBATH_DURATION - (Date.now()-state.sabbath.startedAt))/3600000));
+    const card = document.createElement('div');
+    card.className = 'sabbath-active';
+    card.innerHTML = `
+      <div class="sabbath-active-eye">✦ Sabbath Mode</div>
+      <div class="sabbath-active-h">Rest</div>
+      <div class="sabbath-active-sub">Trackers are paused. Discipline is not earned today — it's received. Sit. Walk. Pray. Be with the people you love.</div>
+      <div class="sabbath-active-time">${remainHrs} hours remaining</div>
+      <button class="sabbath-exit" onclick="exitSabbath()">Exit Sabbath Early</button>`;
+    const stripParent = document.querySelector('#s-today');
+    const strip = document.querySelector('#s-today .health-strip');
+    if(stripParent && strip) stripParent.insertBefore(card, strip.nextSibling);
+    return;
+  }
+
+  [ngWrap, discWrap, sec].forEach(n => n && n.classList.remove('sabbath-hidden'));
+
+  if(shouldOfferSabbath()){
+    const card = document.createElement('div');
+    card.className = 'sabbath-overlay';
+    card.innerHTML = `
+      <div class="sabbath-eye">✦ Sabbath Mode Available</div>
+      <div class="sabbath-q">Your body<br>needs rest.</div>
+      <div class="sabbath-body">Body or Mind has been in the red for 48+ hours. Discipline shouldn't become a source of shame. Step away from the trackers for 24 hours.</div>
+      <div class="sabbath-verse">
+        <div class="sabbath-verse-ref">Mark 2:27</div>
+        <div class="sabbath-verse-text">"The Sabbath was made for man, not man for the Sabbath."</div>
+      </div>
+      <div class="sabbath-actions">
+        <button class="sabbath-btn primary" onclick="enterSabbath()">Enter Sabbath</button>
+        <button class="sabbath-btn ghost" onclick="dismissSabbathOffer()">Not now</button>
+      </div>`;
+    const stripParent = document.querySelector('#s-today');
+    const strip = document.querySelector('#s-today .health-strip');
+    if(stripParent && strip) stripParent.insertBefore(card, strip.nextSibling);
+  }
+}
+
+
+function spiritPct(){
+  // Spirit ring = % of disciplines on + prayer goal hit
+  const items = state.disciplines;
+  const onCount = items.filter(d=>d.on).length;
+  const prayerHit = state.prayerMin >= state.prayerGoal ? 1 : 0;
+  const total = items.length + 1;
+  if(total === 0) return 0;
+  return Math.round(((onCount + prayerHit) / total) * 100);
+}
+function mindPct(){
+  // Mind = consistency. Combines non-negotiables done + 90-day daily actions completed today.
+  let totalSlots = state.nonneg.length;
+  let done = state.nonneg.filter(n=>n.done).length;
+  if(state.goal90?.dailyActions?.length){
+    totalSlots += state.goal90.dailyActions.length;
+    done += dailyActionsCompletedToday();
+  }
+  if(!totalSlots) return 0;
+  return Math.round((done / totalSlots) * 100);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════════════════════════
+function switchTab(id, btn){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  ls.set('ff_tab', id);
+  try{ window.parent.postMessage({slideIndexChanged: ['today','spirit','journal','profile'].indexOf(id)}, '*'); }catch(e){}
+}
+function switchJTab(t){
+  const pid = t.dataset.pane;
+  document.querySelectorAll('.j-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.j-pane').forEach(p=>p.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(pid)?.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PRIORITIES
+// ═══════════════════════════════════════════════════════════════════
+function renderPriorities(){
+  const wrap = document.getElementById('priorities-list');
+  wrap.innerHTML = '';
+  if(!state.priorities.length){
+    wrap.innerHTML = '<div class="empty-list">No priorities yet. Tap + Add to set today\'s focus.</div>';
+    return;
+  }
+  state.priorities.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'priority-row';
+    div.innerHTML = `
+      <div class="p-num">${i+1}</div>
+      <div class="p-text" onclick="openItemModal('prio','${p.id}')">${escapeHtml(p.text)}</div>
+      <div class="row-actions">
+        <button class="row-icon-btn del" onclick="event.stopPropagation();deleteItemDirect('prio','${p.id}')" title="Delete">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h9M5 4V2.5h4V4M3.8 4l.6 8h5.2l.6-8M5.5 6.5v3M8.5 6.5v3"/></svg>
+        </button>
+        <div class="p-box${p.done?' checked':''}" onclick="event.stopPropagation();togglePriority('${p.id}')">${p.done?'<svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 8L11 1" stroke="#080B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</div>
+      </div>`;
+    wrap.appendChild(div);
+  });
+}
+function togglePriority(id){
+  const p = state.priorities.find(x=>x.id===id);
+  if(!p) return;
+  p.done = !p.done;
+  persist();
+  renderPriorities();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CRUD: NON-NEGOTIABLES
+// ═══════════════════════════════════════════════════════════════════
+function renderNonneg(){
+  const wrap = document.getElementById('nonneg-list');
+  wrap.innerHTML = '';
+  if(!state.nonneg.length){
+    wrap.innerHTML = '<div class="empty-list">No non-negotiables yet. Tap + Add to commit.</div>';
+    return;
+  }
+  state.nonneg.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'nn-item';
+    const chk = item.done
+      ? '<svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 8L11 1" stroke="#080B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      : '';
+    div.innerHTML = `
+      <div class="nn-dot"></div>
+      <div class="nn-text" onclick="openItemModal('nonneg','${item.id}')">${escapeHtml(item.text)}</div>
+      <div class="row-actions">
+        <button class="row-icon-btn del" onclick="deleteItemDirect('nonneg','${item.id}')" title="Delete">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h9M5 4V2.5h4V4M3.8 4l.6 8h5.2l.6-8M5.5 6.5v3M8.5 6.5v3"/></svg>
+        </button>
+        <div class="nn-chk${item.done?' done':''}" onclick="toggleNonneg('${item.id}')">${chk}</div>
+      </div>`;
+    wrap.appendChild(div);
+  });
+}
+function toggleNonneg(id){
+  const it = state.nonneg.find(x=>x.id===id);
+  if(!it) return;
+  it.done = !it.done;
+  persist();
+  renderNonneg();
+  animateRings();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CRUD: SPIRITUAL DISCIPLINES
+// ═══════════════════════════════════════════════════════════════════
+function renderDisciplines(){
+  const wrap = document.getElementById('disc-list');
+  wrap.innerHTML = '';
+  if(!state.disciplines.length){
+    wrap.innerHTML = '<div class="empty-list">No disciplines yet. Tap + Add to start.</div>';
+    return;
+  }
+  state.disciplines.forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'disc-item';
+    div.innerHTML = `
+      <div class="disc-body" onclick="openItemModal('disc','${d.id}')">
+        <div class="disc-title">${escapeHtml(d.title)}</div>
+        ${d.sub ? `<div class="disc-sub">${escapeHtml(d.sub)}</div>` : ''}
+      </div>
+      <button class="row-icon-btn del" onclick="deleteItemDirect('disc','${d.id}')" title="Delete">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h9M5 4V2.5h4V4M3.8 4l.6 8h5.2l.6-8M5.5 6.5v3M8.5 6.5v3"/></svg>
+      </button>
+      <div class="sw-track${d.on?' on':''}" onclick="toggleDiscipline('${d.id}')"><div class="sw-knob"></div></div>`;
+    wrap.appendChild(div);
+  });
+}
+function toggleDiscipline(id){
+  const d = state.disciplines.find(x=>x.id===id);
+  if(!d) return;
+  d.on = !d.on;
+  persist();
+  renderDisciplines();
+  animateRings();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CRUD: SAVED VERSES
+// ═══════════════════════════════════════════════════════════════════
+function renderVerses(){ filterVerses(); }
+
+// ═══════════════════════════════════════════════════════════════════
+// SHARED ADD/EDIT MODAL — handles all three CRUD lists
+// ═══════════════════════════════════════════════════════════════════
+let editing = { kind:null, id:null };
+const ITEM_CONFIG = {
+  nonneg: {
+    title: 'Non-Negotiable',
+    addQ:  'New<br>Non-Negotiable',
+    editQ: 'Edit<br>Non-Negotiable',
+    sub:   'A daily commitment you do not break.',
+    fields:['title']
+  },
+  disc: {
+    title: 'Discipline',
+    addQ:  'New Spiritual<br>Discipline',
+    editQ: 'Edit<br>Discipline',
+    sub:   'A practice that shapes the soul.',
+    fields:['title','sub']
+  },
+  verse: {
+    title: 'Saved Verse',
+    addQ:  'New<br>Saved Verse',
+    editQ: 'Edit<br>Saved Verse',
+    sub:   'Words to hide in your heart.',
+    fields:['ref','text']
+  },
+  prio: {
+    title: 'Priority',
+    addQ:  'New<br>Priority',
+    editQ: 'Edit<br>Priority',
+    sub:   'One of today\'s top focuses.',
+    fields:['title']
+  }
+};
+
+function openItemModal(kind, id){
+  editing = { kind, id: id || null };
+  const cfg = ITEM_CONFIG[kind];
+  document.getElementById('item-modal-title').textContent = id ? `Edit ${cfg.title}` : `New ${cfg.title}`;
+  document.getElementById('item-q').innerHTML = id ? cfg.editQ : cfg.addQ;
+  document.getElementById('item-sub').textContent = cfg.sub;
+
+  // Reset all field wraps
+  document.getElementById('item-title-wrap').style.display    = cfg.fields.includes('title') ? 'block' : 'none';
+  document.getElementById('item-subtitle-wrap').style.display = cfg.fields.includes('sub')   ? 'block' : 'none';
+  document.getElementById('item-ref-wrap').style.display      = cfg.fields.includes('ref')   ? 'block' : 'none';
+  document.getElementById('item-text-wrap').style.display     = cfg.fields.includes('text')  ? 'block' : 'none';
+
+  // Field labels & placeholders
+  if(kind === 'nonneg'){
+    document.getElementById('item-title-lbl').textContent = 'Commitment';
+    document.getElementById('item-title-input').placeholder = 'e.g. Word & Prayer';
+  } else if(kind === 'disc'){
+    document.getElementById('item-title-lbl').textContent = 'Discipline';
+    document.getElementById('item-title-input').placeholder = 'e.g. Scripture Read';
+  } else if(kind === 'prio'){
+    document.getElementById('item-title-lbl').textContent = 'Priority';
+    document.getElementById('item-title-input').placeholder = 'e.g. Finish board prep deck';
+  }
+
+  // Pre-fill if editing
+  document.getElementById('item-title-input').value = '';
+  document.getElementById('item-subtitle-input').value = '';
+  document.getElementById('item-ref-input').value = '';
+  document.getElementById('item-text-input').value = '';
+
+  if(id){
+    let item;
+    if(kind === 'nonneg') item = state.nonneg.find(x=>x.id===id);
+    if(kind === 'disc')   item = state.disciplines.find(x=>x.id===id);
+    if(kind === 'verse')  item = state.verses.find(x=>x.id===id);
+    if(kind === 'prio')   item = state.priorities.find(x=>x.id===id);
+    if(item){
+      if(kind === 'nonneg' || kind === 'prio') document.getElementById('item-title-input').value = item.text || '';
+      if(kind === 'disc'){
+        document.getElementById('item-title-input').value = item.title || '';
+        document.getElementById('item-subtitle-input').value = item.sub || '';
+      }
+      if(kind === 'verse'){
+        document.getElementById('item-ref-input').value = item.ref || '';
+        document.getElementById('item-text-input').value = item.text || '';
+      }
+    }
+    document.getElementById('item-delete-btn').style.display = 'block';
+  } else {
+    document.getElementById('item-delete-btn').style.display = 'none';
+  }
+
+  document.getElementById('item-modal').classList.add('open');
+  setTimeout(() => {
+    const firstField = kind === 'verse'
+      ? document.getElementById('item-ref-input')
+      : document.getElementById('item-title-input');
+    firstField?.focus();
+  }, 200);
+}
+
+function closeItemModal(){
+  document.getElementById('item-modal').classList.remove('open');
+  editing = { kind:null, id:null };
+}
+
+function saveItem(){
+  const { kind, id } = editing;
+  if(!kind) return;
+
+  if(kind === 'nonneg'){
+    const text = document.getElementById('item-title-input').value.trim();
+    if(!text){ document.getElementById('item-title-input').focus(); return; }
+    if(id){
+      const it = state.nonneg.find(x=>x.id===id);
+      if(it) it.text = text;
+    } else {
+      state.nonneg.push({id:uid(), text, done:false});
+    }
+    persist(); renderNonneg(); animateRings();
+  }
+  else if(kind === 'prio'){
+    const text = document.getElementById('item-title-input').value.trim();
+    if(!text){ document.getElementById('item-title-input').focus(); return; }
+    if(id){
+      const it = state.priorities.find(x=>x.id===id);
+      if(it) it.text = text;
+    } else {
+      state.priorities.push({id:uid(), text, done:false});
+    }
+    persist(); renderPriorities();
+  }
+  else if(kind === 'disc'){
+    const title = document.getElementById('item-title-input').value.trim();
+    const sub   = document.getElementById('item-subtitle-input').value.trim();
+    if(!title){ document.getElementById('item-title-input').focus(); return; }
+    if(id){
+      const it = state.disciplines.find(x=>x.id===id);
+      if(it){ it.title = title; it.sub = sub; }
+    } else {
+      state.disciplines.push({id:uid(), title, sub, on:false});
+    }
+    persist(); renderDisciplines(); animateRings();
+  }
+  else if(kind === 'verse'){
+    const ref  = document.getElementById('item-ref-input').value.trim();
+    const text = document.getElementById('item-text-input').value.trim();
+    if(!ref){  document.getElementById('item-ref-input').focus(); return; }
+    if(!text){ document.getElementById('item-text-input').focus(); return; }
+    if(id){
+      const it = state.verses.find(x=>x.id===id);
+      if(it){ it.ref = ref; it.text = text; }
+    } else {
+      state.verses.push({id:uid(), ref, text});
+    }
+    persist(); renderVerses();
+  }
+  closeItemModal();
+}
+
+function deleteItem(){
+  const { kind, id } = editing;
+  if(!kind || !id) return;
+  deleteItemDirect(kind, id);
+  closeItemModal();
+}
+
+function deleteItemDirect(kind, id){
+  if(kind === 'nonneg')  state.nonneg = state.nonneg.filter(x=>x.id!==id);
+  if(kind === 'disc')    state.disciplines = state.disciplines.filter(x=>x.id!==id);
+  if(kind === 'verse')   state.verses = state.verses.filter(x=>x.id!==id);
+  if(kind === 'prio')    state.priorities = state.priorities.filter(x=>x.id!==id);
+  persist();
+  renderNonneg(); renderDisciplines(); renderVerses(); renderPriorities();
+  animateRings();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RING ANIMATIONS
+// ═══════════════════════════════════════════════════════════════════
+const RING_CIRC = 2*Math.PI*72, RING_TRACK = RING_CIRC*300/360;
+
+function animateRings(){
+  const bodyVal = state.whoop.recovery;
+  const spiritVal = spiritPct();
+  const mindVal = mindPct();
+  const ringValues = {body: bodyVal, spirit: spiritVal, mind: mindVal};
+
+  // Sabbath + alert checks (must run BEFORE animation paint so DOM is stable)
+  updateLowSinceTracking(ringValues);
+  renderSabbathState();
+  if(!isSabbathActive()) checkAlerts(ringValues);
+
+  const targets = {
+    'arc-body': bodyVal/100,
+    'arc-spirit': spiritVal/100,
+    'arc-mind': mindVal/100
+  };
+  const labels = {
+    'arc-body': 'ring-body-val',
+    'arc-spirit': 'ring-spirit-val',
+    'arc-mind': 'ring-mind-val'
+  };
+
+  // Body ring color (WHOOP gradient)
+  const bodyColor = recoveryColor(bodyVal);
+  const bodyArc = document.getElementById('arc-body');
+  if(bodyArc){
+    bodyArc.setAttribute('stroke', bodyColor);
+  }
+  document.getElementById('ring-body-val').style.color = bodyColor;
+  // also update body glow halo to match
+  const glow = document.getElementById('body-glow');
+  if(glow){
+    const r = parseInt(bodyColor.slice(1,3),16),
+          g = parseInt(bodyColor.slice(3,5),16),
+          b = parseInt(bodyColor.slice(5,7),16);
+    glow.style.background = `radial-gradient(circle,rgba(${r},${g},${b},0.18) 0%,transparent 65%)`;
+  }
+
+  Object.keys(targets).forEach((id, i) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const tgt = RING_TRACK * targets[id];
+    const lblEl = document.getElementById(labels[id]);
+    const tgtVal = Math.round(targets[id]*100);
+    setTimeout(() => {
+      requestAnimationFrame(function(ts0){
+        (function anim(ts){
+          const p = Math.min((ts-ts0)/900, 1);
+          const e = 1-Math.pow(1-p,3);
+          el.style.strokeDasharray = (tgt*e).toFixed(2)+' '+RING_CIRC.toFixed(2);
+          if(lblEl) lblEl.textContent = Math.round(tgtVal*e);
+          if(p<1) requestAnimationFrame(anim);
+        })(ts0);
+      });
+    }, i*80);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// VERSE OF THE DAY (rotates through pool by date)
+// ═══════════════════════════════════════════════════════════════════
+function renderVOTD(){
+  const idx = (new Date().getDate()-1) % VERSES_POOL.length;
+  const v = VERSES_POOL[idx];
+  document.getElementById('votd-verse').textContent = `"${v.text}"`;
+  document.getElementById('votd-ref').textContent = v.ref;
+  document.getElementById('snap-verse-ref').textContent = v.ref;
+  document.getElementById('snap-verse-txt').textContent = `"${v.text}"`;
+  // already-saved indicator
+  const isSaved = state.verses.some(sv => sv.ref === v.ref);
+  document.getElementById('votd-save').textContent = isSaved ? '❤️' : '🤍';
+}
+function saveVOTD(){
+  const idx = (new Date().getDate()-1) % VERSES_POOL.length;
+  const v = VERSES_POOL[idx];
+  const exists = state.verses.find(sv => sv.ref === v.ref);
+  if(exists){
+    state.verses = state.verses.filter(sv => sv.ref !== v.ref);
+  } else {
+    state.verses.push({id:uid(), ref:v.ref, text:`"${v.text}"`});
+  }
+  persist();
+  renderVerses();
+  renderVOTD();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DATE LABEL
+// ═══════════════════════════════════════════════════════════════════
+function renderDate(){
+  const d = new Date();
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('today-date-label').textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// STREAK + PRAYER MIN
+// ═══════════════════════════════════════════════════════════════════
+function renderStreakAndPrayer(){
+  document.getElementById('snap-streak').textContent = state.streak;
+  document.getElementById('spirit-streak-big').textContent = state.streak;
+  document.getElementById('profile-streak').textContent = state.streak;
+  document.getElementById('snap-prayer-min').textContent = state.prayerMin;
+  document.getElementById('prayer-cur').textContent = state.prayerMin;
+  document.getElementById('prayer-goal-num').textContent = state.prayerGoal;
+  const ARC_FULL = 150;
+  const ratio = Math.min(state.prayerMin/state.prayerGoal, 1);
+  document.getElementById('prayer-arc-fill').setAttribute('stroke-dasharray', `${(ARC_FULL*ratio).toFixed(1)} 175.9`);
+  document.getElementById('prayer-arc-text').textContent = state.prayerMin;
+  document.getElementById('member-since').textContent = state.memberSince;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MORNING CHECK-IN
+// ═══════════════════════════════════════════════════════════════════
+let ciStep = 1;
+function buildProg(){
+  const p = document.getElementById('modal-prog');
+  p.innerHTML = '';
+  for(let i=1;i<=6;i++){
+    const d = document.createElement('div');
+    d.className = 'mpd' + (i===ciStep?' cur':i<ciStep?' done':'');
+    p.appendChild(d);
+  }
+  document.getElementById('ci-back').style.visibility = ciStep>1 ? 'visible' : 'hidden';
+}
+function openCheckin(){
+  ciStep = 1;
+  document.querySelectorAll('.ci-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('ci-1').classList.add('active');
+  buildProg();
+  document.getElementById('ci-modal').classList.add('open');
+}
+function closeCheckin(){ document.getElementById('ci-modal').classList.remove('open'); }
+function nextStep(n){
+  document.getElementById('ci-'+ciStep).classList.remove('active');
+  ciStep = n;
+  document.getElementById('ci-'+ciStep).classList.add('active');
+  buildProg();
+}
+function prevStep(){
+  if(ciStep<=1) return;
+  document.getElementById('ci-'+ciStep).classList.remove('active');
+  ciStep--;
+  document.getElementById('ci-'+ciStep).classList.add('active');
+  buildProg();
+}
+function selMin(btn){
+  btn.closest('.ci-mins-row').querySelectorAll('.ci-min-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('ci-custom-wrap').style.display = 'none';
+}
+function showCustomMin(btn){
+  btn.closest('.ci-mins-row').querySelectorAll('.ci-min-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('ci-custom-wrap').style.display='block';
+  document.getElementById('ci-custom-val').focus();
+}
+function toggleSw(sw){ sw.classList.toggle('on'); }
+
+function submitCheckin(){
+  const selectedMin = document.querySelector('#ci-mins-row .ci-min-btn.sel');
+  let goal = 10;
+  if(selectedMin){
+    if(selectedMin.id === 'ci-custom-chip'){
+      const cv = parseInt(document.getElementById('ci-custom-val').value);
+      if(!isNaN(cv) && cv>0) goal = cv;
+    } else {
+      goal = parseInt(selectedMin.dataset.min) || 10;
+    }
+  }
+  state.prayerGoal = goal;
+
+  const p1 = document.getElementById('ci-p1').value.trim();
+  const p2 = document.getElementById('ci-p2').value.trim();
+  const p3 = document.getElementById('ci-p3').value.trim();
+  [p1,p2,p3].filter(Boolean).forEach(t => {
+    state.priorities.push({id:uid(), text:t, done:false});
+  });
+
+  const scriptureOn = document.getElementById('ci-scripture-sw').classList.contains('on');
+  // mirror to first discipline matching "Scripture" if exists
+  const scripDisc = state.disciplines.find(d => /scripture/i.test(d.title));
+  if(scripDisc) scripDisc.on = scriptureOn;
+  // and first non-neg matching "Word" if exists
+  if(scriptureOn){
+    const wordNN = state.nonneg.find(n => /word/i.test(n.text));
+    if(wordNN) wordNN.done = true;
+  }
+
+  const today = todayStr();
+  if(state.lastCheckin !== today){
+    state.streak = state.lastCheckin === yesterdayStr() ? (state.streak+1) : 1;
+    state.lastCheckin = today;
+  }
+  persist();
+  renderAll();
+  closeCheckin();
+
+  const f = document.createElement('div');
+  f.style.cssText = 'position:absolute;inset:0;background:rgba(39,174,96,0.13);border-radius:47px;z-index:300;display:flex;align-items:center;justify-content:center;pointer-events:none;animation:fo 1.4s ease forwards;';
+  f.innerHTML = '<div style="text-align:center;"><div style="font-size:52px;margin-bottom:10px;">✓</div><div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:800;color:#27AE60;text-transform:uppercase;letter-spacing:2px;">Check-in complete</div></div>';
+  document.querySelector('.phone-screen').appendChild(f);
+  setTimeout(()=>f.remove(), 1500);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// AI PRAYER PROMPT
+// ═══════════════════════════════════════════════════════════════════
+async function getAIPrayerPrompt(){
+  const btn = document.getElementById('ai-prayer-btn');
+  const txt = document.getElementById('ai-prayer-text');
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+  try{
+    const reply = await window.claude.complete({
+      system: 'You are a faith companion. Return a single, specific, personal prayer prompt in 2-3 sentences. No intro. No sign-off. Themes: consistency, purpose, fatherhood, gratitude, discipline.',
+      messages: [{role:'user', content:'Give me a prayer prompt for today.'}]
+    });
+    txt.textContent = (reply || '').trim() || 'Lord, show me one area today where I can be more faithful than yesterday.';
+    txt.classList.add('shown');
+    btn.textContent = 'Another →';
+  } catch(e){
+    txt.textContent = 'Lord, show me one area today where I can be more faithful than yesterday.';
+    txt.classList.add('shown');
+    btn.textContent = 'Try again →';
+  }
+  btn.disabled = false;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// JOURNAL: prayers + answered
+// ═══════════════════════════════════════════════════════════════════
+function fmtDate(d){
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[d.getMonth()]} ${d.getDate()}`;
+}
+function diffDays(aMs, bMs){
+  return Math.max(1, Math.round((bMs-aMs)/86400000));
+}
+function renderPrayers(){
+  const wrap = document.getElementById('prayer-list');
+  wrap.innerHTML = '';
+  const active   = state.prayers.filter(p=>p.status==='active').sort((a,b)=>(b.dateMs||0)-(a.dateMs||0));
+  const answered = state.prayers.filter(p=>p.status==='answered').sort((a,b)=>(b.dateMs||0)-(a.dateMs||0));
+  const ordered  = [...active, ...answered];
+  if(!ordered.length){
+    wrap.innerHTML = '<div class="empty-msg">No prayers yet. The first step of trust is naming what you can\'t carry.</div>';
+    return;
+  }
+  ordered.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'prayer-entry';
+    if(p.status === 'answered'){
+      div.innerHTML = `
+        <div class="pe-header"><div class="pe-date">${p.date}</div><div class="pe-status answered">✓ Answered</div></div>
+        <div class="pe-text">${escapeHtml(p.text)}</div>
+        <div class="pe-answered-note">
+          <div class="pe-answered-lbl">Answered · ${escapeHtml(p.answeredDate || '')}</div>
+          <div class="pe-answered-text">${escapeHtml(p.answeredText || '')}</div>
+        </div>`;
+    } else {
+      div.innerHTML = `
+        <div class="pe-header"><div class="pe-date">${p.date}</div><div class="pe-status active-p">Active</div></div>
+        <div class="pe-text">${escapeHtml(p.text)}</div>
+        <button class="pe-mark-btn" onclick="openAnsweredModal('${p.id}')">Mark Answered</button>`;
+    }
+    wrap.appendChild(div);
+  });
+}
+function renderAnswered(){
+  const wrap = document.getElementById('answered-list');
+  wrap.innerHTML = '';
+  const answered = state.prayers.filter(p=>p.status==='answered').sort((a,b)=>(b.answeredMs||0)-(a.answeredMs||0));
+  if(!answered.length){
+    wrap.innerHTML = '<div class="empty-msg">No answered prayers logged yet.<br>Mark one as answered to start your wall.</div>';
+    return;
+  }
+  answered.forEach(p => {
+    const days = (p.dateMs && p.answeredMs) ? diffDays(p.dateMs, p.answeredMs) : null;
+    const div = document.createElement('div');
+    div.className = 'answered-entry';
+    div.innerHTML = `
+      <div class="ae-date-range">${escapeHtml(p.date)} → ${escapeHtml(p.answeredDate || '')}${days?(' · '+days+' days'):''}</div>
+      <div class="ae-prayer">"${escapeHtml(p.text)}"</div>
+      <div class="ae-answer-lbl">He answered</div>
+      <div class="ae-answer-text">${escapeHtml(p.answeredText || '')}</div>`;
+    wrap.appendChild(div);
+  });
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function openAddPrayer(){
+  document.getElementById('new-prayer-text').value = '';
+  document.getElementById('prayer-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('new-prayer-text').focus(), 200);
+}
+function closeAddPrayer(){ document.getElementById('prayer-modal').classList.remove('open'); }
+function savePrayer(){
+  const text = document.getElementById('new-prayer-text').value.trim();
+  if(!text){ document.getElementById('new-prayer-text').focus(); return; }
+  const now = new Date();
+  state.prayers.push({
+    id: 'p'+Date.now(),
+    text,
+    date: fmtDate(now),
+    dateMs: now.getTime(),
+    status: 'active'
+  });
+  persist();
+  renderPrayers();
+  closeAddPrayer();
+}
+
+let pendingAnsweredId = null;
+function openAnsweredModal(id){
+  pendingAnsweredId = id;
+  const p = state.prayers.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('answered-orig-prayer').textContent = '"'+p.text+'"';
+  document.getElementById('answer-text').value = '';
+  document.getElementById('answered-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('answer-text').focus(), 200);
+}
+function closeAnsweredModal(){ document.getElementById('answered-modal').classList.remove('open'); pendingAnsweredId = null; }
+function confirmAnswered(){
+  if(!pendingAnsweredId) return;
+  const text = document.getElementById('answer-text').value.trim();
+  if(!text){ document.getElementById('answer-text').focus(); return; }
+  const p = state.prayers.find(x=>x.id===pendingAnsweredId);
+  if(p){
+    const now = new Date();
+    p.status = 'answered';
+    p.answeredText = text;
+    p.answeredDate = fmtDate(now);
+    p.answeredMs = now.getTime();
+  }
+  persist();
+  renderPrayers();
+  renderAnswered();
+  closeAnsweredModal();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TIMELINE EXPAND
+// ═══════════════════════════════════════════════════════════════════
+function tlExpand(el){
+  const full = el.getAttribute('data-full');
+  if(el.hasAttribute('data-expanded')){
+    el.removeAttribute('data-expanded');
+    el.innerHTML = full.slice(0,60)+'…<span class="tl-more"> Read more</span>';
+  } else {
+    el.setAttribute('data-expanded','1');
+    el.innerHTML = full;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MASTER RENDER
+// ═══════════════════════════════════════════════════════════════════
+function renderAll(){
+  renderDate();
+  renderVOTD();
+  renderPriorities();
+  renderNonneg();
+  renderDisciplines();
+  renderVerses();
+  renderStreakAndPrayer();
+  renderWhoop();
+  renderBiometrics();
+  renderGoal90();
+  renderSabbathState();
+  renderPrayers();
+  renderAnswered();
+  animateRings();
+}
+
+// ESC closes modals
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape'){
+    closeCheckin();
+    closeItemModal();
+    closeAddPrayer();
+    closeAnsweredModal();
+  }
+});
+
+// boot
+renderAll();
+const lastTab = ls.get('ff_tab', 'today');
+if(lastTab && lastTab !== 'today'){
+  const btn = document.querySelector(`.tab[data-tab="${lastTab}"]`);
+  if(btn) switchTab(lastTab, btn);
+}
+</script>
+
+</body>
+</html>
