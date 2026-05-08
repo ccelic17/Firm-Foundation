@@ -138,6 +138,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .row-actions{display:flex;align-items:center;gap:4px;flex-shrink:0;}
 .row-icon-btn{background:transparent;border:none;width:26px;height:26px;border-radius:7px;color:var(--ts);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;padding:0;}
 .row-icon-btn:active{background:var(--elevated);color:var(--tp);}
+.row-icon-btn.del:hover{background:rgba(231,76,60,0.1);color:var(--red);}
 .row-icon-btn.del:active{background:rgba(231,76,60,0.15);color:var(--red);}
 .empty-list{padding:14px;background:var(--surface);border:1px dashed var(--border);border-radius:12px;text-align:center;font-size:12px;color:var(--ts);font-style:italic;}
 
@@ -1034,17 +1035,30 @@ let state = {
   lastCheckin:   ls.get('ff_last_checkin', null),
 
   // Today's priorities — full CRUD list (auto-migrated from legacy 3-slot shape)
-  priorities:    ls.get('ff_priorities_v2', null) || (function(){
+  priorities:    (function(){
+    const v2 = ls.get('ff_priorities_v2', null);
+    if (v2 && Array.isArray(v2)) {
+      return v2.map(p => ({
+        id: p.id || uid(),
+        text: p.text || "",
+        completed: p.completed !== undefined ? p.completed : (p.done !== undefined ? p.done : false),
+        createdAt: p.createdAt || Date.now()
+      }));
+    }
     const old = ls.get('ff_priorities', null);
     const oldChecks = ls.get('ff_priority_checks', null);
     if(Array.isArray(old) && old.length && typeof old[0] === 'string'){
-      return old.filter(t=>t).map((t,i)=>({id:uid(), text:t, done:!!(oldChecks && oldChecks[i])}));
+      return old.filter(t=>t).map((t,i)=>({
+        id:uid(),
+        text:t,
+        completed:!!(oldChecks && oldChecks[i]),
+        createdAt: Date.now()
+      }));
     }
-    if(Array.isArray(old) && old.length && typeof old[0] === 'object') return old;
     return [
-      {id:uid(), text:"Complete Q2 product roadmap review with engineering leads", done:false},
-      {id:uid(), text:"45-minute lift session — upper body push focus", done:true},
-      {id:uid(), text:"Call Mom — been two weeks", done:false}
+      {id:uid(), text:"Complete Q2 product roadmap review with engineering leads", completed:false, createdAt: Date.now()},
+      {id:uid(), text:"45-minute lift session — upper body push focus", completed:true, createdAt: Date.now()},
+      {id:uid(), text:"Call Mom — been two weeks", completed:false, createdAt: Date.now()}
     ];
   })(),
 
@@ -1752,15 +1766,11 @@ function spiritPct(){
   return Math.round(((onCount + prayerHit) / total) * 100);
 }
 function mindPct(){
-  // Mind = consistency. Combines non-negotiables done + 90-day daily actions completed today.
-  let totalSlots = state.nonneg.length;
-  let done = state.nonneg.filter(n=>n.done).length;
-  if(state.goal90?.dailyActions?.length){
-    totalSlots += state.goal90.dailyActions.length;
-    done += dailyActionsCompletedToday();
-  }
-  if(!totalSlots) return 0;
-  return Math.round((done / totalSlots) * 100);
+  // Mind = % of today's priorities completed.
+  const total = state.priorities.length;
+  if(!total) return 0;
+  const completed = state.priorities.filter(p => p.completed).length;
+  return Math.round((completed / total) * 100);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1802,7 +1812,7 @@ function renderPriorities(){
         <button class="row-icon-btn del" onclick="event.stopPropagation();deleteItemDirect('prio','${p.id}')" title="Delete">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h9M5 4V2.5h4V4M3.8 4l.6 8h5.2l.6-8M5.5 6.5v3M8.5 6.5v3"/></svg>
         </button>
-        <div class="p-box${p.done?' checked':''}" onclick="event.stopPropagation();togglePriority('${p.id}')">${p.done?'<svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 8L11 1" stroke="#080B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</div>
+        <div class="p-box${p.completed?' checked':''}" onclick="event.stopPropagation();togglePriority('${p.id}')">${p.completed?'<svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 8L11 1" stroke="#080B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</div>
       </div>`;
     wrap.appendChild(div);
   });
@@ -1810,9 +1820,10 @@ function renderPriorities(){
 function togglePriority(id){
   const p = state.priorities.find(x=>x.id===id);
   if(!p) return;
-  p.done = !p.done;
+  p.completed = !p.completed;
   persist();
   renderPriorities();
+  animateRings();
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -2015,9 +2026,9 @@ function saveItem(){
       const it = state.priorities.find(x=>x.id===id);
       if(it) it.text = text;
     } else {
-      state.priorities.push({id:uid(), text, done:false});
+      state.priorities.push({id:uid(), text, completed:false, createdAt:Date.now()});
     }
-    persist(); renderPriorities();
+    persist(); renderPriorities(); animateRings();
   }
   else if(kind === 'disc'){
     const title = document.getElementById('item-title-input').value.trim();
@@ -2247,7 +2258,7 @@ function submitCheckin(){
   const p2 = document.getElementById('ci-p2').value.trim();
   const p3 = document.getElementById('ci-p3').value.trim();
   [p1,p2,p3].filter(Boolean).forEach(t => {
-    state.priorities.push({id:uid(), text:t, done:false});
+    state.priorities.push({id:uid(), text:t, completed:false, createdAt:Date.now()});
   });
 
   const scriptureOn = document.getElementById('ci-scripture-sw').classList.contains('on');
