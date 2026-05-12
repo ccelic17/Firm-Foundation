@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firm Foundation — Product Requirements Document</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080B14;
+    --surface: #0F1525;
+    --elevated: #192036;
+    --gold: #F5C842;
+    --gold-dim: rgba(245,200,66,0.10);
+    --gold-border: rgba(245,200,66,0.22);
+    --blue: #2E6FD4;
+    --green: #27AE60;
+    --yellow: #F39C12;
+    --red: #E74C3C;
+    --tp: #FFFFFF;
+    --ts: #8A94A6;
+    --border: #2D3A5C;
+    --fd: 'Barlow Condensed', sans-serif;
+    --fb: 'DM Sans', sans-serif;
+    --max: 820px;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--tp);
+    font-family: var(--fb);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 80px;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    width: 100%;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-brand {
+    font-family: var(--fd);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .topbar-meta {
+    font-size: 12px;
+    color: var(--ts);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .dl-btn {
+    background: var(--gold);
+    color: #080B14;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 16px;
+    font-family: var(--fd);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dl-btn:hover { opacity: 0.88; }
+
+  /* ── Page ── */
+  .page {
+    width: 100%;
+    max-width: var(--max);
+    padding: 48px 32px 0;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    margin-bottom: 48px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-family: var(--fd);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: var(--fd);
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--tp);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    font-family: var(--fd);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ts);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--ts);
+    text-transform: uppercase;
+  }
+  .pill.gold { border-color: var(--gold-border); color: var(--gold); background: var(--gold-dim); }
+  .pill.blue { border-color: rgba(46,111,212,0.35); color: var(--blue); background: rgba(46,111,212,0.08); }
+
+  /* ── Sections ── */
+  section { margin-bottom: 52px; }
+
+  h2 {
+    font-family: var(--fd);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h3 {
+    font-family: var(--fd);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--tp);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    margin-top: 28px;
+  }
+  h3:first-child { margin-top: 0; }
+
+  p { font-size: 14px; color: var(--ts); line-height: 1.7; margin-bottom: 12px; }
+  p strong { color: var(--tp); font-weight: 600; }
+
+  /* ── Tables ── */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 20px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr { border-bottom: 2px solid var(--border); }
+  th {
+    font-family: var(--fd);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--ts);
+    text-transform: uppercase;
+    padding: 8px 12px 10px;
+    text-align: left;
+  }
+  td {
+    padding: 10px 12px;
+    color: var(--ts);
+    border-bottom: 1px solid rgba(45,58,92,0.4);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  td strong, td b { color: var(--tp); font-weight: 600; }
+  td .tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold);
+  }
+  td .tag.green { background: rgba(39,174,96,0.10); border-color: rgba(39,174,96,0.28); color: var(--green); }
+  td .tag.blue  { background: rgba(46,111,212,0.10); border-color: rgba(46,111,212,0.28); color: var(--blue); }
+  td .tag.red   { background: rgba(231,76,60,0.10); border-color: rgba(231,76,60,0.28); color: var(--red); }
+
+  /* ── Phase cards ── */
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase-card.p1 { border-color: var(--gold-border); }
+  .phase-card.p1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 0% 0%, rgba(245,200,66,0.05) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .phase-card.p2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 0% 0%, rgba(46,111,212,0.04) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .phase-card.p3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 0% 0%, rgba(39,174,96,0.04) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .phase-num {
+    font-family: var(--fd);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .p1 .phase-num { color: var(--gold); }
+  .p2 .phase-num { color: var(--blue); }
+  .p3 .phase-num { color: var(--green); }
+  .phase-title {
+    font-family: var(--fd);
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--tp);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .phase-timeline {
+    font-size: 12px;
+    color: var(--ts);
+    margin-bottom: 20px;
+  }
+
+  /* ── Feature list ── */
+  .feat-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; }
+  .feat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 12px 14px;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .feat-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    width: 22px;
+    text-align: center;
+  }
+  .feat-body { flex: 1; }
+  .feat-title { font-size: 13px; font-weight: 600; color: var(--tp); margin-bottom: 2px; }
+  .feat-desc { font-size: 12px; color: var(--ts); line-height: 1.5; }
+
+  /* ── Stack grid ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .stack-card {
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .stack-layer {
+    font-family: var(--fd);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--ts);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .stack-choice { font-size: 13px; font-weight: 600; color: var(--tp); margin-bottom: 3px; }
+  .stack-why { font-size: 11px; color: var(--ts); line-height: 1.4; }
+
+  /* ── Success criteria ── */
+  .criteria-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+  .criterion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ts);
+  }
+  .criterion::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+  }
+
+  /* ── Risk cards ── */
+  .risk-list { display: flex; flex-direction: column; gap: 8px; }
+  .risk-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .risk-left { padding: 12px 14px; color: var(--tp); border-right: 1px solid var(--border); }
+  .risk-right { padding: 12px 14px; color: var(--ts); }
+  .risk-label {
+    font-family: var(--fd);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .risk-label.r { color: var(--red); }
+  .risk-label.m { color: var(--green); }
+
+  /* ── Decision cards ── */
+  .decision-list { display: flex; flex-direction: column; gap: 12px; }
+  .decision-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px 14px 14px 4px;
+    padding: 16px 18px;
+  }
+  .decision-q { font-size: 14px; font-weight: 600; color: var(--tp); margin-bottom: 6px; }
+  .decision-context { font-size: 12px; color: var(--ts); line-height: 1.55; }
+
+  /* ── Baseline table status badges ── */
+  .status-sim { color: var(--yellow); }
+  .status-local { color: var(--blue); }
+  .status-stub { color: var(--ts); }
+
+  @media (max-width: 600px) {
+    .page { padding: 28px 18px 0; }
+    .hero-title { font-size: 36px; }
+    .topbar { padding: 12px 18px; }
+    .topbar-meta { display: none; }
+    .risk-item { grid-template-columns: 1fr; }
+    .risk-left { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  /* ── Print / PDF styles ── */
+  @media print {
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f8;
+      --elevated: #efefef;
+      --gold: #b8940a;
+      --gold-dim: rgba(184,148,10,0.10);
+      --gold-border: rgba(184,148,10,0.30);
+      --blue: #1a55b0;
+      --green: #1a7a42;
+      --yellow: #c47d08;
+      --red: #c0392b;
+      --tp: #0d0d0d;
+      --ts: #555e6e;
+      --border: #d0d5e0;
+    }
+
+    html, body {
+      background: #fff;
+      color: #0d0d0d;
+    }
+
+    .topbar { display: none; }
+
+    body { padding: 0; display: block; }
+    .page { max-width: 100%; padding: 0; }
+
+    /* Force backgrounds to print */
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    /* Prevent orphaned headings */
+    h2, h3 { break-after: avoid; page-break-after: avoid; }
+    section { break-inside: avoid; page-break-inside: avoid; }
+    .phase-card { break-inside: avoid; page-break-inside: avoid; }
+    .risk-item { break-inside: avoid; page-break-inside: avoid; }
+    .decision-item { break-inside: avoid; page-break-inside: avoid; }
+
+    /* Print header in place of topbar */
+    .hero { padding-top: 0; }
+
+    .stack-grid { grid-template-columns: repeat(4, 1fr); }
+    .risk-item { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-brand">Firm Foundation</span>
+  <div class="topbar-meta">
+    <span>PRD v0.1 · May 2026</span>
+    <button class="dl-btn" onclick="window.print()">
+      &#8595; Save as PDF
+    </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Product Requirements Document</div>
+    <div class="hero-title">Firm Foundation</div>
+    <div class="hero-sub">Don't Drift</div>
+    <div class="meta-pills">
+      <span class="pill gold">v0.1 Draft</span>
+      <span class="pill">May 12, 2026</span>
+      <span class="pill blue">For Review</span>
+    </div>
+  </div>
+
+  <!-- What is this -->
+  <section>
+    <h2>What Is This App</h2>
+    <p>
+      <strong>Firm Foundation</strong> is a faith-based personal development PWA built for Christian men
+      who want a single daily command center — Spirit, Mind, and Body — with accountability at the core.
+      The tagline "Don't Drift" captures the mission: a daily system to keep you anchored to your non-negotiables
+      when life tries to pull you off course.
+    </p>
+    <p>
+      The existing prototype is a polished single-file HTML proof-of-concept with all core screens designed
+      and data flowing through localStorage. This PRD plans the transition from prototype to a real, shipped product —
+      starting with the fastest possible win and layering complexity from there.
+    </p>
+  </section>
+
+  <!-- Baseline -->
+  <section>
+    <h2>Existing Prototype Baseline</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Status in Prototype</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Today dashboard</strong> — 3 rings (Body / Spirit / Mind %)</td><td><span class="status-sim">Simulated data</span></td></tr>
+          <tr><td><strong>Non-Negotiables</strong> — daily unbreakable commitments</td><td><span class="status-local">localStorage</span></td></tr>
+          <tr><td><strong>Disciplines</strong> — habit toggles (Bible, prayer, fasting…)</td><td><span class="status-local">localStorage</span></td></tr>
+          <tr><td><strong>Streak counter</strong></td><td><span class="status-local">localStorage</span></td></tr>
+          <tr><td><strong>Verse of the Day</strong></td><td><span class="status-stub">Hardcoded pool</span></td></tr>
+          <tr><td><strong>Prayer timer</strong> with arc progress tracker</td><td><span class="status-local">localStorage</span></td></tr>
+          <tr><td><strong>90-Day Goal Engine</strong> — AI-decomposed phases + daily actions</td><td><span class="status-stub">Stubbed (window.claude)</span></td></tr>
+          <tr><td><strong>AI Prayer Prompts</strong></td><td><span class="status-stub">Stubbed (window.claude)</span></td></tr>
+          <tr><td><strong>AI Verse Search</strong></td><td><span class="status-stub">Stubbed (window.claude)</span></td></tr>
+          <tr><td><strong>Prayer Journal</strong> — active + answered prayers + timeline</td><td><span class="status-local">localStorage</span></td></tr>
+          <tr><td><strong>Biometric integration</strong> — WHOOP / Garmin / Apple Health</td><td><span class="status-sim">Simulated / placeholder</span></td></tr>
+          <tr><td><strong>Scripture Alerts</strong> — biometric-triggered contextual verses</td><td><span class="status-sim">Simulated</span></td></tr>
+          <tr><td><strong>Sabbath Mode</strong> — auto-triggered at 48h sustained low recovery</td><td><span class="status-sim">Simulated</span></td></tr>
+          <tr><td><strong>Profile / Settings</strong></td><td><span class="status-local">localStorage</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Landscape Research -->
+  <section>
+    <h2>Landscape Research</h2>
+
+    <h3>Bible / Scripture APIs</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Key Facts</th><th>Cost</th><th>Rec.</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>bible-api.com</strong> (wldeh/bible-api)</td>
+            <td>200+ translations, no API key, no rate limits, public domain translations, open source</td>
+            <td>Free / OSS</td>
+            <td><span class="tag">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td><strong>API.Bible</strong></td>
+            <td>2,500+ Bible versions in 1,600+ languages, official VOTD endpoint, verse search</td>
+            <td>Free tier</td>
+            <td><span class="tag">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td><strong>ESV API</strong></td>
+            <td>ESV translation only, clean REST, widely used in evangelical apps</td>
+            <td>Free (non-commercial)</td>
+            <td><span class="tag blue">Optional</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>AI Integration</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Key Facts</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>@anthropic-ai/sdk</strong></td>
+            <td>Official JS SDK, prompt caching, structured JSON output. The prototype already stubs <code>window.claude.complete()</code> — wires directly here.</td>
+            <td>Pay-per-token</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Haiku</strong></td>
+            <td>Fast, cheap — ideal for prayer prompts and verse search (low-latency, short responses)</td>
+            <td>~$0.25 / 1M input tokens</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Sonnet</strong></td>
+            <td>Richer reasoning — ideal for 90-Day Goal decomposition (structured phases, milestones, daily actions)</td>
+            <td>~$3 / 1M input tokens</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Biometric APIs</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Key Facts</th><th>Availability</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>WHOOP Developer API v2</strong></td>
+            <td>OAuth 2.0, recovery score / sleep / strain / HRV. The prototype already has the config and commented-out fetch logic.</td>
+            <td><span class="tag green">Ready now</span></td>
+          </tr>
+          <tr>
+            <td><strong>Garmin Health API</strong></td>
+            <td>Body battery, HRV, steps, sleep. Requires developer program enrollment (can take weeks for approval).</td>
+            <td><span class="tag">Approval needed</span></td>
+          </tr>
+          <tr>
+            <td><strong>Apple HealthKit</strong></td>
+            <td>No web API exists. Requires a native iOS app (Swift/React Native) to bridge data. Cannot be done in a PWA.</td>
+            <td><span class="tag red">Phase 3 only</span></td>
+          </tr>
+          <tr>
+            <td><strong>Google Health Connect</strong></td>
+            <td>Replaced Google Fit (deprecated July 2025). Android health data hub. Web bridge possible via service worker on Android.</td>
+            <td><span class="tag blue">Phase 2+</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Data Persistence</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Key Facts</th><th>Phase</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Dexie.js</strong></td>
+            <td>Minimal IndexedDB wrapper. Same mental model as localStorage but 50MB+. Used by WhatsApp Web, GitHub Desktop. Zero config.</td>
+            <td><span class="tag">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td><strong>Supabase</strong></td>
+            <td>PostgreSQL backend + auth + real-time subscriptions + edge functions. Open-source, self-hostable. Best for complex queries (90-day goals, prayer history).</td>
+            <td><span class="tag">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td><strong>RxDB</strong></td>
+            <td>Local-first reactive database. Syncs local IndexedDB → Supabase/Firebase. Offline-first with cloud backup.</td>
+            <td><span class="tag blue">Phase 2+</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>PWA + Push Notifications</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Key Facts</th><th>Phase</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Vite + vite-plugin-pwa</strong></td>
+            <td>Converts existing Vite build to installable PWA with Workbox service worker. Offline support, install prompt.</td>
+            <td><span class="tag">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td><strong>Firebase Cloud Messaging (FCM)</strong></td>
+            <td>Cross-platform web push (Android + iOS 16.4+ on home screen). Powers Sabbath alerts and prayer reminders. Free generous tier.</td>
+            <td><span class="tag">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td><strong>OneSignal</strong></td>
+            <td>SaaS layer over web push — built-in dashboard, targeting, scheduling. Simpler to operate than raw FCM.</td>
+            <td><span class="tag blue">Alternative</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Streak Tracking</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Key Facts</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>@marekzelinka/streak-counter</strong></td>
+            <td>TypeScript npm package. localStorage-based. Duolingo-inspired (current / longest streak). ~2–3 KB. Drop-in replacement for existing streak logic.</td>
+            <td>Free / OSS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Goal Decomposition</h3>
+    <p>No production-ready library exists for faith-and-fitness goal decomposition. The best approach is <strong>Claude Sonnet with structured JSON output</strong> — which is exactly what the prototype stubs. The system prompt defines the shape: 3 phases (30/30/30 days), milestones, and 4 daily actions for the current week. No external library needed.</p>
+
+    <h3>Comparable Apps (Reference)</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>App</th><th>What They Do</th><th>Overlap</th></tr></thead>
+        <tbody>
+          <tr><td><strong>YouVersion / Bible App</strong></td><td>Bible reading, plans, verse of day</td><td>VOTD, verse library</td></tr>
+          <tr><td><strong>FaithTime</strong></td><td>Bible tracker, habit tracker, prayer journal combined</td><td>High overlap — but no biometrics, no AI goal engine</td></tr>
+          <tr><td><strong>WHOOP app</strong></td><td>Recovery, strain, sleep coaching</td><td>Biometric ring — no faith layer</td></tr>
+          <tr><td><strong>Habitica</strong></td><td>Gamified habit tracking</td><td>Habit disciplines — no faith layer</td></tr>
+          <tr><td><strong>Way of Life</strong></td><td>Habit chain tracking, streak visualization</td><td>Streaks, disciplines — no faith/biometric layer</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Key differentiator:</strong> No app combines faith-based accountability (non-negotiables, prayer journal, scripture) + biometric body tracking + AI coaching in a single daily dashboard. That's the white space Firm Foundation occupies.</p>
+  </section>
+
+  <!-- Phased Roadmap -->
+  <section>
+    <h2>Phased Roadmap</h2>
+
+    <!-- Phase 1 -->
+    <div class="phase-card p1">
+      <div class="phase-num">Phase 1 — Quick Win</div>
+      <div class="phase-title">Shipable MVP</div>
+      <div class="phase-timeline">Target: 2–3 weeks · Goal: Live PWA with real AI + Bible integration</div>
+
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon">📱</div>
+          <div class="feat-body">
+            <div class="feat-title">Deploy as a real PWA</div>
+            <div class="feat-desc">Add manifest.json + Workbox service worker via vite-plugin-pwa. Home screen installable on iOS and Android. Hosted on Netlify.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">💾</div>
+          <div class="feat-body">
+            <div class="feat-title">Swap localStorage → Dexie.js (IndexedDB)</div>
+            <div class="feat-desc">Same API shape as the existing state object. 50MB+ storage. All user data (non-negotiables, prayers, disciplines, streaks) survives browser clears.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">📖</div>
+          <div class="feat-body">
+            <div class="feat-title">Live Bible API — Verse of the Day</div>
+            <div class="feat-desc">Replace hardcoded verse pool with a live call to bible-api.com. Random daily verse cached locally so it only fetches once per day. No API key required.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">✨</div>
+          <div class="feat-body">
+            <div class="feat-title">Connect the Claude API — activate all AI stubs</div>
+            <div class="feat-desc">Wire @anthropic-ai/sdk into the existing window.claude.complete() stubs. Unlocks: AI Prayer Prompts (Haiku), AI Verse Search (Haiku), 90-Day Goal decomposition (Sonnet). Route calls through a Netlify Function to keep the API key server-side.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🔥</div>
+          <div class="feat-body">
+            <div class="feat-title">Streak engine upgrade</div>
+            <div class="feat-desc">Replace hand-rolled streak logic with @marekzelinka/streak-counter. Tracks current streak + longest streak. Persists in Dexie.js.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🌙</div>
+          <div class="feat-body">
+            <div class="feat-title">Biometrics stay simulated</div>
+            <div class="feat-desc">WHOOP OAuth is explicitly out of Phase 1 scope. The UI rings and health strip remain as interactive mock data. WHOOP integration ships in Phase 2.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px;">Phase 1 Stack</h3>
+      <div class="stack-grid">
+        <div class="stack-card">
+          <div class="stack-layer">Build Tool</div>
+          <div class="stack-choice">Vite</div>
+          <div class="stack-why">Extend existing vanilla JS prototype with zero rewrite</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">Storage</div>
+          <div class="stack-choice">Dexie.js</div>
+          <div class="stack-why">IndexedDB wrapper, drop-in localStorage upgrade</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">Bible API</div>
+          <div class="stack-choice">bible-api.com</div>
+          <div class="stack-why">No key, no rate limits, instant integration</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">AI</div>
+          <div class="stack-choice">@anthropic-ai/sdk</div>
+          <div class="stack-why">Haiku for prompts, Sonnet for goal engine</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">API Proxy</div>
+          <div class="stack-choice">Netlify Function</div>
+          <div class="stack-why">Keeps Anthropic API key server-side</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">Deploy</div>
+          <div class="stack-choice">Netlify</div>
+          <div class="stack-why">Already wired in this environment</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">PWA</div>
+          <div class="stack-choice">vite-plugin-pwa</div>
+          <div class="stack-why">Workbox SW, install prompt, offline</div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-layer">Streaks</div>
+          <div class="stack-choice">streak-counter npm</div>
+          <div class="stack-why">TypeScript, 2 KB, Duolingo-style</div>
+        </div>
+      </div>
+
+      <h3>Success Criteria</h3>
+      <div class="criteria-list">
+        <div class="criterion">App installs to home screen on iOS and Android</div>
+        <div class="criterion">Verse of the Day updates daily from live Bible API</div>
+        <div class="criterion">AI Prayer Prompt returns a real generated response</div>
+        <div class="criterion">AI Verse Search returns a real relevant verse</div>
+        <div class="criterion">90-Day Goal generates a real structured decomposition plan</div>
+        <div class="criterion">All user data persists across full browser closes (Dexie.js)</div>
+        <div class="criterion">Streak survives browser restart and reflects correct day count</div>
+        <div class="criterion">Anthropic API key is never exposed client-side</div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-card p2">
+      <div class="phase-num">Phase 2 — Accounts + Real Biometrics</div>
+      <div class="phase-title">Cloud + WHOOP</div>
+      <div class="phase-timeline">Target: 4–6 weeks after Phase 1</div>
+
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon">🔐</div>
+          <div class="feat-body">
+            <div class="feat-title">Auth + cloud sync</div>
+            <div class="feat-desc">Supabase Auth (email + Google SSO). RxDB syncs local Dexie.js data → Supabase PostgreSQL. Data lives across devices.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">⌚</div>
+          <div class="feat-body">
+            <div class="feat-title">WHOOP OAuth integration</div>
+            <div class="feat-desc">Wire the existing WHOOP OAuth 2.0 config. Recovery score drives the Body ring, health strip, and Scripture Alerts. Token refresh handled server-side via Supabase edge function.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🔔</div>
+          <div class="feat-body">
+            <div class="feat-title">Push notifications via FCM</div>
+            <div class="feat-desc">Daily prayer reminders, streak protection alerts, Sabbath mode trigger notification. Works on Android + iOS 16.4+ when installed to home screen.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🏃</div>
+          <div class="feat-body">
+            <div class="feat-title">Garmin developer enrollment</div>
+            <div class="feat-desc">Apply for Garmin Health API access. Once approved, add as second biometric source in the priority queue (WHOOP → Garmin → manual).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-card p3">
+      <div class="phase-num">Phase 3 — Full Platform</div>
+      <div class="phase-title">Rich Ecosystem</div>
+      <div class="phase-timeline">Target: Post Phase 2 traction</div>
+
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon">📚</div>
+          <div class="feat-body">
+            <div class="feat-title">Multi-translation Bible via API.Bible</div>
+            <div class="feat-desc">Upgrade from bible-api.com to API.Bible for 2,500+ translations. User-selectable preferred translation.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🍎</div>
+          <div class="feat-body">
+            <div class="feat-title">Apple HealthKit bridge</div>
+            <div class="feat-desc">React Native shell wrapping the existing PWA web view. HealthKit access enables Apple Watch HRV, sleep, and activity data as the third biometric source.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🤝</div>
+          <div class="feat-body">
+            <div class="feat-title">Accountability groups</div>
+            <div class="feat-desc">Shared prayer requests within small groups. Mutual visibility on streak and non-negotiable completion (opt-in).</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🤖</div>
+          <div class="feat-body">
+            <div class="feat-title">AI journaling coach</div>
+            <div class="feat-desc">Reflect on answered prayers, identify patterns in what was prayed for vs. what was answered. Generate gratitude summaries from journal history.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">💳</div>
+          <div class="feat-body">
+            <div class="feat-title">Stripe membership tier</div>
+            <div class="feat-desc">Free core features. Premium gates: AI Goal Engine, accountability groups, advanced journal analytics.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open decisions -->
+  <section>
+    <h2>Decisions Needed Before Phase 1</h2>
+    <div class="decision-list">
+      <div class="decision-item">
+        <div class="decision-q">1. API key architecture — proxy or client-side?</div>
+        <div class="decision-context">Phase 1 calls to Anthropic can go client-side (matching the prototype pattern) or through a Netlify Function proxy to keep the key server-side. The proxy is the right call for production but adds one build step. Recommendation: proxy via Netlify Function from day one.</div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-q">2. Default Bible translation?</div>
+        <div class="decision-context">bible-api.com supports ESV, KJV, NIV, NLT, CSB, and others. The app needs a default. Recommendation: ESV (widely used in evangelical/Reformed circles, clean language, free for non-commercial use).</div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-q">3. Streak grace day mechanic?</div>
+        <div class="decision-context">Currently the streak resets if you miss a single day (existing prototype behavior). Options: (a) hard reset — miss = zero, (b) one grace day per 7-day period (Duolingo model), (c) no grace, but show "longest streak" as the legacy metric. Recommendation: no grace day — the whole brand is "Don't Drift," softening that undermines it.</div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-q">4. AI cost control on the Goal Engine?</div>
+        <div class="decision-context">Generating a 90-day plan with Claude Sonnet uses ~1,500 tokens (~$0.005/call). At low user counts this is negligible, but should regeneration be rate-limited? Options: (a) unlimited, (b) once per 7 days, (c) unlimited in Phase 1, rate-limit at scale. Recommendation: unlimited in Phase 1 to reduce friction during early validation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risks -->
+  <section>
+    <h2>Risks &amp; Mitigations</h2>
+    <div class="risk-list">
+      <div class="risk-item">
+        <div class="risk-left">
+          <div class="risk-label r">Risk</div>
+          WHOOP rate limits on sync frequency
+        </div>
+        <div class="risk-right">
+          <div class="risk-label m">Mitigation</div>
+          Cache recovery score locally; cap syncs at once per hour max. Existing prototype already models this behavior.
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-left">
+          <div class="risk-label r">Risk</div>
+          Garmin API approval timeline (can take weeks or months)
+        </div>
+        <div class="risk-right">
+          <div class="risk-label m">Mitigation</div>
+          Phase 2 ships with WHOOP-only. Garmin is additive — apply for enrollment now so approval arrives before Phase 2 wraps.
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-left">
+          <div class="risk-label r">Risk</div>
+          Apple HealthKit has no web API
+        </div>
+        <div class="risk-right">
+          <div class="risk-label m">Mitigation</div>
+          Clearly marked "coming soon" in UI. Defer to Phase 3 native shell. Don't promise in Phase 1 or 2 marketing.
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-left">
+          <div class="risk-label r">Risk</div>
+          Anthropic API cost at scale
+        </div>
+        <div class="risk-right">
+          <div class="risk-label m">Mitigation</div>
+          Use Haiku for short prompts (prayer, verse search). Use prompt caching for repeated system prompts. Monitor usage in dashboard from day one.
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-left">
+          <div class="risk-label r">Risk</div>
+          bible-api.com reliability / downtime
+        </div>
+        <div class="risk-right">
+          <div class="risk-label m">Mitigation</div>
+          Cache today's verse in Dexie.js. On fetch failure, serve yesterday's cached verse. Fallback pool of 30 hardcoded verses for complete offline use.
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-left">
+          <div class="risk-label r">Risk</div>
+          PWA push on iOS requires home screen install
+        </div>
+        <div class="risk-right">
+          <div class="risk-label m">Mitigation</div>
+          In-app "Add to Home Screen" prompt on first use. iOS 16.4+ supports web push for installed PWAs. Phase 2 feature — not Phase 1.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Out of scope -->
+  <section>
+    <h2>Explicitly Out of Scope for Phase 1</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Why Deferred</th></tr></thead>
+        <tbody>
+          <tr><td>User accounts / cloud sync</td><td>Adds auth complexity; localStorage + Dexie.js is enough for solo-use MVP</td></tr>
+          <tr><td>WHOOP / Garmin live integration</td><td>OAuth flow requires backend; simulated data validates UX first</td></tr>
+          <tr><td>Push notifications</td><td>Requires service worker + FCM wiring; not needed for core daily loop</td></tr>
+          <tr><td>Social / sharing / groups</td><td>Phase 3 feature — build audience first</td></tr>
+          <tr><td>Apple HealthKit</td><td>Requires native iOS code — fundamentally out of scope for a web app</td></tr>
+          <tr><td>Stripe / payments</td><td>No point gating anything until there's a user base</td></tr>
+          <tr><td>React / framework migration</td><td>Rewriting the prototype in React delays the win with zero user-facing benefit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+</body>
+</html>
