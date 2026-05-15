@@ -573,6 +573,27 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .cc-glyph{font-size:20px;margin-bottom:6px;line-height:1;}
 .cc-name{font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:0.5px;color:var(--tp);text-transform:uppercase;line-height:1.15;}
 .cc-role{font-size:10px;color:var(--ts);margin-top:3px;letter-spacing:0.3px;}
+.cc-tagline{font-size:9.5px;color:var(--ts);margin-top:5px;line-height:1.4;letter-spacing:0.2px;opacity:0.75;}
+
+/* ═══ COUNCIL ENHANCED ═══ */
+.council-chip-btn{background:var(--elevated);border:1px solid var(--border);border-radius:8px;padding:6px 11px;font-size:11px;color:var(--ts);cursor:pointer;font-family:var(--fb);white-space:nowrap;transition:all 0.15s;flex-shrink:0;}
+.council-chip-btn:hover{color:var(--gold);border-color:var(--gold-border);}
+.council-resp-card{margin-bottom:10px;padding:16px;border-radius:14px;background:var(--surface);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);border-left:3px solid;transition:background 0.3s;}
+.council-resp-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.council-resp-glyph{font-size:20px;line-height:1;flex-shrink:0;}
+.council-resp-name{font-family:var(--fd);font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;line-height:1.2;}
+.council-resp-role{font-size:9.5px;color:var(--ts);letter-spacing:0.5px;margin-top:2px;}
+.council-resp-text{font-size:13.5px;line-height:1.65;color:var(--ts);font-style:italic;}
+.council-resp-text.loaded{color:var(--tp);font-style:normal;}
+.council-hist-item{margin-bottom:8px;padding:13px 14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color 0.2s;}
+.council-hist-item:hover{border-color:var(--gold-border);}
+.council-hist-date{font-size:10px;font-weight:600;letter-spacing:1.2px;color:var(--ts);text-transform:uppercase;margin-bottom:5px;}
+.council-hist-q{font-size:13px;color:var(--tp);line-height:1.45;font-style:italic;margin-bottom:8px;}
+.council-hist-voices{font-size:9.5px;color:var(--ts);letter-spacing:0.3px;}
+.council-hist-body{display:none;margin-top:10px;border-top:1px solid rgba(45,58,92,0.4);padding-top:10px;}
+.council-hist-resp{margin-bottom:10px;padding-left:10px;border-left:2px solid;}
+.council-hist-resp-name{font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.council-hist-resp-text{font-size:12.5px;color:var(--ts);line-height:1.55;}
 </style>
 <script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -1003,72 +1024,87 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
         <div style="padding:22px 22px 0">
           <div class="screen-title">THE COUNCIL</div>
-          <div style="font-size:13px;color:var(--ts);line-height:1.5;margin-top:4px;margin-bottom:18px">Five voices. One question. Ask it.</div>
+          <div style="font-size:12px;color:var(--ts);line-height:1.55;margin-top:4px;margin-bottom:20px">Five voices. One question. Bring it.</div>
         </div>
 
         <!-- Mentor preview cards -->
         <div style="padding:0 22px">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-            <div class="council-card">
+            <div class="council-card" style="border-left:3px solid #C2855A">
               <div class="cc-glyph">&#9876;&#65039;</div>
               <div class="cc-name">The Sentinel</div>
               <div class="cc-role">Body &amp; Stewardship</div>
+              <div class="cc-tagline">Zero tolerance. Straight truth about the body.</div>
             </div>
-            <div class="council-card">
+            <div class="council-card" style="border-left:3px solid #4A9FD4">
               <div class="cc-glyph">&#128218;</div>
               <div class="cc-name">The Scribe</div>
               <div class="cc-role">Mind &amp; Clarity</div>
+              <div class="cc-tagline">Names the real question beneath your question.</div>
             </div>
-            <div class="council-card">
+            <div class="council-card" style="border-left:3px solid #F5C842">
               <div class="cc-glyph">&#128293;</div>
               <div class="cc-name">The Monk</div>
               <div class="cc-role">Spirit &amp; Prayer</div>
+              <div class="cc-tagline">Speaks from Scripture. Anchors, not motivates.</div>
             </div>
-            <div class="council-card">
+            <div class="council-card" style="border-left:3px solid #5DAE7A">
               <div class="cc-glyph">&#127795;</div>
               <div class="cc-name">The Elder</div>
               <div class="cc-role">Legacy &amp; Family</div>
+              <div class="cc-tagline">Speaks in decades. Asks what will outlast you.</div>
             </div>
           </div>
-          <div style="display:flex;justify-content:center;margin-bottom:18px">
-            <div class="council-card" style="width:calc(50% - 4px)">
+          <div style="display:flex;justify-content:center;margin-bottom:16px">
+            <div class="council-card" style="width:calc(50% - 4px);border-left:3px solid #9B7FD4">
               <div class="cc-glyph">&#127959;&#65039;</div>
               <div class="cc-name">The Builder</div>
               <div class="cc-role">Mission &amp; Work</div>
+              <div class="cc-tagline">Work is worship. What must be done today?</div>
             </div>
           </div>
         </div>
 
+        <!-- Suggested prompts -->
+        <div style="padding:0 22px;margin-bottom:14px;overflow-x:auto;display:flex;gap:6px;scrollbar-width:none;-ms-overflow-style:none">
+          <button class="council-chip-btn" onclick="setCouncilQ(this)">Where am I drifting?</button>
+          <button class="council-chip-btn" onclick="setCouncilQ(this)">What needs to change?</button>
+          <button class="council-chip-btn" onclick="setCouncilQ(this)">How do I lead my family?</button>
+          <button class="council-chip-btn" onclick="setCouncilQ(this)">What holds me back?</button>
+          <button class="council-chip-btn" onclick="setCouncilQ(this)">Where should I focus?</button>
+        </div>
+
         <!-- Question input -->
-        <div style="padding:0 22px;margin-bottom:10px">
+        <div style="padding:0 22px;margin-bottom:14px">
           <textarea id="council-question" class="ci-textarea"
-            placeholder="Ask the council a question&#8230;"
-            style="min-height:80px;margin-bottom:12px"></textarea>
+            placeholder="What does this man need to hear?"
+            style="min-height:88px;margin-bottom:10px"></textarea>
           <button id="council-ask-btn" onclick="askTheCouncil()"
             style="width:100%;background:var(--gold);color:#080B14;border:none;border-radius:14px;
-                   padding:15px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;
-                   text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg>
+                   padding:16px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;
+                   text-transform:uppercase;cursor:pointer;display:flex;align-items:center;
+                   justify-content:center;gap:10px;transition:opacity 0.15s">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg>
             Ask The Full Council
           </button>
         </div>
 
         <!-- Responses area -->
         <div id="council-responses" style="padding:0 22px;display:none">
-          <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">&#10022; Council Speaks</div>
+          <div class="section-label" style="margin-bottom:12px">&#10022; Council Speaks</div>
           <div id="council-response-cards"></div>
           <button id="council-save-btn" onclick="saveCouncilToJournal(this)"
-            style="width:100%;margin-top:10px;background:transparent;color:var(--gold);
+            style="width:100%;margin-top:4px;background:transparent;color:var(--gold);
                    border:1px solid var(--gold-border);border-radius:12px;padding:12px;
                    font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:1px;
-                   text-transform:uppercase;cursor:pointer;margin-bottom:16px">
+                   text-transform:uppercase;cursor:pointer;margin-bottom:20px;transition:background 0.15s">
             Save to Journal
           </button>
         </div>
 
         <!-- History section -->
         <div style="padding:0 22px 100px">
-          <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">&#10022; Past Sessions</div>
+          <div class="section-label">&#10022; Past Sessions</div>
           <div id="council-history"></div>
         </div>
 
@@ -4435,89 +4471,127 @@ const COUNCIL_MENTORS = [
     name: 'The Sentinel',
     glyph: '\u2694\ufe0f',
     role: 'Body & Stewardship',
-    system: 'You are The Sentinel \u2014 a voice of physical discipline and stewardship on The Council. Your domain is the body: training, sleep, recovery, fuel, and physical capacity. You speak with directness and zero tolerance for excuses. You believe the body is stewarded, not worshipped. One paragraph. No pleasantries. Speak to a man who has already decided to be disciplined.'
+    color: '#C2855A',
+    system: 'You are The Sentinel \u2014 a voice of physical discipline and stewardship on The Council. Your domain is the body: training, sleep, recovery, fuel, and physical capacity. You speak with directness and zero tolerance for excuses. You believe the body is stewarded, not worshipped. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with a direct statement. Speak to a man who has already decided to be disciplined.'
   },
   {
     name: 'The Scribe',
     glyph: '\ud83d\udcda',
     role: 'Mind & Clarity',
-    system: 'You are The Scribe \u2014 a voice of mental rigor and clarity on The Council. Your domain is the mind: reading, learning, decision-making, focus, and clear thinking. You speak with precision. You cut through noise and name the real question underneath the question. One paragraph. No pleasantries. Speak to a man who has already decided to think well.'
+    color: '#4A9FD4',
+    system: 'You are The Scribe \u2014 a voice of mental rigor and clarity on The Council. Your domain is the mind: reading, learning, decision-making, focus, and clear thinking. You speak with precision. You cut through noise and name the real question underneath the question. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with the sharpest observation. Speak to a man who has already decided to think well.'
   },
   {
     name: 'The Monk',
     glyph: '\ud83d\udd25',
     role: 'Spirit & Prayer',
-    system: 'You are The Monk \u2014 a voice of spiritual depth on The Council. Your domain is the spirit: prayer, scripture, the fear of the Lord, and the WHY behind all discipline. You speak from Scripture and the ancient tradition. You do not motivate \u2014 you anchor. One paragraph. No pleasantries. Speak to a man who already knows why he kneels.'
+    color: '#F5C842',
+    system: 'You are The Monk \u2014 a voice of spiritual depth on The Council. Your domain is the spirit: prayer, scripture, the fear of the Lord, and the WHY behind all discipline. You speak from Scripture and the ancient tradition. You do not motivate \u2014 you anchor. Include one specific scripture reference. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Speak to a man who already knows why he kneels.'
   },
   {
     name: 'The Elder',
     glyph: '\ud83c\udf33',
     role: 'Legacy & Family',
-    system: 'You are The Elder \u2014 a voice of legacy and long-term thinking on The Council. Your domain is the decades: family, covenant, what outlasts you, and how you are shaping those who watch you. You speak slowly and with weight. One paragraph. No pleasantries. Speak to a man building something that will last beyond his years.'
+    color: '#5DAE7A',
+    system: 'You are The Elder \u2014 a voice of legacy and long-term thinking on The Council. Your domain is the decades: family, covenant, what outlasts you, and how you are shaping those who watch you. You speak slowly and with weight. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with what will matter in 20 years. Speak to a man building something that will last beyond his years.'
   },
   {
     name: 'The Builder',
     glyph: '\ud83c\udfd7\ufe0f',
     role: 'Mission & Work',
-    system: 'You are The Builder \u2014 a voice of mission and calling on The Council. Your domain is work: vocation, stewardship of resources, the calling God placed on this man, and execution. You speak practically about what must be done. One paragraph. No pleasantries. Speak to a man who knows his work is worship.'
+    color: '#9B7FD4',
+    system: 'You are The Builder \u2014 a voice of mission and calling on The Council. Your domain is work: vocation, stewardship of resources, the calling God placed on this man, and execution. You speak practically about what must be done. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with the most important action. Speak to a man who knows his work is worship.'
   }
 ];
 
 let _councilCurrentSession = null;
 
+function setCouncilQ(btn) {
+  const ta = document.getElementById('council-question');
+  if (ta) { ta.value = btn.textContent.trim(); ta.focus(); }
+}
+
+function _councilContext() {
+  const parts = [];
+  if (state.streak > 0) parts.push('Covenant streak: ' + state.streak + ' days.');
+  const covenant = ls.get('ff_covenant', '');
+  if (covenant) parts.push('His covenant: "' + covenant + '"');
+  if (state.goal90?.goal) parts.push('His 90-day goal: "' + state.goal90.goal + '"');
+  if (state.whoop?.recovery != null) parts.push('Today\u2019s body readiness: ' + state.whoop.recovery + '%.');
+  return parts.length ? '\n\nContext: ' + parts.join(' ') : '';
+}
+
 async function askTheCouncil() {
   const q = document.getElementById('council-question')?.value?.trim();
-  if (!q) return;
+  if (!q) { document.getElementById('council-question')?.focus(); return; }
   const btn = document.getElementById('council-ask-btn');
   const responsesEl = document.getElementById('council-responses');
   const cardsEl = document.getElementById('council-response-cards');
   btn.disabled = true;
   btn.innerHTML = 'Consulting\u2026';
   responsesEl.style.display = 'block';
+
+  const context = _councilContext();
+
   cardsEl.innerHTML = COUNCIL_MENTORS.map((m, i) => `
-    <div id="council-card-${i}" style="margin-bottom:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-        <span style="font-size:16px">${m.glyph}</span>
+    <div id="council-card-${i}" class="council-resp-card" style="border-left-color:${m.color}">
+      <div class="council-resp-header">
+        <span class="council-resp-glyph">${m.glyph}</span>
         <div>
-          <div style="font-family:var(--fd);font-size:12px;font-weight:800;letter-spacing:1px;color:var(--gold);text-transform:uppercase">${m.name}</div>
-          <div style="font-size:9.5px;color:var(--ts);letter-spacing:0.5px">${m.role}</div>
+          <div class="council-resp-name" style="color:${m.color}">${m.name}</div>
+          <div class="council-resp-role">${m.role}</div>
         </div>
       </div>
-      <div id="council-resp-${i}" style="font-size:13px;color:var(--ts);line-height:1.6;font-style:italic">
-        <span style="opacity:0.5">Consulting\u2026</span>
-      </div>
+      <div id="council-resp-${i}" class="council-resp-text"><span style="opacity:0.45">\u2026</span></div>
     </div>
   `).join('');
+
+  responsesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
   _councilCurrentSession = { question: q, responses: Array(5).fill(null), timestamp: new Date().toISOString() };
+
   await Promise.allSettled(COUNCIL_MENTORS.map(async (m, i) => {
     const respEl = document.getElementById(`council-resp-${i}`);
     const cardEl = document.getElementById(`council-card-${i}`);
     try {
-      const reply = await window.claude.complete({ system: m.system, messages: [{ role: 'user', content: q }], model: 'claude-haiku-4-5-20251001' });
-      if (respEl) { respEl.innerHTML = reply.replace(/\n/g, '<br>'); respEl.style.color = 'var(--tp)'; respEl.style.fontStyle = 'normal'; }
-      if (cardEl) cardEl.style.borderColor = 'var(--gold-border)';
+      const reply = await window.claude.complete({
+        system: m.system + context,
+        messages: [{ role: 'user', content: q }],
+        model: 'claude-haiku-4-5-20251001'
+      });
+      if (respEl) {
+        respEl.textContent = reply;
+        respEl.classList.add('loaded');
+      }
+      if (cardEl) cardEl.style.background = `linear-gradient(to right, ${m.color}0d, var(--surface))`;
       _councilCurrentSession.responses[i] = reply;
     } catch(err) {
-      if (respEl) { respEl.textContent = err.message || 'Could not reach this voice.'; respEl.style.fontStyle = 'normal'; }
+      if (respEl) {
+        respEl.textContent = err.message || 'Could not reach this voice.';
+        respEl.classList.add('loaded');
+        respEl.style.color = 'var(--ts)';
+      }
     }
   }));
+
   const sessions = ls.get('ff_council_sessions', []);
   sessions.unshift(_councilCurrentSession);
   ls.set('ff_council_sessions', sessions.slice(0, 20));
   renderCouncilHistory();
+
   btn.disabled = false;
-  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg> Ask The Full Council';
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg> Ask Again';
 }
 
 function saveCouncilToJournal(btn) {
   if (!_councilCurrentSession) return;
   const { question, responses, timestamp } = _councilCurrentSession;
   const lines = [
-    `COUNCIL \u2014 ${new Date(timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}`,
+    'COUNCIL \u2014 ' + new Date(timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}),
     '',
-    `Q: ${question}`,
+    'Q: ' + question,
     '',
-    ...COUNCIL_MENTORS.map((m, i) => responses[i] ? `${m.name}: ${responses[i]}` : null).filter(Boolean)
+    ...COUNCIL_MENTORS.map((m, i) => responses[i] ? m.name + ': ' + responses[i] : null).filter(Boolean)
   ];
   const journals = ls.get('ff_journals', []);
   journals.unshift({ id: uid(), text: lines.join('\n'), date: timestamp });
@@ -4531,6 +4605,15 @@ function saveCouncilToJournal(btn) {
   }
 }
 
+function toggleCouncilHistItem(el) {
+  const body = el.querySelector('.council-hist-body');
+  if (!body) return;
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  const chev = el.querySelector('.council-hist-chev');
+  if (chev) chev.style.transform = open ? '' : 'rotate(180deg)';
+}
+
 function renderCouncilHistory() {
   const el = document.getElementById('council-history');
   if (!el) return;
@@ -4539,15 +4622,31 @@ function renderCouncilHistory() {
     el.innerHTML = '<div class="empty-list">No past sessions. Ask the council a question.</div>';
     return;
   }
-  el.innerHTML = sessions.slice(0, 5).map(s => `
-    <div style="margin-bottom:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
-      <div style="font-size:10px;font-weight:600;letter-spacing:1.2px;color:var(--ts);text-transform:uppercase;margin-bottom:5px">
-        ${new Date(s.timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}
-      </div>
-      <div style="font-size:13px;color:var(--tp);line-height:1.4;font-style:italic">&ldquo;${s.question}&rdquo;</div>
-    </div>
-  `).join('');
+  el.innerHTML = sessions.slice(0, 10).map(s => {
+    const respondedMentors = COUNCIL_MENTORS.filter((m, i) => s.responses?.[i]);
+    const voiceNames = respondedMentors.map(m => m.name.replace('The ', '')).join(', ');
+    const responseBodies = respondedMentors.map(m => {
+      const i = COUNCIL_MENTORS.indexOf(m);
+      const resp = s.responses?.[i];
+      if (!resp) return '';
+      const safe = resp.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return '<div class="council-hist-resp" style="border-left-color:' + m.color + '">' +
+        '<div class="council-hist-resp-name" style="color:' + m.color + '">' + m.name + '</div>' +
+        '<div class="council-hist-resp-text">' + safe + '</div></div>';
+    }).join('');
+    const safeQ = s.question.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return '<div class="council-hist-item" onclick="toggleCouncilHistItem(this)">' +
+      '<div class="council-hist-date">' +
+        new Date(s.timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) +
+        '<span class="council-hist-chev" style="float:right;transition:transform 0.2s;display:inline-block">\u2964</span>' +
+      '</div>' +
+      '<div class="council-hist-q">\u201c' + safeQ + '\u201d</div>' +
+      '<div class="council-hist-voices">' + respondedMentors.length + ' voice' + (respondedMentors.length !== 1 ? 's' : '') + ' responded \u2014 ' + voiceNames + '</div>' +
+      '<div class="council-hist-body">' + responseBodies + '</div>' +
+    '</div>';
+  }).join('');
 }
+
 
 window.claude = {
   async complete({ system, messages, model }) {
