@@ -556,6 +556,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 /* hide sections during sabbath */
 .sabbath-hidden{display:none !important;}
+
+/* ═══ THE COUNCIL ═══ */
+.council-card{padding:13px 12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:border-color 0.2s;}
+.council-card:active{border-color:var(--gold-border);}
+.cc-glyph{font-size:20px;margin-bottom:6px;line-height:1;}
+.cc-name{font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:0.5px;color:var(--tp);text-transform:uppercase;line-height:1.15;}
+.cc-role{font-size:10px;color:var(--ts);margin-top:3px;letter-spacing:0.3px;}
 </style>
 <script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -981,8 +988,84 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <div class="scroll-end"></div>
       </div>
 
+      <!-- ═══ THE COUNCIL ═══ -->
+      <div class="screen" id="s-council" data-screen-label="04 Council">
+
+        <div style="padding:22px 22px 0">
+          <div class="screen-title">THE COUNCIL</div>
+          <div style="font-size:13px;color:var(--ts);line-height:1.5;margin-top:4px;margin-bottom:18px">Five voices. One question. Ask it.</div>
+        </div>
+
+        <!-- Mentor preview cards -->
+        <div style="padding:0 22px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+            <div class="council-card">
+              <div class="cc-glyph">&#9876;&#65039;</div>
+              <div class="cc-name">The Sentinel</div>
+              <div class="cc-role">Body &amp; Stewardship</div>
+            </div>
+            <div class="council-card">
+              <div class="cc-glyph">&#128218;</div>
+              <div class="cc-name">The Scribe</div>
+              <div class="cc-role">Mind &amp; Clarity</div>
+            </div>
+            <div class="council-card">
+              <div class="cc-glyph">&#128293;</div>
+              <div class="cc-name">The Monk</div>
+              <div class="cc-role">Spirit &amp; Prayer</div>
+            </div>
+            <div class="council-card">
+              <div class="cc-glyph">&#127795;</div>
+              <div class="cc-name">The Elder</div>
+              <div class="cc-role">Legacy &amp; Family</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;margin-bottom:18px">
+            <div class="council-card" style="width:calc(50% - 4px)">
+              <div class="cc-glyph">&#127959;&#65039;</div>
+              <div class="cc-name">The Builder</div>
+              <div class="cc-role">Mission &amp; Work</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question input -->
+        <div style="padding:0 22px;margin-bottom:10px">
+          <textarea id="council-question" class="ci-textarea"
+            placeholder="Ask the council a question&#8230;"
+            style="min-height:80px;margin-bottom:12px"></textarea>
+          <button id="council-ask-btn" onclick="askTheCouncil()"
+            style="width:100%;background:var(--gold);color:#080B14;border:none;border-radius:14px;
+                   padding:15px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;
+                   text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg>
+            Ask The Full Council
+          </button>
+        </div>
+
+        <!-- Responses area -->
+        <div id="council-responses" style="padding:0 22px;display:none">
+          <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">&#10022; Council Speaks</div>
+          <div id="council-response-cards"></div>
+          <button id="council-save-btn" onclick="saveCouncilToJournal(this)"
+            style="width:100%;margin-top:10px;background:transparent;color:var(--gold);
+                   border:1px solid var(--gold-border);border-radius:12px;padding:12px;
+                   font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:1px;
+                   text-transform:uppercase;cursor:pointer;margin-bottom:16px">
+            Save to Journal
+          </button>
+        </div>
+
+        <!-- History section -->
+        <div style="padding:0 22px 100px">
+          <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">&#10022; Past Sessions</div>
+          <div id="council-history"></div>
+        </div>
+
+      </div>
+
       <!-- ═══════════ BIBLE TAB ═══════════ -->
-      <div class="screen" id="s-bible" data-screen-label="05 Word" style="padding:20px 16px 100px">
+      <div class="screen" id="s-word" data-screen-label="05 Word" style="padding:20px 16px 100px">
 
         <!-- Topical search -->
         <div style="margin-bottom:20px">
@@ -1063,11 +1146,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="16" height="16" rx="2"/><path d="M7 9h8M7 13h5"/></svg>
         Journal
       </button>
-      <button class="tab" data-tab="profile" onclick="switchTab('profile',this)">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="8" r="3.5"/><path d="M4 19c0-3.866 3.134-7 7-7h0c3.866 0 7 3.134 7 7"/></svg>
-        Profile
+      <button class="tab" data-tab="council" onclick="switchTab('council',this)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="2.5"/>
+          <circle cx="5" cy="14" r="2.5"/>
+          <circle cx="19" cy="14" r="2.5"/>
+          <path d="M12 10.5v2M8.2 13l-1.7 1M15.8 13l1.7 1"/>
+          <path d="M5 16.5c0 1.5 3 2.5 7 2.5s7-1 7-2.5"/>
+        </svg>
+        Council
       </button>
-      <button class="tab" data-tab="bible" onclick="switchTab('bible',this)">
+      <button class="tab" data-tab="word" onclick="switchTab('word',this)">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
           stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -1075,6 +1164,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           <path d="M11 7h5M11 11h5M11 15h3"/>
         </svg>
         Word
+      </button>
+      <button class="tab" data-tab="profile" onclick="switchTab('profile',this)">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="8" r="3.5"/><path d="M4 19c0-3.866 3.134-7 7-7h0c3.866 0 7 3.134 7 7"/></svg>
+        Profile
       </button>
     </div>
 
@@ -2793,8 +2886,8 @@ function switchTab(id, btn){
   document.getElementById('s-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
   ls.set('ff_tab', id);
-  try{ window.parent.postMessage({slideIndexChanged: ['today','spirit','journal','profile','bible'].indexOf(id)}, '*'); }catch(e){}
-  if(id === 'bible') {
+  try{ window.parent.postMessage({slideIndexChanged: ['today','spirit','journal','council','word','profile'].indexOf(id)}, '*'); }catch(e){}
+  if(id === 'word') {
     renderBibleBookGrid();
     renderBibleReadingToday();
   }
@@ -4279,6 +4372,7 @@ initDB().then(() => {
     alertEl.style.display = 'none';
   }
   renderAll();
+  renderCouncilHistory();
   renderGovernor();
   renderCovenant();
   initReminders();
@@ -4290,7 +4384,8 @@ initDB().then(() => {
     }
   }
   renderPersonalisedOpening();
-  const lastTab = ls.get('ff_tab', 'today');
+  const _rawLastTab = ls.get('ff_tab', 'today');
+  const lastTab = _rawLastTab === 'bible' ? 'word' : _rawLastTab;
   if(lastTab && lastTab !== 'today'){
     const btn = document.querySelector(`.tab[data-tab="${lastTab}"]`);
     if(btn) switchTab(lastTab, btn);
@@ -4322,15 +4417,145 @@ initDB().then(() => {
   }
 });
 
+// ═══════════════════════════════════════════════════════════════════
+// THE COUNCIL
+// ═══════════════════════════════════════════════════════════════════
+const COUNCIL_MENTORS = [
+  {
+    name: 'The Sentinel',
+    glyph: '\u2694\ufe0f',
+    role: 'Body & Stewardship',
+    system: 'You are The Sentinel \u2014 a voice of physical discipline and stewardship on The Council. Your domain is the body: training, sleep, recovery, fuel, and physical capacity. You speak with directness and zero tolerance for excuses. You believe the body is stewarded, not worshipped. One paragraph. No pleasantries. Speak to a man who has already decided to be disciplined.'
+  },
+  {
+    name: 'The Scribe',
+    glyph: '\ud83d\udcda',
+    role: 'Mind & Clarity',
+    system: 'You are The Scribe \u2014 a voice of mental rigor and clarity on The Council. Your domain is the mind: reading, learning, decision-making, focus, and clear thinking. You speak with precision. You cut through noise and name the real question underneath the question. One paragraph. No pleasantries. Speak to a man who has already decided to think well.'
+  },
+  {
+    name: 'The Monk',
+    glyph: '\ud83d\udd25',
+    role: 'Spirit & Prayer',
+    system: 'You are The Monk \u2014 a voice of spiritual depth on The Council. Your domain is the spirit: prayer, scripture, the fear of the Lord, and the WHY behind all discipline. You speak from Scripture and the ancient tradition. You do not motivate \u2014 you anchor. One paragraph. No pleasantries. Speak to a man who already knows why he kneels.'
+  },
+  {
+    name: 'The Elder',
+    glyph: '\ud83c\udf33',
+    role: 'Legacy & Family',
+    system: 'You are The Elder \u2014 a voice of legacy and long-term thinking on The Council. Your domain is the decades: family, covenant, what outlasts you, and how you are shaping those who watch you. You speak slowly and with weight. One paragraph. No pleasantries. Speak to a man building something that will last beyond his years.'
+  },
+  {
+    name: 'The Builder',
+    glyph: '\ud83c\udfd7\ufe0f',
+    role: 'Mission & Work',
+    system: 'You are The Builder \u2014 a voice of mission and calling on The Council. Your domain is work: vocation, stewardship of resources, the calling God placed on this man, and execution. You speak practically about what must be done. One paragraph. No pleasantries. Speak to a man who knows his work is worship.'
+  }
+];
+
+let _councilCurrentSession = null;
+
+async function askTheCouncil() {
+  const q = document.getElementById('council-question')?.value?.trim();
+  if (!q) return;
+  const btn = document.getElementById('council-ask-btn');
+  const responsesEl = document.getElementById('council-responses');
+  const cardsEl = document.getElementById('council-response-cards');
+  btn.disabled = true;
+  btn.innerHTML = 'Consulting\u2026';
+  responsesEl.style.display = 'block';
+  cardsEl.innerHTML = COUNCIL_MENTORS.map((m, i) => `
+    <div id="council-card-${i}" style="margin-bottom:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:16px">${m.glyph}</span>
+        <div>
+          <div style="font-family:var(--fd);font-size:12px;font-weight:800;letter-spacing:1px;color:var(--gold);text-transform:uppercase">${m.name}</div>
+          <div style="font-size:9.5px;color:var(--ts);letter-spacing:0.5px">${m.role}</div>
+        </div>
+      </div>
+      <div id="council-resp-${i}" style="font-size:13px;color:var(--ts);line-height:1.6;font-style:italic">
+        <span style="opacity:0.5">Consulting\u2026</span>
+      </div>
+    </div>
+  `).join('');
+  _councilCurrentSession = { question: q, responses: Array(5).fill(null), timestamp: new Date().toISOString() };
+  await Promise.allSettled(COUNCIL_MENTORS.map(async (m, i) => {
+    const respEl = document.getElementById(`council-resp-${i}`);
+    const cardEl = document.getElementById(`council-card-${i}`);
+    try {
+      const reply = await window.claude.complete({ system: m.system, messages: [{ role: 'user', content: q }], model: 'claude-haiku-4-5' });
+      if (respEl) { respEl.innerHTML = reply.replace(/\n/g, '<br>'); respEl.style.color = 'var(--tp)'; respEl.style.fontStyle = 'normal'; }
+      if (cardEl) cardEl.style.borderColor = 'var(--gold-border)';
+      _councilCurrentSession.responses[i] = reply;
+    } catch(err) {
+      if (respEl) { respEl.textContent = err.message || 'Could not reach this voice.'; respEl.style.fontStyle = 'normal'; }
+    }
+  }));
+  const sessions = ls.get('ff_council_sessions', []);
+  sessions.unshift(_councilCurrentSession);
+  ls.set('ff_council_sessions', sessions.slice(0, 20));
+  renderCouncilHistory();
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg> Ask The Full Council';
+}
+
+function saveCouncilToJournal(btn) {
+  if (!_councilCurrentSession) return;
+  const { question, responses, timestamp } = _councilCurrentSession;
+  const lines = [
+    `COUNCIL \u2014 ${new Date(timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}`,
+    '',
+    `Q: ${question}`,
+    '',
+    ...COUNCIL_MENTORS.map((m, i) => responses[i] ? `${m.name}: ${responses[i]}` : null).filter(Boolean)
+  ];
+  const journals = ls.get('ff_journals', []);
+  journals.unshift({ id: uid(), text: lines.join('\n'), date: timestamp });
+  ls.set('ff_journals', journals);
+  renderAll();
+  if (btn) {
+    btn.textContent = 'Saved \u2713';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'rgba(39,174,96,0.3)';
+    setTimeout(() => { btn.textContent = 'Save to Journal'; btn.style.color = 'var(--gold)'; btn.style.borderColor = 'var(--gold-border)'; }, 2000);
+  }
+}
+
+function renderCouncilHistory() {
+  const el = document.getElementById('council-history');
+  if (!el) return;
+  const sessions = ls.get('ff_council_sessions', []);
+  if (!sessions.length) {
+    el.innerHTML = '<div class="empty-list">No past sessions. Ask the council a question.</div>';
+    return;
+  }
+  el.innerHTML = sessions.slice(0, 5).map(s => `
+    <div style="margin-bottom:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:1.2px;color:var(--ts);text-transform:uppercase;margin-bottom:5px">
+        ${new Date(s.timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}
+      </div>
+      <div style="font-size:13px;color:var(--tp);line-height:1.4;font-style:italic">&ldquo;${s.question}&rdquo;</div>
+    </div>
+  `).join('');
+}
+
 window.claude = {
   async complete({ system, messages, model }) {
+    if (window.location.protocol === 'file:') {
+      throw new Error('Running locally \u2014 open from thefirmfoundation.app/app');
+    }
     const res = await fetch('/.netlify/functions/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ system, messages, model })
     });
-    if (!res.ok) throw new Error('Claude API error: ' + res.status);
     const data = await res.json();
+    if (!res.ok) {
+      const msg = data.status === 'timeout'
+        ? 'The mentor is taking too long to respond. Try again.'
+        : (data.message || 'Something went wrong. Try again.');
+      throw new Error(msg);
+    }
     return data.content;
   }
 };
