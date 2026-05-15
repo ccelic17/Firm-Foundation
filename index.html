@@ -2264,7 +2264,11 @@ async function fetchWhoopRecovery(){
   };
 }
 
-async function syncWhoop(){ return syncBiometrics(); }
+async function syncWhoop() {
+  // Route to the correct sync: WHOOP OAuth direct sync takes priority over Terra/generic
+  if (state.whoopTokens?.access_token) return syncWHOOP();
+  return syncBiometrics();
+}
 
 // ═══════════════════════════════════════════════════════════════════
 // UNIVERSAL BIOMETRIC INTEGRATION
@@ -3483,7 +3487,7 @@ async function saveVOTD(){
   if(exists){
     state.verses = state.verses.filter(sv => sv.ref !== verse.ref);
   } else {
-    state.verses.push({id:uid(), ref:verse.ref, text:`"${verse.text}"`});
+    state.verses.push({id:uid(), ref:verse.ref, text:verse.text});
   }
   persist();
   renderVerses();
@@ -4983,6 +4987,11 @@ async function checkGovernor(score) {
   if (score === null || score === undefined) return;
 
   if (score <= 39) {
+    const today = new Date().toISOString().split('T')[0];
+    if (state.governorActive && state.governorMessage && ls.get('ff_governor_date', null) === today) {
+      renderGovernor();
+      return;
+    }
     try {
       const message = await window.claude.complete({
         system: `You are a Biblical coach. A Christian man's body is in the red today.
@@ -4999,11 +5008,13 @@ Return only the 3 sentences. No labels. No formatting.`,
 
       state.governorActive  = true;
       state.governorMessage = message;
+      ls.set('ff_governor_date', today);
       persist();
       renderGovernor();
     } catch(e) {
       state.governorActive  = true;
       state.governorMessage = "Your body is honest today — it is telling you something important. 'Be still and know that I am God' is not a suggestion for weak days — it is a command for days exactly like this one. You are released from your task list; your one assignment today is to remain.";
+      ls.set('ff_governor_date', today);
       persist();
       renderGovernor();
     }
@@ -5162,10 +5173,18 @@ async function renderPersonalisedOpening() {
   const greetingEl = document.getElementById('today-greeting');
   if (!greetingEl) return;
 
+  const today    = new Date().toISOString().split('T')[0];
+  const streak   = state.streak;
+  const cacheKey = `${today}-s${streak}`;
+  const cached   = localStorage.getItem('ff_opening_cache_key');
+  if (cached === cacheKey) {
+    const cachedText = localStorage.getItem('ff_opening_cache');
+    if (cachedText) { greetingEl.textContent = cachedText; return; }
+  }
+
   const hour     = new Date().getHours();
   const timeCtx  = hour < 9 ? 'early morning' : hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
   const recovery = state.whoop?.recovery;
-  const streak   = state.streak;
   const governor = state.governorActive;
 
   try {
@@ -5182,6 +5201,8 @@ Rules: Never generic. Never motivational poster. No exclamation marks. Speak to 
       model: 'claude-haiku-4-5-20251001'
     });
     greetingEl.textContent = text;
+    localStorage.setItem('ff_opening_cache', text);
+    localStorage.setItem('ff_opening_cache_key', cacheKey);
   } catch(e) {
     greetingEl.textContent = '';
   }
