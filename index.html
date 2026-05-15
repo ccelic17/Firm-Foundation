@@ -4777,7 +4777,7 @@ async function disconnectWHOOP() {
   animateRings();
 }
 
-async function syncWHOOP() {
+async function syncWHOOP(retried = false) {
   if (!state.whoopTokens || !state.whoopTokens.access_token) {
     console.warn('syncWHOOP: no tokens available');
     const src = state.sources.find(s => s.id === 'whoop');
@@ -4798,9 +4798,10 @@ async function syncWHOOP() {
     });
 
     if (res.status === 401) {
+      if (retried) { disconnectWHOOP(); return; }
       const refreshed = await refreshWHOOPToken();
       if (!refreshed) { disconnectWHOOP(); return; }
-      return syncWHOOP();
+      return syncWHOOP(true);
     }
 
     const data = await res.json();
