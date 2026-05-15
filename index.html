@@ -1640,12 +1640,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 <script>
 // ── OneSignal Push Notifications ──
-const ONESIGNAL_APP_ID = 'YOUR_ONESIGNAL_APP_ID'; // Replace after creating OneSignal app
+const _configPromise = fetch('/.netlify/functions/config')
+  .then(r => r.json())
+  .catch(() => ({}));
 
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 OneSignalDeferred.push(async function(OneSignal) {
+  const cfg = await _configPromise;
+  const appId = cfg.oneSignalAppId || '';
+  if (!appId) return;
   await OneSignal.init({
-    appId: ONESIGNAL_APP_ID,
+    appId,
     notifyButton: { enable: false },
     promptOptions: {
       slidedown: {
