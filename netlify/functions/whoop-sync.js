@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
@@ -22,7 +20,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         status: 'error',
         message: 'No access_token provided',
-        hint: 'Connect WHOOP from Profile \u2192 Biometric Sources first',
+        hint: 'Connect WHOOP from Profile → Biometric Sources first',
         received_keys: Object.keys(body),
         timestamp: new Date().toISOString()
       })
@@ -42,6 +40,24 @@ exports.handler = async (event) => {
       'https://api.prod.whoop.com/developer/v1/recovery?limit=1',
       { headers, signal: controller.signal }
     );
+
+    // Surface WHOOP auth failures so the client can trigger a token refresh
+    if (recoveryRes.status === 401) {
+      clearTimeout(timeout);
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ status: 'error', message: 'WHOOP token expired', timestamp: new Date().toISOString() })
+      };
+    }
+
+    if (!recoveryRes.ok) {
+      clearTimeout(timeout);
+      return {
+        statusCode: recoveryRes.status,
+        body: JSON.stringify({ status: 'error', message: `WHOOP API error: ${recoveryRes.status}`, timestamp: new Date().toISOString() })
+      };
+    }
+
     const recoveryData = await recoveryRes.json();
     const latest = recoveryData.records?.[0];
 
@@ -49,7 +65,7 @@ exports.handler = async (event) => {
       'https://api.prod.whoop.com/developer/v1/sleep?limit=1',
       { headers, signal: controller.signal }
     );
-    const sleepData = await sleepRes.json();
+    const sleepData = sleepRes.ok ? await sleepRes.json() : {};
     const latestSleep = sleepData.records?.[0];
 
     clearTimeout(timeout);
@@ -69,7 +85,7 @@ exports.handler = async (event) => {
         hrv,
         rhr,
         sleepHours,
-        label: score >= 67 ? 'Green' : score >= 34 ? 'Yellow' : 'Red',
+        label: score !== null ? (score >= 67 ? 'Green' : score >= 34 ? 'Yellow' : 'Red') : null,
         syncedAt: new Date().toISOString()
       })
     };

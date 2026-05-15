@@ -1973,7 +1973,7 @@ Rules:
       messages: [{ role: 'user', content: `Topic: "${q}"` }]
     });
 
-    const refs = JSON.parse(reply.content[0].text);
+    const refs = JSON.parse(reply);
 
     const results = await Promise.all(refs.map(async item => {
       try {
@@ -4493,7 +4493,7 @@ async function askTheCouncil() {
     const respEl = document.getElementById(`council-resp-${i}`);
     const cardEl = document.getElementById(`council-card-${i}`);
     try {
-      const reply = await window.claude.complete({ system: m.system, messages: [{ role: 'user', content: q }], model: 'claude-haiku-4-5' });
+      const reply = await window.claude.complete({ system: m.system, messages: [{ role: 'user', content: q }], model: 'claude-haiku-4-5-20251001' });
       if (respEl) { respEl.innerHTML = reply.replace(/\n/g, '<br>'); respEl.style.color = 'var(--tp)'; respEl.style.fontStyle = 'normal'; }
       if (cardEl) cardEl.style.borderColor = 'var(--gold-border)';
       _councilCurrentSession.responses[i] = reply;
@@ -4804,7 +4804,7 @@ async function syncWHOOP() {
     }
 
     const data = await res.json();
-    if (data.error) throw new Error(data.error);
+    if (data.status === 'error') throw new Error(data.message || 'Sync failed');
 
     const src = state.sources.find(s => s.id === 'whoop');
     const now = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -4894,7 +4894,7 @@ Tone: A father speaking to a son he deeply respects. Not soft. Not harsh. Comple
 Never use the word rest alone — always pair it with purpose.
 Return only the 3 sentences. No labels. No formatting.`,
         messages: [{ role: 'user', content: `Recovery score: ${score}%. Generate the Governor Message.` }],
-        model: 'claude-haiku-4-5'
+        model: 'claude-haiku-4-5-20251001'
       });
 
       state.governorActive  = true;
@@ -4978,7 +4978,7 @@ Return only valid JSON. Nothing else.`,
         role: 'user',
         content: `Trigger: ${trigger}\nStreak: ${state.streak} days\nCovenant: ${covenant || 'not set'}\nGoal: ${goal || 'not set'}`
       }],
-      model: 'claude-haiku-4-5'
+      model: 'claude-haiku-4-5-20251001'
     });
 
     const parsed = JSON.parse(response);
@@ -5079,7 +5079,7 @@ Rules: Never generic. Never motivational poster. No exclamation marks. Speak to 
         role: 'user',
         content: `Time: ${timeCtx}. Streak: ${streak} days. Recovery: ${recovery !== null && recovery !== undefined ? recovery + '%' : 'unknown'}. Governor active: ${governor}.`
       }],
-      model: 'claude-haiku-4-5'
+      model: 'claude-haiku-4-5-20251001'
     });
     greetingEl.textContent = text;
   } catch(e) {
