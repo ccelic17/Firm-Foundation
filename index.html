@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Firm Foundation — Body. Spirit. Mind. | Daily Discipline App for Christian Men</title>
 <meta name="description" content="The daily discipline app for Christian men who refuse to drift. Track your body, spirit, and mind. AI prayer coaching, scripture, 90-day goals, and streak accountability — all in one place.">
 <meta name="keywords" content="Christian men app, spiritual disciplines tracker, faith and fitness app, Christian accountability app, daily disciplines Christian, body spirit mind app, 90 day Christian challenge, Christian men morning routine">
@@ -727,6 +730,48 @@ body.pre-dawn{
   .mind-t   { background: #6A94CC; box-shadow: 0 0 7px rgba(106,148,204,0.7); }
   .body-f   { background: linear-gradient(90deg, var(--yellow), #B85C20); box-shadow: 0 0 10px rgba(139,69,19,0.35); }
   .body-t   { background: #B85C20; box-shadow: 0 0 7px rgba(184,92,32,0.7); }
+
+/* ── PWA full-viewport mode — applied when not in demo wrapper context ── */
+@media (display-mode: standalone), (display-mode: minimal-ui) {
+  .phone-outer {
+    width: 100vw !important;
+    height: 100dvh !important;
+    position: fixed !important;
+    top: 0; left: 0;
+  }
+  .phone-screen {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+  .phone-frame { display: none !important; }
+  .noise { border-radius: 0 !important; }
+  .dyn-island { display: none !important; }
+  .status-bar { display: none !important; }
+  .brand-header { display: none !important; }
+  .screens {
+    top: 0 !important;
+    bottom: 84px !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .tab-bar {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    height: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* ── Small phones (iPhone SE, 375px wide) ── */
+@media (max-width: 375px) {
+  .phone-outer, .phone-screen { width: 100vw !important; }
+  .today-greeting { font-size: 20px !important; }
+  .dcard-pct { font-size: 15px !important; }
+}
+
+/* ── Tablet (768px+) — constrain content width, don't stretch ── */
+@media (min-width: 768px) and (display-mode: standalone) {
+  .screens > .screen { max-width: 480px; margin: 0 auto; }
+  .tab-bar { max-width: 480px; margin: 0 auto; left: 50%; transform: translateX(-50%); }
+}
 </style>
 <script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
