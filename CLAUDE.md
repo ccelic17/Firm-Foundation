@@ -98,7 +98,7 @@ const text = await window.claude.complete({
 ### Caching policy
 - **Opening greeting** — cache by `${date}-s${streak}` in `localStorage`. Already implemented.
 - **Governor message** — cache by date in `ff_governor_date`. Already implemented.
-- **Prayer prompt, Council, Bible search** — intentionally uncached (user explicitly triggers, expects fresh response).
+- **Prayer prompt, Bible search** — intentionally uncached (user explicitly triggers, expects fresh response).
 - **Goal decomposition** — stored in `state.goal90` after first generation.
 
 ---
@@ -165,16 +165,18 @@ checkGovernor(score)
 
 ## Screens / Tabs
 
+4 tabs. There is no standalone `s-council` tab — do not add or restore one.
+
 | Tab | id | Screen element |
 |---|---|---|
 | Today | `today` | `#s-today` |
-| Spirit | `spirit` | `#s-spirit` |
+| Spirit (Covenant) | `spirit` | `#s-spirit` |
 | Journal | `journal` | `#s-journal` |
-| The Council | `council` | `#s-council` |
-| Word (Bible) | `word` | `#s-word` |
 | Profile | `profile` | (profile section) |
 
-Tab switching: `switchTab(id, btn)`.
+**Council** is a sub-pane inside Journal (`#j-counsel`), accessed via the "Counsel" tab within that screen. Council JS (`askTheCouncil`, `renderCouncilHistory`, etc.) runs against that pane.
+
+Tab switching: `switchTab(id, btn)`. Journal sub-tabs: `switchJTab(el)`.
 
 ---
 
@@ -211,13 +213,3 @@ Stripe payment links are hardcoded in `index.html` (search `buy.stripe.com`). Re
 
 8. **Error response shape from functions** — all functions return `{ status: 'error', message: '...', timestamp: '...' }`. Check `data.status === 'error'`, not `data.error`.
 
----
-
-## Development Branch
-
-Active development branch: `claude/review-app-design-9g2gj`
-
-Push with:
-```
-git push -u origin claude/review-app-design-9g2gj
-```
