@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 const TERRA_API_KEY = process.env.TERRA_API_KEY;
 const TERRA_DEV_ID  = process.env.TERRA_DEV_ID;
 const TERRA_BASE    = 'https://api.tryterra.co/v2';
