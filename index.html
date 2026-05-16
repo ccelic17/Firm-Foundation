@@ -657,20 +657,6 @@ body.pre-dawn{
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  @keyframes ff-swipe-pulse {
-    0%, 100% { opacity: 0.35; transform: scaleX(1); }
-    50%       { opacity: 0.7;  transform: scaleX(1.04); }
-  }
-  .greeting-swipe-hint {
-    display: block;
-    width: 32px;
-    height: 2px;
-    background: var(--gold);
-    border-radius: 1px;
-    margin: 10px auto 0;
-    animation: ff-swipe-pulse 2.4s ease-in-out infinite;
-    animation-delay: 3s;
-  }
   .fault-lines {
     display: flex;
     flex-direction: column;
@@ -781,7 +767,7 @@ body.pre-dawn{
 
 <div id="pwa-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#0F1525;border-top:1px solid rgba(245,200,66,0.22);padding:14px 20px;z-index:9999;align-items:center;justify-content:space-between;gap:12px;">
   <div style="font-size:13px;color:#8A94A6;line-height:1.4;flex:1;">📲 <strong style="color:#fff;">Add to Home Screen</strong> to receive daily reminders and unlock full app experience</div>
-  <button onclick="document.getElementById('pwa-banner').style.display='none';ls.set('ff_pwa_dismissed','1')" style="background:rgba(245,200,66,0.12);color:#F5C842;border:1px solid rgba(245,200,66,0.22);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">Got it</button>
+  <button onclick="document.getElementById('pwa-banner').style.display='none';ls.set('ff_pwa_dismissed','1')" style="background:rgba(245,200,66,0.12);color:#F5C842;border:1px solid rgba(245,200,66,0.22);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">Dismiss</button>
 </div>
 
 <div class="brand-header">
@@ -831,24 +817,14 @@ body.pre-dawn{
             </div>
             <div class="sht-right">
               <div class="sht-flame" id="sht-flame">🔥</div>
-              <div class="sht-best-row">
-                <div class="sht-best" id="sht-best">0</div>
-                <div class="sht-best-lbl">Best Streak</div>
-              </div>
             </div>
           </div>
         </div>
 
         <!-- AI Personalised Opening -->
         <div id="today-greeting" style="padding:4px 22px 0;font-size:13px;color:var(--ts);line-height:1.55;font-style:italic;min-height:1px;"></div>
-        <div class="greeting-swipe-hint"></div>
-
-        <!-- 1 Year Ago Today (renderAll populates) -->
-        <div id="anniversary-mount"></div>
 
         <!-- 4-domain strip -->
-        <div class="domain-strip" id="domain-strip"></div>
-        <div class="system-bar" id="system-bar"></div>
         <div class="fault-lines" id="fault-lines">
           <div class="fault-row" data-domain="spirit">
             <div class="fault-meta">
@@ -884,6 +860,35 @@ body.pre-dawn{
         <div id="loop-insight"></div>
         <!-- /OLD-RINGS-REMOVED -->
 
+        <div class="sw" style="padding-bottom:0;">
+          <div class="section-label">
+            <svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>
+            Body Metrics · WHOOP
+          </div>
+        </div>
+        <div class="health-strip">
+          <div class="hs-card">
+            <div class="hs-lbl"><span class="hs-dot" id="hs-recovery-dot" style="background:var(--green);box-shadow:0 0 5px var(--green);"></span>Recovery</div>
+            <div>
+              <div class="hs-val-row"><div class="hs-val" id="hs-recovery">—</div><div class="hs-unit">%</div></div>
+              <div class="hs-sub" id="hs-recovery-sub">Optimal</div>
+            </div>
+          </div>
+          <div class="hs-card">
+            <div class="hs-lbl"><span class="hs-dot" style="background:var(--blue);"></span>Sleep</div>
+            <div>
+              <div class="hs-val-row"><div class="hs-val" id="hs-sleep">—</div><div class="hs-unit">hrs</div></div>
+              <div class="hs-sub" id="hs-sleep-sub">—</div>
+            </div>
+          </div>
+          <div class="hs-card">
+            <div class="hs-lbl"><span class="hs-dot" style="background:var(--yellow);"></span>HRV</div>
+            <div>
+              <div class="hs-val-row"><div class="hs-val" id="hs-hrv">—</div><div class="hs-unit">ms</div></div>
+              <div class="hs-sub" id="hs-hrv-sub">—</div>
+            </div>
+          </div>
+        </div>
         <div class="whoop-tag">
           <div class="whoop-chip" id="whoop-chip" onclick="syncWhoop()">
             <span class="whoop-dot"></span>
@@ -891,18 +896,34 @@ body.pre-dawn{
           </div>
         </div>
 
+        <!-- GOVERNOR ALERT -->
+        <div class="gov-hairline"></div>
+        <div class="gov-zone" id="governor-zone" style="display:none">
+          <div class="gov-tag">
+            <div class="gov-tag-dot"></div>
+            Governor's Alert
+          </div>
+          <div class="gov-title" id="gov-title"></div>
+          <div class="gov-body" id="gov-body"></div>
+          <div class="gov-verse" id="gov-verse" style="display:none">
+            <div class="gov-verse-ref" id="gov-verse-ref"></div>
+            <div class="gov-verse-text" id="gov-verse-text"></div>
+          </div>
+          <div class="gov-actions">
+            <button class="gov-btn primary" onclick="dismissGovernor()">Acknowledge</button>
+            <button class="gov-btn ghost" onclick="dismissGovernor()">I've got this</button>
+          </div>
+          <div class="gov-dismiss" onclick="dismissGovernor()">Dismiss · don't show again today</div>
+        </div>
+
         <div class="cta-card-hero" id="cta-card-hero" onclick="openCheckin()">
-          <div class="cta-hero-icon" id="cta-hero-icon">☀️</div>
           <div class="cta-hero-body">
-            <div class="cta-hero-title" id="cta-hero-title">Start your morning with intention</div>
-            <div class="cta-hero-sub" id="cta-hero-sub">2 minutes · sets the trajectory for everything</div>
+            <div class="cta-hero-title" id="cta-hero-title">Morning Check-in</div>
           </div>
           <div class="cta-hero-chev">›</div>
         </div>
         <div class="empty-state-today" id="empty-state-today">
-          <div class="est-glyph">⚓</div>
-          <div class="est-hed">Anchor yourself</div>
-          <div class="est-body">Every man you admire started at Day 1. The only difference between him and you right now is that he tapped the button. Tap Begin Your Day.</div>
+          <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ts);">Day 1. Begin.</div>
         </div>
 
 <div id="evening-checkin-card" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin:0 22px 14px">
@@ -938,36 +959,6 @@ body.pre-dawn{
         </div>
 
 
-        <div class="sw" style="padding-bottom:0;">
-          <div class="section-label">
-            <svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>
-            Body Metrics · WHOOP
-          </div>
-        </div>
-        <div class="health-strip">
-          <div class="hs-card">
-            <div class="hs-lbl"><span class="hs-dot" id="hs-recovery-dot" style="background:var(--green);box-shadow:0 0 5px var(--green);"></span>Recovery</div>
-            <div>
-              <div class="hs-val-row"><div class="hs-val" id="hs-recovery">—</div><div class="hs-unit">%</div></div>
-              <div class="hs-sub" id="hs-recovery-sub">Optimal</div>
-            </div>
-          </div>
-          <div class="hs-card">
-            <div class="hs-lbl"><span class="hs-dot" style="background:var(--blue);"></span>Sleep</div>
-            <div>
-              <div class="hs-val-row"><div class="hs-val" id="hs-sleep">—</div><div class="hs-unit">hrs</div></div>
-              <div class="hs-sub" id="hs-sleep-sub">—</div>
-            </div>
-          </div>
-          <div class="hs-card">
-            <div class="hs-lbl"><span class="hs-dot" style="background:var(--yellow);"></span>HRV</div>
-            <div>
-              <div class="hs-val-row"><div class="hs-val" id="hs-hrv">—</div><div class="hs-unit">ms</div></div>
-              <div class="hs-sub" id="hs-hrv-sub">—</div>
-            </div>
-          </div>
-        </div>
-
         <!-- INTEGRAL DAILY CHECKS (replaces Non-Negotiables) -->
         <div class="sw">
           <div class="section-row">
@@ -983,37 +974,29 @@ body.pre-dawn{
         </div>
 
         <!-- 90-Day Performance Engine -->
-        <div class="sw" id="g90-section" style="padding-bottom:8px;">
-          <div class="g90" id="g90-card">
-            <div class="g90-hd">
-              <div class="g90-title">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.2 9 2 9.5l5.5 5L6 22l6-3.5 6 3.5-1.5-7.5L22 9.5 14.8 9z"/></svg>
-                90-Day Engine
-              </div>
-              <button class="g90-edit" id="g90-edit-btn" onclick="openGoalModal()" style="display:none;">Edit Goal</button>
+        <div id="g90-section">
+          <div class="g90-summary-row" onclick="toggleG90Detail()" style="display:flex;align-items:center;justify-content:space-between;padding:10px 22px;cursor:pointer;">
+            <div class="section-label" style="margin:0;flex-shrink:0;">
+              <span class="ff-divider">✦</span>90-Day Goal
             </div>
-            <div id="g90-body"></div>
+            <div id="g90-summary-line" style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:1px;color:var(--ts);text-transform:uppercase;flex:1;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:0 8px;">
+            </div>
+            <span style="font-family:var(--fd);font-size:10px;color:var(--ts);">↓</span>
           </div>
-        </div>
-
-        <!-- GOVERNOR ALERT -->
-        <div class="gov-hairline"></div>
-        <div class="gov-zone" id="governor-zone" style="display:none">
-          <div class="gov-tag">
-            <div class="gov-tag-dot"></div>
-            Governor's Alert
+          <div id="g90-detail" style="display:none;">
+            <div class="sw" style="padding-bottom:8px;">
+              <div class="g90" id="g90-card">
+                <div class="g90-hd">
+                  <div class="g90-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.2 9 2 9.5l5.5 5L6 22l6-3.5 6 3.5-1.5-7.5L22 9.5 14.8 9z"/></svg>
+                    90-Day Engine
+                  </div>
+                  <button class="g90-edit" id="g90-edit-btn" onclick="openGoalModal()" style="display:none;">Edit Goal</button>
+                </div>
+                <div id="g90-body"></div>
+              </div>
+            </div>
           </div>
-          <div class="gov-title" id="gov-title"></div>
-          <div class="gov-body" id="gov-body"></div>
-          <div class="gov-verse" id="gov-verse" style="display:none">
-            <div class="gov-verse-ref" id="gov-verse-ref"></div>
-            <div class="gov-verse-text" id="gov-verse-text"></div>
-          </div>
-          <div class="gov-actions">
-            <button class="gov-btn primary" onclick="openCheckin()">Begin Your Day</button>
-            <button class="gov-btn ghost" onclick="dismissGovernor()">I've got this</button>
-          </div>
-          <div class="gov-dismiss" onclick="dismissGovernor()">Dismiss · don't show again today</div>
         </div>
 
         <div class="scroll-end"></div>
@@ -1072,7 +1055,7 @@ body.pre-dawn{
             </svg>
             <div class="prayer-info">
               <div class="prayer-big"><span id="prayer-cur">0</span> <span style="font-size:16px;color:var(--ts);font-weight:500;">/ <span id="prayer-goal-num">20</span> min</span></div>
-              <div class="prayer-goal">Still a few minutes for the most important conversation of your day.</div>
+              <div class="prayer-goal">Target: <span id="prayer-target-min"></span> min</div>
             </div>
           </div>
           <div class="prayer-log-row" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 18px 0;">
@@ -1087,9 +1070,9 @@ body.pre-dawn{
 
         <div class="aip-card">
           <div class="aip-eyebrow"><span class="aip-spark">✦</span> Prompt from above</div>
-          <div class="aip-title">Stuck in the silence?</div>
+          <div class="aip-title">Need a prompt?</div>
           <div class="aip-text" id="ai-prayer-text"></div>
-          <button class="aip-btn" id="ai-prayer-btn" onclick="getAIPrayerPrompt()">Help me start →</button>
+          <button class="aip-btn" id="ai-prayer-btn" onclick="getAIPrayerPrompt()">Prayer prompt</button>
         </div>
 
         <div class="sw" style="padding-bottom:0;">
@@ -1097,7 +1080,7 @@ body.pre-dawn{
             <div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Your Daily Disciplines</div>
             <button class="section-add-btn" onclick="openItemModal('disc')">+ Add</button>
           </div>
-          <div style="font-size:10.5px;color:#3a5a48;letter-spacing:0.4px;line-height:1.5;margin:-2px 0 10px;font-style:italic;">The things you do daily when no one is watching — these are what build the man.</div>
+          <div style="font-size:10.5px;color:#3a5a48;letter-spacing:0.4px;line-height:1.5;margin:-2px 0 10px;font-style:italic;">What you do when no one watches.</div>
           <div class="item-list" id="disc-list"></div>
         </div>
 
@@ -1107,10 +1090,10 @@ body.pre-dawn{
             <button class="section-add-btn" onclick="openItemModal('verse')">+ Add</button>
           </div>
           <div class="verse-search">
-            <input type="text" class="verse-search-input" id="verse-search" placeholder="Search verses or describe how you feel…" oninput="filterVerses()" />
+            <input type="text" class="verse-search-input" id="verse-search" placeholder="Verse, keyword, or feeling" oninput="filterVerses()" />
             <button class="verse-search-btn" id="verse-ai-btn" onclick="aiVerseSearch()">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.5L20 10l-6.2 1.5L12 18l-1.8-6.5L4 10l6.2-1.5z"/></svg>
-              Ask
+              Find
             </button>
           </div>
           <div class="verse-ai-result" id="verse-ai-result">
@@ -1118,7 +1101,7 @@ body.pre-dawn{
             <div class="verse-ai-result-ref" id="verse-ai-ref"></div>
             <div class="verse-ai-result-text" id="verse-ai-text"></div>
             <div class="verse-ai-result-actions">
-              <button class="verse-ai-mini primary" onclick="saveAiVerse()">Save to Library</button>
+              <button class="verse-ai-mini primary" onclick="saveAiVerse()">Save</button>
               <button class="verse-ai-mini" onclick="dismissAiVerse()">Dismiss</button>
             </div>
           </div>
@@ -1134,7 +1117,7 @@ body.pre-dawn{
           <div style="margin-bottom:20px">
             <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">✦ Scripture Search</div>
             <div style="display:flex;gap:8px">
-              <input id="bible-search" placeholder="Search topic, keyword, or reference…"
+              <input id="bible-search" placeholder="Topic, keyword, reference"
                 style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;
                        padding:11px 14px;color:var(--tp);font-size:13px;font-family:inherit;outline:none"/>
               <button onclick="bibleSearch()"
@@ -1233,6 +1216,7 @@ body.pre-dawn{
 
         <div class="j-pane" id="j-timeline">
           <div class="timeline" id="tl-list"></div>
+          <div id="anniversary-mount"></div>
           <div class="scroll-end"></div>
         </div>
 
@@ -1253,13 +1237,13 @@ body.pre-dawn{
             </div>
           </div>
           <div style="padding:0 22px;margin-bottom:10px">
-            <textarea id="council-question" class="ci-textarea" placeholder="Ask the council a question&#8230;" style="min-height:80px;margin-bottom:12px"></textarea>
+            <textarea id="council-question" class="ci-textarea" placeholder="Question" style="min-height:80px;margin-bottom:12px"></textarea>
             <button id="council-ask-btn" onclick="askTheCouncil()"
               style="width:100%;background:var(--gold);color:#07090F;border:none;border-radius:14px;
                      padding:15px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;
                      text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg>
-              Ask The Full Council
+              Ask the Council
             </button>
           </div>
           <div id="council-responses" style="padding:0 22px;display:none">
@@ -1316,10 +1300,6 @@ body.pre-dawn{
             <div class="bio-hd-sub" id="bio-active-source">Active: WHOOP</div>
           </div>
           <div id="bio-rows"></div>
-          <div class="bio-priority">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.2 9 2 9.5l5.5 5L6 22l6-3.5 6 3.5-1.5-7.5L22 9.5 14.8 9z"/></svg>
-            Priority: Body Check-in → Garmin → Apple Health
-          </div>
         </div>
 
         <!-- MY SYSTEM -->
@@ -1438,28 +1418,28 @@ body.pre-dawn{
         <div class="ci-step-num">Step 3 of 6</div>
         <div class="ci-coach-line">Gratitude is not soft. It is the fastest way to shift your nervous system from threat mode to resource mode. Be specific — not "my family." Name something real.</div>
         <div class="ci-q">Name three things<br>you're grateful for.</div>
-        <input class="ci-input" id="ci-g1" type="text" placeholder="Something specific — not generic…">
-        <input class="ci-input" id="ci-g2" type="text" placeholder="Something easy to overlook…">
-        <input class="ci-input" id="ci-g3" type="text" placeholder="Something hard that is also good…">
-        <button class="ci-next" onclick="nextStep(4)">Continue</button>
+        <input class="ci-input" id="ci-g1" type="text" placeholder="Most important item">
+        <input class="ci-input" id="ci-g2" type="text" placeholder="Easy to overlook">
+        <input class="ci-input" id="ci-g3" type="text" placeholder="Hard and good">
+        <button class="ci-next" onclick="nextStep(4)">Next</button>
       </div>
       <div class="ci-step" id="ci-4">
         <div class="ci-domain-tag" style="color:#C2855A;border-color:rgba(194,133,90,0.4);background:rgba(194,133,90,0.08);">◈ Physical — Foundation</div>
         <div class="ci-step-num">Step 4 of 6</div>
         <div class="ci-coach-line">Not a task list. A character decision. How does the man you are becoming show up today — before anything goes wrong?</div>
         <div class="ci-q">Who are you<br>showing up as today?</div>
-        <textarea class="ci-textarea" id="ci-intent" placeholder="I am showing up today as a man who…"></textarea>
-        <button class="ci-next" onclick="nextStep(5)">Continue</button>
+        <textarea class="ci-textarea" id="ci-intent" placeholder="Identity statement"></textarea>
+        <button class="ci-next" onclick="nextStep(5)">Next</button>
       </div>
       <div class="ci-step" id="ci-5">
         <div class="ci-domain-tag" style="color:#4A7FB5;border-color:rgba(74,127,181,0.4);background:rgba(74,127,181,0.08);">◉ Discipline — Mechanism</div>
         <div class="ci-step-num">Step 5 of 6</div>
         <div class="ci-coach-line">If nothing else gets done — Priority 1 must. Everything else is negotiable. Priority 1 is not.</div>
         <div class="ci-q">What are the three<br>things that matter most today?</div>
-        <input class="ci-input" id="ci-p1" type="text" placeholder="The one thing I cannot let slide today…">
-        <input class="ci-input" id="ci-p2" type="text" placeholder="Second most important…">
-        <input class="ci-input" id="ci-p3" type="text" placeholder="Third…">
-        <button class="ci-next" onclick="nextStep(6)">Continue</button>
+        <input class="ci-input" id="ci-p1" type="text" placeholder="Cannot slide today">
+        <input class="ci-input" id="ci-p2" type="text" placeholder="Second priority">
+        <input class="ci-input" id="ci-p3" type="text" placeholder="Third priority">
+        <button class="ci-next" onclick="nextStep(6)">Next</button>
       </div>
       <div class="ci-step" id="ci-6">
         <div class="ci-domain-tag" style="color:#5A9E7A;border-color:rgba(90,158,122,0.4);background:rgba(90,158,122,0.08);">✦ Spiritual — Calibration</div>
@@ -1480,7 +1460,7 @@ body.pre-dawn{
       </div>
       <div class="simple-body">
         <div class="simple-q">How is your<br>body today?</div>
-        <div class="simple-sub">Answer honestly. This drives your Body ring and scripture alerts.</div>
+        <div class="simple-sub">Affects Body ring and alerts.</div>
 
         <div class="field-lbl">Sleep quality last night</div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
@@ -1513,7 +1493,7 @@ body.pre-dawn{
         </div>
 
         <button class="modal-primary-btn" id="body-submit-btn" onclick="submitBodyCheckin()">
-          Score My Body
+          Score body
         </button>
 
         <div id="body-result" style="display:none;text-align:center;padding:20px 0;">
@@ -1558,22 +1538,22 @@ body.pre-dawn{
         <!-- Non-negotiable / discipline title -->
         <div id="item-title-wrap">
           <div class="field-lbl" id="item-title-lbl">Title</div>
-          <input class="ci-input" type="text" id="item-title-input" placeholder="e.g. Word & Prayer">
+          <input class="ci-input" type="text" id="item-title-input" placeholder="Word &amp; Prayer">
         </div>
         <!-- discipline subtitle -->
         <div id="item-subtitle-wrap" style="display:none;">
           <div class="field-lbl">Subtitle (optional)</div>
-          <input class="ci-input" type="text" id="item-subtitle-input" placeholder="e.g. Daily reading complete">
+          <input class="ci-input" type="text" id="item-subtitle-input" placeholder="Daily reading">
         </div>
         <!-- verse ref -->
         <div id="item-ref-wrap" style="display:none;">
           <div class="field-lbl">Reference</div>
-          <input class="ci-input" type="text" id="item-ref-input" placeholder="e.g. Romans 8:28">
+          <input class="ci-input" type="text" id="item-ref-input" placeholder="Verse reference">
         </div>
         <!-- verse text -->
         <div id="item-text-wrap" style="display:none;">
           <div class="field-lbl">Verse</div>
-          <textarea class="ci-textarea" id="item-text-input" style="min-height:130px;flex:0 0 auto;" placeholder="Type or paste the verse…"></textarea>
+          <textarea class="ci-textarea" id="item-text-input" style="min-height:130px;flex:0 0 auto;" placeholder="Verse text"></textarea>
         </div>
         <button class="modal-primary-btn" id="item-save-btn" onclick="saveItem()">Save</button>
         <button class="modal-primary-btn red" id="item-delete-btn" style="display:none;" onclick="deleteItem()">Delete</button>
@@ -1590,7 +1570,7 @@ body.pre-dawn{
       <div class="simple-body">
         <div class="simple-q">What are you<br>praying for?</div>
         <div class="simple-sub">Say exactly what is on your mind. He already knows. Writing it is for you — to get it out of your head and into His hands.</div>
-        <textarea class="ci-textarea" id="new-prayer-text" placeholder="Lord, I'm asking…" style="min-height:160px;"></textarea>
+        <textarea class="ci-textarea" id="new-prayer-text" placeholder="Prayer request" style="min-height:160px;"></textarea>
         <button class="modal-primary-btn" onclick="savePrayer()">Save Prayer</button>
       </div>
     </div>
@@ -1609,7 +1589,7 @@ body.pre-dawn{
         <div id="answered-orig-prayer" style="font-style:italic;color:var(--ts);font-size:13px;line-height:1.55;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:6px;"></div>
         <div class="field-lbl">His answer</div>
         <textarea class="ci-textarea" id="answer-text" placeholder="What happened? When? How did you know it was Him?" style="min-height:130px;"></textarea>
-        <button class="modal-primary-btn green" onclick="confirmAnswered()">Mark Answered ✓</button>
+        <button class="modal-primary-btn green" onclick="confirmAnswered()">Mark answered</button>
       </div>
     </div>
 
@@ -1622,10 +1602,10 @@ body.pre-dawn{
       </div>
       <div class="simple-body">
         <div class="simple-q">What is the<br>vision?</div>
-        <div class="simple-sub">Write it like you mean it. Not what sounds good — what you actually want. The AI turns one honest sentence into a real 90-day plan with daily actions. Vague goals get vague plans.</div>
+        <div class="simple-sub">Breaks into 3 phases, 12 weeks, daily actions.</div>
         <div class="field-lbl">Your 90-day goal</div>
-        <textarea class="ci-textarea" id="goal-input" placeholder="e.g. Run a 5K in under 25 minutes by day 90 · Build Firm Foundation to 50 paying users · Read through the New Testament with my son" style="min-height:120px;"></textarea>
-        <button class="modal-primary-btn" id="goal-generate-btn" onclick="generateGoalPlan()">Generate Plan with AI</button>
+        <textarea class="ci-textarea" id="goal-input" placeholder="Your 90-day goal" style="min-height:120px;"></textarea>
+        <button class="modal-primary-btn" id="goal-generate-btn" onclick="generateGoalPlan()">Generate plan</button>
         <button class="modal-primary-btn red" id="goal-clear-btn" style="display:none;" onclick="clearGoalPlan()">Clear &amp; Start Over</button>
       </div>
     </div>
@@ -1646,7 +1626,7 @@ body.pre-dawn{
           "I show up because I am a steward of this body and this life, not the owner."<br>
           "I show up because the men around me need me to be whole."
         </div>
-        <textarea class="ci-textarea" id="covenant-input" placeholder="I show up because…" style="min-height:120px;"></textarea>
+        <textarea class="ci-textarea" id="covenant-input" placeholder="Your reason" style="min-height:120px;"></textarea>
         <button class="modal-primary-btn" onclick="saveCovenant()">Save Covenant</button>
       </div>
     </div>
@@ -1741,7 +1721,7 @@ body.pre-dawn{
         </div>
         <div style="background:var(--surface);border:1px solid rgba(245,200,66,0.15);border-radius:14px;padding:16px;margin-bottom:14px;">
           <div style="font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">Coming in Phase 2</div>
-          <div style="font-size:12px;color:var(--ts);line-height:1.8;">✦ &nbsp;Cloud accounts — your data follows you across devices<br>✦ &nbsp;Accountability pairs — a brother who sees your streak<br>✦ &nbsp;Evening check-in flow<br>✦ &nbsp;Garmin + Apple Health integration</div>
+          <div style="font-size:12px;color:var(--ts);line-height:1.8;">✦ &nbsp;Cloud accounts — your data follows you across devices<br>✦ &nbsp;Accountability pairs — a brother who sees your streak<br>✦ &nbsp;Evening check-in flow</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:20px;">
           <div style="font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:8px;">Your Data</div>
@@ -1764,7 +1744,7 @@ body.pre-dawn{
       <div class="simple-body">
         <div class="simple-q">What's on<br>your mind?</div>
         <div class="simple-sub">Bug, idea, or something that hit different — we read every message and respond to most.</div>
-        <textarea class="ci-textarea" id="feedback-input" placeholder="Type here…" style="min-height:160px;"></textarea>
+        <textarea class="ci-textarea" id="feedback-input" placeholder="Your feedback" style="min-height:160px;"></textarea>
         <button class="modal-primary-btn" onclick="submitFeedback()">Send →</button>
       </div>
     </div>
@@ -1781,7 +1761,7 @@ body.pre-dawn{
         <div class="simple-sub">Log your actual time. Honesty is the discipline — not the number.</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin:20px 0;" id="prayer-quick-times"></div>
         <div class="field-lbl">Or enter exact minutes</div>
-        <input type="number" id="prayer-log-input" class="ci-input" placeholder="e.g. 18" min="1" max="240" style="font-size:24px;font-weight:700;text-align:center;padding:14px;">
+        <input type="number" id="prayer-log-input" class="ci-input" placeholder="Minutes" min="1" max="240" style="font-size:24px;font-weight:700;text-align:center;padding:14px;">
         <button class="modal-primary-btn" onclick="savePrayerLog()" style="margin-top:16px;">Log Time</button>
         <button onclick="resetPrayerTime()" style="background:transparent;color:var(--ts);border:1px solid var(--border);border-radius:12px;padding:10px;font-size:12px;cursor:pointer;width:100%;margin-top:8px;">Reset to 0</button>
       </div>
@@ -2134,7 +2114,7 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
 
   if (contentEl) contentEl.innerHTML =
     `<div style="color:var(--ts);text-align:center;padding:40px;font-size:13px">
-       Loading ${bookName} ${ch}…
+       Reading ${bookName} ${ch}.
      </div>`;
 
   try {
@@ -2161,16 +2141,12 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
     `<div style="text-align:center;padding:40px 20px">
        <div style="font-size:28px;margin-bottom:12px">📖</div>
        <div style="font-size:14px;color:var(--tp);margin-bottom:8px">
-         ${bookName} ${ch} is unavailable offline.
-       </div>
-       <div style="font-size:12px;color:var(--ts);line-height:1.7">
-         Check your connection and try again.<br>
-         "Your word is a lamp to my feet." — Psalm 119:105
+         ${bookName} ${ch} unavailable. Check internet.
        </div>
        <button onclick="loadBibleChapter('${bookName}',${ch},${totalChapters})"
          style="margin-top:16px;background:var(--gold);border:none;border-radius:8px;
                 padding:10px 20px;color:#080B14;font-size:12px;font-weight:600;
-                font-family:inherit;cursor:pointer">Try again</button>
+                font-family:inherit;cursor:pointer">Retry</button>
      </div>`;
 }
 
@@ -2179,7 +2155,7 @@ async function bibleSearch() {
   if (!q) return;
   const resultEl = document.getElementById('bible-search-result');
   if (resultEl) resultEl.innerHTML =
-    `<div style="color:var(--ts);font-size:12px;padding:10px 0">Searching the Word…</div>`;
+    `<div style="color:var(--ts);font-size:12px;padding:10px 0">Searching scripture.</div>`;
 
   try {
     const reply = await window.claude.complete({
@@ -2232,17 +2208,16 @@ Rules:
   } catch (e) {
     if (resultEl) resultEl.innerHTML =
       `<div style="color:var(--ts);font-size:12px;padding:10px 0">
-         Search unavailable. Check your connection and try again.
+         Search failed. Check internet.
        </div>`;
   }
 }
 
 function saveSearchVerse(ref, text) {
   if (!state.verses) state.verses = [];
-  if (state.verses.find(x => x.ref === ref)) { showToast('Already in Library ✓'); return; }
+  if (state.verses.find(x => x.ref === ref)) { showToast('Already saved.'); return; }
   state.verses.unshift({ id: uid(), ref, text, saved: true });
   persist();
-  showToast('Saved to Library ✓');
 }
 
 function setBibleTestament(t) {
@@ -2380,7 +2355,6 @@ function persist(){
   ls.set('ff_integral_checks', state.integralChecks);
   ls.set('ff_domain_expanded', state.domainExpanded);
   ls.set('ff_journals', state.journals || []);
-  ls.set('ff_terra_user_id', state.terraUserId);
   ls.set('ff_longest_streak', state.longestStreak);
   ls.set('ff_whoop_tokens', state.whoopTokens);
   ls.set('ff_governor_active', state.governorActive);
@@ -2450,67 +2424,19 @@ async function fetchWhoopRecovery(){
 }
 
 async function syncWhoop() {
-  // Route to the correct sync: WHOOP OAuth direct sync takes priority over Terra/generic
   if (state.whoopTokens?.access_token) return syncWHOOP();
   return syncBiometrics();
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// UNIVERSAL BIOMETRIC INTEGRATION
-// Priority: Body Check-in → Garmin → Apple Health
-// ═══════════════════════════════════════════════════════════════════
-async function fetchSourceValue(srcId){
-  if (state.terraUserId) {
-    const res = await fetch(`/.netlify/functions/biometrics?action=sync&terra_user_id=${encodeURIComponent(state.terraUserId)}`);
-    if (!res.ok) throw new Error('Biometrics sync failed');
-    const data = await res.json();
-    if (data.value != null) {
-      ls.set('ff_last_hrv', data.hrv);
-      ls.set('ff_last_resting_hr', data.resting_hr);
-      ls.set('ff_last_sleep_hours', data.sleep_hours);
-      return data.value;
-    }
-  }
-  const src = state.sources.find(s => s.id === srcId);
-  if (src?.value != null) return src.value;
-  return null;
-}
-
 function activeSource(){
-  // Return first connected source in priority order
   return state.sources.find(s => s.connected) || null;
 }
 
-async function syncBiometrics(){
-  const active = activeSource();
-  if(!active){
-    state.whoop.error = 'No source connected';
-    renderBiometrics();
-    return;
-  }
-  // Indicate sync state
-  const btn = document.querySelector(`.bio-toggle.sync[data-src="${active.id}"]`);
-  if(btn) btn.textContent = 'Syncing…';
-  try{
-    const value = await fetchSourceValue(active.id);
-    const now = new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
-    active.value = value;
-    active.lastSync = now;
-    // Mirror to legacy `whoop` state for backwards compat (drives ring + health-strip)
-    state.whoop.recovery = value;
-    state.whoop.lastSync = now;
-    state.whoop.error = null;
-    persist();
-    renderBiometrics();
-    renderWhoop();
-    animateRings();
-  } catch(e){
-    state.whoop.error = e.message || 'Sync failed';
-    renderBiometrics();
-  }
+function syncBiometrics() {
+  showToast('Connect WHOOP to sync biometrics.');
 }
 
-async function toggleSource(srcId){
+function toggleSource(srcId){
   if (srcId === 'whoop') {
     const src = state.sources.find(s => s.id === 'whoop');
     if (src?.connected || state.whoopTokens) {
@@ -2518,42 +2444,6 @@ async function toggleSource(srcId){
     } else {
       connectWHOOP();
     }
-    return;
-  }
-
-  const src = state.sources.find(s => s.id === srcId);
-  if(!src) return;
-
-  if (src.connected) {
-    if (state.terraUserId) {
-      try {
-        await fetch(`/.netlify/functions/biometrics?action=disconnect&terra_user_id=${encodeURIComponent(state.terraUserId)}`);
-      } catch(e) { console.warn('Disconnect failed:', e); }
-    }
-    state.sources.forEach(s => { s.connected = false; s.value = null; s.lastSync = null; });
-    state.terraUserId = null;
-    state.whoop = { connected: false, recovery: null, lastSync: null, error: null };
-    persist();
-    renderBiometrics();
-    renderWhoop();
-    animateRings();
-    return;
-  }
-
-  try {
-    const userId = ls.get('ff_install_id', null) || ('ff-' + Date.now().toString(36));
-    ls.set('ff_install_id', userId);
-    const redirectUrl = window.location.href.split('?')[0] + '?terra_connected=1&user_id=' + encodeURIComponent(userId);
-    const res = await fetch(`/.netlify/functions/biometrics?action=connect&user_id=${encodeURIComponent(userId)}&redirect=${encodeURIComponent(redirectUrl)}`);
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error('No widget URL returned');
-    }
-  } catch(e) {
-    console.error('Terra connect failed:', e);
-    alert('Could not connect wearable. Please try again.');
   }
 }
 
@@ -2564,7 +2454,7 @@ function renderBiometrics(){
   document.getElementById('bio-active-source').textContent = act ? `Active: ${act.name}` : 'No source connected';
   wrap.innerHTML = '';
   state.sources.forEach(src => {
-    if (src.id !== 'whoop') return; // Garmin + Apple Health hidden until Phase 2
+    if (src.id !== 'whoop') return;
     const isActive = act && act.id === src.id;
     const row = document.createElement('div');
     row.className = 'bio-row' + (src.connected ? ' connected' : '');
@@ -2589,10 +2479,6 @@ function renderBiometrics(){
       </div>`;
     wrap.appendChild(row);
   });
-  const comingSoon = document.createElement('div');
-  comingSoon.style.cssText = 'padding:10px 16px;font-size:11px;color:var(--ts);border-top:1px solid rgba(45,58,92,0.4);font-style:italic;';
-  comingSoon.textContent = 'Garmin + Apple Health coming in a future update';
-  wrap.appendChild(comingSoon);
 }
 
 function renderWhoop(){
@@ -2702,7 +2588,7 @@ async function generateGoalPlan(){
   persist();
   renderGoal90();
   btn.disabled = false;
-  btn.textContent = 'Generate Plan with AI';
+  btn.textContent = 'Generate plan';
   closeGoalModal();
   animateRings();
 }
@@ -2793,7 +2679,7 @@ function renderGoal90(){
       <div class="g90-empty">
         <div class="g90-empty-q">What's the<br>90-day vision?</div>
         <div class="g90-empty-sub">Tell the AI your goal. It'll break it into 3 monthly phases, 12 weekly milestones, and the daily actions that move your Mind ring.</div>
-        <button class="g90-empty-btn" onclick="openGoalModal()">Set the Vision</button>
+        <button class="g90-empty-btn" onclick="openGoalModal()">Set vision</button>
       </div>`;
     return;
   }
@@ -2831,6 +2717,7 @@ function renderGoal90(){
   });
   html += `</div>`;
   body.innerHTML = html;
+  renderGoal90Summary();
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -2916,8 +2803,8 @@ function filterVerses(){
   const list = q ? state.verses.filter(v => v.ref.toLowerCase().includes(q) || v.text.toLowerCase().includes(q)) : state.verses;
   if(!list.length){
     wrap.innerHTML = q
-      ? '<div class="empty-list">No verses match. Hit Ask to find a verse for how you feel.</div>'
-      : '<div style="color:var(--ts);text-align:center;padding:24px;font-size:13px">No saved verses yet.</div>';
+      ? '<div class="empty-list">No verses. Add one.</div>'
+      : '<div style="color:var(--ts);text-align:center;padding:24px;font-size:13px">No verses. Add one.</div>';
     return;
   }
   list.forEach(v => {
@@ -2962,7 +2849,7 @@ async function aiVerseSearch(){
     document.getElementById('verse-ai-result').classList.add('show');
   }
   btn.disabled = false;
-  btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.5L20 10l-6.2 1.5L12 18l-1.8-6.5L4 10l6.2-1.5z"/></svg> Ask';
+  btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.5L20 10l-6.2 1.5L12 18l-1.8-6.5L4 10l6.2-1.5z"/></svg> Find';
 }
 function saveAiVerse(){
   if(!aiVerseSuggestion) return;
@@ -3060,7 +2947,7 @@ function renderSabbathState(){
       <div class="sabbath-active-h">Rest</div>
       <div class="sabbath-active-sub">Trackers are paused. Discipline is not earned today — it's received. Sit. Walk. Pray. Be with the people you love.</div>
       <div class="sabbath-active-time">${remainHrs} hours remaining</div>
-      <button class="sabbath-exit" onclick="exitSabbath()">Exit Sabbath Early</button>`;
+      <button class="sabbath-exit" onclick="exitSabbath()">Exit Sabbath</button>`;
     const stripParent = document.querySelector('#s-today');
     const strip = document.querySelector('#s-today .health-strip');
     if(stripParent && strip) stripParent.insertBefore(card, strip.nextSibling);
@@ -3148,7 +3035,7 @@ function renderPriorities(){
   const wrap = document.getElementById('priorities-list');
   wrap.innerHTML = '';
   if(!state.priorities.length){
-    wrap.innerHTML = '<div class="empty-list">No priorities yet. Tap + Add to set today\'s focus.</div>';
+    wrap.innerHTML = '<div class="empty-list">No priorities. Add one.</div>';
     return;
   }
   state.priorities.forEach((p, i) => {
@@ -3181,7 +3068,7 @@ function renderNonneg(){
   const wrap = document.getElementById('nonneg-list');
   wrap.innerHTML = '';
   if(!state.nonneg.length){
-    wrap.innerHTML = '<div class="empty-list">No non-negotiables yet. Tap + Add to commit.</div>';
+    wrap.innerHTML = '<div class="empty-list">No items. Add one.</div>';
     return;
   }
   state.nonneg.forEach(item => {
@@ -3219,7 +3106,7 @@ function renderDisciplines(){
   const wrap = document.getElementById('disc-list');
   wrap.innerHTML = '';
   if(!state.disciplines.length){
-    wrap.innerHTML = '<div class="empty-list">No disciplines yet. Tap + Add to start.</div>';
+    wrap.innerHTML = '<div class="empty-list">No disciplines. Add one.</div>';
     return;
   }
   state.disciplines.forEach(d => {
@@ -3748,6 +3635,8 @@ function renderStreakAndPrayer(){
   if (emptyState) emptyState.style.display = (state.streak === 0 && !_checkedInToday) ? 'block' : 'none';
   document.getElementById('prayer-cur').textContent = state.prayerMin;
   document.getElementById('prayer-goal-num').textContent = state.prayerGoal;
+  const prayerTargetEl = document.getElementById('prayer-target-min');
+  if (prayerTargetEl) prayerTargetEl.textContent = state.prayerGoal;
   const ARC_FULL = 150;
   const ratio = Math.min(state.prayerMin/state.prayerGoal, 1);
   document.getElementById('prayer-arc-fill').setAttribute('stroke-dasharray', `${(ARC_FULL*ratio).toFixed(1)} 175.9`);
@@ -3810,7 +3699,7 @@ function openBodyModal() {
   const result = document.getElementById('body-result');
   const btn    = document.getElementById('body-submit-btn');
   if (result) result.style.display = 'none';
-  if (btn)    { btn.style.display = 'block'; btn.textContent = 'Score My Body'; btn.disabled = false; }
+  if (btn)    { btn.style.display = 'block'; btn.textContent = 'Score body'; btn.disabled = false; }
   document.getElementById('body-modal').classList.add('open');
 }
 
@@ -3824,7 +3713,7 @@ async function submitBodyCheckin() {
   const soreness = Number(document.getElementById('body-soreness').value);
 
   const btn = document.getElementById('body-submit-btn');
-  btn.textContent = 'Scoring…';
+  btn.textContent = 'Scoring body.';
   btn.disabled = true;
 
   const applyScore = (score, label) => {
@@ -3859,7 +3748,7 @@ async function submitBodyCheckin() {
     applyScore(data.score, data.label);
   } catch(e) {
     console.error('Body check-in failed:', e);
-    btn.textContent = 'Score My Body';
+    btn.textContent = 'Score body';
     btn.disabled    = false;
     // Fallback client-side scoring
     const avg   = (sleep + energy + soreness) / 3;
@@ -3941,7 +3830,7 @@ function submitCheckin(){
   // Covenant milestone toasts
   const s = state.streak;
   if([7,21,40,90,180,365].includes(s)){
-    showToast(`${s}-day covenant reached. "${covenantVerse(s)}"`);
+    showToast(`${s}-day covenant.`);
   }
   const WATERMARK_DAYS = [7, 21, 30, 40, 90, 180, 365];
   if (WATERMARK_DAYS.includes(state.streak)) {
@@ -3982,7 +3871,7 @@ async function getAIPrayerPrompt(){
   }
   const btn = document.getElementById('ai-prayer-btn');
   const txt = document.getElementById('ai-prayer-text');
-  btn.textContent = 'Loading...';
+  btn.textContent = 'Generating prompt.';
   btn.disabled = true;
   try{
     const reply = await window.claude.complete({
@@ -3996,7 +3885,7 @@ async function getAIPrayerPrompt(){
   } catch(e){
     txt.textContent = 'Lord, show me one area today where I can be more faithful than yesterday.';
     txt.classList.add('shown');
-    btn.textContent = 'Try again →';
+    btn.textContent = 'Retry';
   }
   btn.disabled = false;
 }
@@ -4018,7 +3907,7 @@ function renderPrayers(){
   const answered = state.prayers.filter(p=>p.status==='answered').sort((a,b)=>(b.dateMs||0)-(a.dateMs||0));
   const ordered  = [...active, ...answered];
   if(!ordered.length){
-    wrap.innerHTML = '<div style="color:var(--ts);text-align:center;padding:24px;font-size:13px">No prayers yet. Add your first prayer above.</div>';
+    wrap.innerHTML = '<div style="color:var(--ts);text-align:center;padding:24px;font-size:13px">No prayers. Add one.</div>';
     return;
   }
   ordered.forEach(p => {
@@ -4047,7 +3936,7 @@ function renderAnswered(){
   wrap.innerHTML = '';
   const answered = state.prayers.filter(p=>p.status==='answered').sort((a,b)=>(b.answeredMs||0)-(a.answeredMs||0));
   if(!answered.length){
-    wrap.innerHTML = '<div class="empty-msg">No answered prayers logged yet.<br>Mark one as answered to start your wall.</div>';
+    wrap.innerHTML = '<div class="empty-msg">No answered prayers. Mark one.</div>';
     return;
   }
   answered.forEach(p => {
@@ -4344,12 +4233,12 @@ Rules: nonneg must be 4 short daily disciplines specific to the user's struggle 
     ls.set('ff_onboarded', true);
     renderAll();
     closeOnboarding();
-    showToast(`Foundation set. "${json.verse_ref} — ${json.verse_text}"`);
+    showToast('Foundation set.');
   } catch(e){
     console.warn('Onboarding AI failed:', e);
     ls.set('ff_onboarded', true);
     closeOnboarding();
-    showToast('Foundation set — customize it in Profile.');
+    showToast('Customize in Profile.');
   }
 }
 
@@ -4405,7 +4294,7 @@ function submitEvening(){
     state.journals.unshift({ id: uid(), text: gratitude, date: new Date().toISOString(), type: 'evening' });
     persist();
   }
-  showToast('Day closed. Well done. 🌙');
+  showToast('Day closed.');
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -4416,7 +4305,7 @@ function renderTimeline(){
   if(!list) return;
   const entries = ls.get('ff_timeline', []);
   if(!entries.length){
-    list.innerHTML = '<div style="padding:32px 22px;text-align:center;color:var(--ts);font-size:13px;line-height:1.6">Complete your first evening check-in to begin your timeline.</div>';
+    list.innerHTML = '<div style="padding:32px 22px;text-align:center;color:var(--ts);font-size:13px;line-height:1.6">No entries. Complete evening check-in.</div>';
     return;
   }
   list.innerHTML = entries.map((e, i) => {
@@ -4550,6 +4439,12 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .catch(e => console.warn('SW:', e));
+}
+
 // boot
 initDB().then(() => {
   // Initialize state after DB cache is loaded
@@ -4589,9 +4484,7 @@ initDB().then(() => {
     prayerGoal:    ls.get('ff_prayer_goal', 20),
     whoop: ls.get('ff_whoop', {connected:false, recovery:null, lastSync:null, error:null}),
     sources: ls.get('ff_sources', [
-      {id:'whoop',  name:'Body Check-in', metric:'Recovery',    connected:false, value:null, lastSync:null},
-      {id:'garmin', name:'Garmin',        metric:'Body Battery',connected:false, value:null, lastSync:null},
-      {id:'apple',  name:'Apple Health', metric:'Readiness',   connected:false, value:null, lastSync:null}
+      {id:'whoop',  name:'Body Check-in', metric:'Recovery',    connected:false, value:null, lastSync:null}
     ]),
     goal90:            ls.get('ff_goal90', null),
     dailyActionChecks: ls.get('ff_daily_action_checks', {}),
@@ -4605,7 +4498,6 @@ initDB().then(() => {
     eveningRating:    ls.get('ff_evening_rating', null),
     eveningGratitude: ls.get('ff_evening_gratitude', ''),
     memberSince:   ls.get('ff_member_since', _memberDefault),
-    terraUserId:   ls.get('ff_terra_user_id', null),
     whoopTokens:   ls.get('ff_whoop_tokens', null),
     governorActive: ls.get('ff_governor_active', false),
     governorMessage: ls.get('ff_governor_message', null),
@@ -4664,20 +4556,6 @@ initDB().then(() => {
   // First-launch onboarding
   if(!ls.get('ff_onboarded', false)){
     setTimeout(showOnboarding, 500);
-  }
-  // Terra OAuth return handler
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('terra_connected') === '1') {
-    const terraUser = urlParams.get('user_id') || ls.get('ff_terra_user_id', null);
-    if (terraUser) {
-      state.terraUserId = terraUser;
-      const whoopSrc = state.sources.find(s => s.id === 'whoop');
-      if (whoopSrc) { whoopSrc.connected = true; }
-      state.whoop.connected = true;
-      persist();
-      syncBiometrics();
-    }
-    window.history.replaceState({}, '', window.location.pathname);
   }
   // PWA install banner
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
@@ -4844,7 +4722,7 @@ function renderCouncilHistory() {
   if (!el) return;
   const sessions = ls.get('ff_council_sessions', []);
   if (!sessions.length) {
-    el.innerHTML = '<div class="empty-list">No past sessions. Ask the council a question.</div>';
+    el.innerHTML = '<div class="empty-list">No sessions. Ask a question.</div>';
     return;
   }
   el.innerHTML = sessions.slice(0, 10).map(s => {
@@ -4886,8 +4764,8 @@ window.claude = {
     const data = await res.json();
     if (!res.ok) {
       const msg = data.status === 'timeout'
-        ? 'The mentor is taking too long to respond. Try again.'
-        : (data.message || 'Something went wrong. Try again.');
+        ? 'Mentor timeout. Retry.'
+        : (data.message || 'Error. Retry.');
       throw new Error(msg);
     }
     return data.content;
@@ -5158,7 +5036,7 @@ async function syncWHOOP(retried = false) {
 
   } catch(e) {
     console.error('WHOOP sync failed:', e);
-    state.whoop.error = 'Sync failed — tap to retry';
+    state.whoop.error = 'Sync failed. Retry.';
     persist();
     renderWhoop();
   }
@@ -5233,7 +5111,7 @@ function handleWHOOPReturn() {
       src.connected = false;
       src.value = null;
     }
-    state.whoop.error = 'Connection failed — tap Connect to try again';
+    state.whoop.error = 'Connection failed. Retry.';
     persist();
     renderBiometrics();
   }
@@ -5437,7 +5315,7 @@ function startDeclarationRecording() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (!SpeechRecognition) {
-    alert('Voice recording is not supported on this browser. Please use Chrome or Safari.');
+    alert('Voice unsupported. Use Chrome or Safari.');
     return;
   }
 
@@ -5641,6 +5519,27 @@ function setFaultLine(domain, pct, missed) {
     if (dy < -72) openCheckin();   // 72px upward = intent
   }, { passive: true });
 })();
+
+function toggleG90Detail() {
+  const d = document.getElementById('g90-detail');
+  const arrow = document.querySelector('.g90-summary-row span:last-child');
+  if (!d) return;
+  const open = d.style.display !== 'none';
+  d.style.display = open ? 'none' : 'block';
+  if (arrow) arrow.textContent = open ? '↓' : '↑';
+}
+
+function renderGoal90Summary() {
+  const el = document.getElementById('g90-summary-line');
+  if (!el || !state.goal90?.title) {
+    if (el) el.textContent = 'No goal set';
+    return;
+  }
+  const pct = typeof state.goal90.progress === 'number' ? state.goal90.progress : 0;
+  const week = state.goal90.currentWeek || 1;
+  const totalWeeks = 13;
+  el.textContent = `${state.goal90.title.slice(0,28)}${state.goal90.title.length > 28 ? '…' : ''} · Week ${week} of ${totalWeeks} · ${pct}%`;
+}
 </script>
 
 <!-- ═══ PAYWALL OVERLAY ═══ -->
@@ -5695,7 +5594,7 @@ function setFaultLine(domain, pct, missed) {
       <div>
         <div style="font-size:10px;color:#777;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase">Biometric device</div>
         <select id="ob-device" style="width:100%;background:#111;border:0.5px solid #2D3A5C;border-radius:8px;padding:10px 12px;color:#DEDAD4;font-size:13px;font-family:inherit">
-          <option>WHOOP</option><option>Apple Watch</option><option>Garmin</option><option>None yet</option>
+          <option>WHOOP</option><option>None yet</option>
         </select>
       </div>
       <div>

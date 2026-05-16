@@ -18,12 +18,10 @@ The landing page is `landing.html`. The app is `index.html`, served at `/app` an
 ├── netlify/functions/
 │   ├── claude.js                   # Anthropic API proxy
 │   ├── config.js                   # Public runtime config (OneSignal App ID, etc.)
-│   ├── biometrics.js               # Terra API (Garmin, Oura, Fitbit, Google)
 │   ├── whoop-auth.js               # WHOOP OAuth redirect + callback
 │   ├── whoop-sync.js               # WHOOP data fetch (recovery, sleep, HRV)
 │   ├── whoop-refresh.js            # WHOOP token refresh
 │   ├── body-score.js               # Body score calculation (sleep/energy/soreness)
-│   ├── terra-webhook.js            # Terra webhook receiver
 │   └── package.json                # @anthropic-ai/sdk dependency
 ├── PRODUCT.md                      # Product and brand document
 └── CLAUDE.md                       # This file
@@ -135,9 +133,6 @@ POST with `{ access_token }`. Returns `{ score, hrv, rhr, sleepHours, label, syn
 ### `whoop-refresh.js`
 POST with `{ refresh_token }`. Returns new token set from WHOOP.
 
-### `biometrics.js`
-Terra API wrapper. Query params: `action=connect|sync|disconnect`. For `sync`: `terra_user_id` required.
-
 ### `body-score.js`
 POST with `{ sleep, energy, soreness }` (0–100 each). Returns `{ score, label }`. Weights: sleep 40%, energy 35%, soreness 25%.
 
@@ -188,8 +183,8 @@ Tab switching: `switchTab(id, btn)`. Journal sub-tabs: `switchJTab(el)`.
 | `ONESIGNAL_APP_ID` | `config.js` | OneSignal Web Push App ID |
 | `WHOOP_CLIENT_ID` | `whoop-auth.js`, `whoop-refresh.js` | WHOOP OAuth client ID |
 | `WHOOP_CLIENT_SECRET` | `whoop-auth.js`, `whoop-refresh.js` | WHOOP OAuth client secret |
-| `TERRA_API_KEY` | `biometrics.js` | Terra API key |
-| `TERRA_DEV_ID` | `biometrics.js` | Terra developer ID |
+
+> Terra integration removed — Phase 2.
 
 Stripe payment links are hardcoded in `index.html` (search `buy.stripe.com`). Replace with production links before launch.
 

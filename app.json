@@ -6,13 +6,14 @@
     "scheme": "firmfoundation",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/firm_foundation_logo_1024.png",
     "splash": {
       "backgroundColor": "#0C0F1A"
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.ccelic.firmfoundation"
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.firmfoundation.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,11 +22,7 @@
       "package": "com.ccelic.firmfoundation"
     },
     "plugins": [
-      "expo-router",
       "expo-secure-store"
-    ],
-    "experiments": {
-      "typedRoutes": false
-    }
+    ]
   }
 }
