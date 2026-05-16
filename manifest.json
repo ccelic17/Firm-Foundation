@@ -1,0 +1,14 @@
+{
+  "name": "Firm Foundation",
+  "short_name": "Foundation",
+  "description": "A daily discipline system for the whole man. Body. Spirit. Mind.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07090F",
+  "theme_color": "#07090F",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
