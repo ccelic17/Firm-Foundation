@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Firm Foundation — Don't Drift.">
 <meta name="twitter:description" content="The daily discipline app for Christian men who take body, spirit, and mind seriously.">
-<meta name="theme-color" content="#F5C842">
+<meta name="theme-color" content="#C4911A">
 <link rel="canonical" href="https://thefirmfoundation.app">
 <template id="__bundler_thumbnail" data-bg-color="#04060E">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
@@ -33,19 +33,26 @@
 </template>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080B14;--surface:#0F1525;--elevated:#192036;
-  --gold:#F5C842;--gold-dim:rgba(245,200,66,0.12);--gold-border:rgba(245,200,66,0.22);
-  --blue:#2E6FD4;--blue-dim:rgba(46,111,212,0.12);--blue-border:rgba(46,111,212,0.25);
-  --green:#27AE60;--yellow:#F39C12;--red:#E74C3C;
-  --tp:#FFFFFF;--ts:#8A94A6;--border:#2D3A5C;
+  --bg:#07090F;--surface:#0D1119;--elevated:#141A27;
+  --gold:#C4911A;--gold-hot:#E4AF2A;--gold-pale:#F2D472;
+  --gold-dim:rgba(196,145,26,0.07);--gold-border:rgba(196,145,26,0.22);
+  --blue:#4A6FA5;--blue-hot:#6A94CC;
+  --blue-dim:rgba(74,111,165,0.09);--blue-border:rgba(74,111,165,0.28);
+  --green:#3D7A5C;--green-hot:#52A87D;
+  --green-dim:rgba(61,122,92,0.09);--green-border:rgba(61,122,92,0.28);
+  --yellow:#8B4513;--yellow-hot:#B85C20;
+  --yellow-dim:rgba(139,69,19,0.09);--yellow-border:rgba(139,69,19,0.28);
+  --ash:#1E2535;--ash-text:#2D3A50;
+  --red:#E74C3C;
+  --tp:#E8ECF4;--tm:#8A96B0;--ts:#4E5A72;--border:#1E2B42;
   --fd:'Barlow Condensed',sans-serif;--fb:'DM Sans',sans-serif;
+  --display:'Playfair Display',Georgia,serif;
 }
-html,body{background:#04060E;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:32px 0 64px;font-family:var(--fb);}
+html,body{background:#07090F;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:32px 0 64px;font-family:var(--fb);}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(245,200,66,0.04) 0%,transparent 60%);pointer-events:none;}
 
 .brand-header{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0.7;}
@@ -116,7 +123,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .sb-quote{font-size:10.5px;color:var(--ts);font-style:italic;line-height:1.4;}
 
 /* feedback loop card */
-.loop-card{margin:0 22px 16px;padding:11px 14px;border-left:2px solid;}
+.loop-card{margin:0 22px 16px;padding:11px 14px;border:1px solid;border-radius:12px;}
 .loop-card-tag{font-family:var(--fd);font-size:9px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:4px;}
 .loop-card-text{font-size:11.5px;color:var(--ts);line-height:1.55;}
 
@@ -350,7 +357,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .answered-sub{font-size:12px;color:var(--ts);margin-top:6px;font-style:italic;line-height:1.55;}
 .answered-list{padding:16px 22px 0;}
 .answered-entry{background:rgba(39,174,96,0.04);border:1px solid rgba(39,174,96,0.16);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden;}
-.answered-entry::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green);}
+.answered-entry::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);border-radius:16px 16px 0 0;}
 .ae-date-range{font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:6px;}
 .ae-prayer{font-size:13px;color:var(--ts);font-style:italic;margin-bottom:10px;line-height:1.55;}
 .ae-answer-lbl{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:4px;}
@@ -563,6 +570,131 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .cc-glyph{font-size:20px;margin-bottom:6px;line-height:1;}
 .cc-name{font-family:var(--fd);font-size:13px;font-weight:800;letter-spacing:0.5px;color:var(--tp);text-transform:uppercase;line-height:1.15;}
 .cc-role{font-size:10px;color:var(--ts);margin-top:3px;letter-spacing:0.3px;}
+
+/* ── DELIGHT: PRAYER ASCENSION ── */
+@keyframes ff-ascend {
+  0%   { transform: translateY(0);     opacity: 1; }
+  100% { transform: translateY(-26px); opacity: 0; }
+}
+.ff-ascending {
+  animation: ff-ascend 680ms ease-out forwards;
+  pointer-events: none;
+}
+.ff-tab-glow svg   { transition: filter 0.3s ease; }
+.ff-tab-glow svg * { transition: filter 0.3s ease; }
+.ff-tab-glow       { filter: drop-shadow(0 0 6px rgba(196,145,26,0.85)); }
+
+/* ── PRE-DAWN PALETTE SHIFT ── */
+/* Applied by JS between 04:30–06:30. Overrides :root via body class. */
+body.pre-dawn{
+  --bg:#08090D;
+  --gold:#CC9A1E;--gold-hot:#EAB82E;
+  --gold-dim:rgba(204,154,30,0.07);--gold-border:rgba(204,154,30,0.20);
+}
+
+/* ── MISSED / COLD IRON STATE ── */
+/* Applied when: day has passed AND item not completed */
+.fault-fill.missed{background:var(--ash);box-shadow:none;width:0%!important;transition:none;}
+.fault-label.missed,.fault-pct.missed{color:var(--ash-text);}
+.fault-tip.missed{display:none;}
+.nn-item.missed{border-color:var(--ash);opacity:0.5;}
+.nn-item.missed .nn-text{color:var(--ash-text);text-decoration:none;}
+.nn-item.missed .nn-dot{background:var(--ash);}
+
+/* ── GOVERNOR ALERT ── */
+.gov-hairline{height:1px;background:linear-gradient(90deg,transparent 0%,var(--yellow) 20%,var(--yellow) 80%,transparent 100%);opacity:0.3;margin:8px 0 16px;}
+.gov-zone{padding:0 22px 8px;}
+.gov-tag{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--yellow-hot);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.gov-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--yellow-hot);box-shadow:0 0 5px var(--yellow);}
+.gov-title{font-family:var(--display);font-size:17px;font-weight:700;font-style:italic;color:var(--tp);line-height:1.3;margin-bottom:8px;}
+.gov-body{font-size:12px;color:var(--tm);line-height:1.65;margin-bottom:12px;}
+.gov-verse{border:1px solid var(--gold-border);padding:8px 12px;background:var(--gold-dim);border-radius:10px;margin-bottom:12px;}
+.gov-verse-ref{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
+.gov-verse-text{font-size:12px;color:var(--tp);font-style:italic;line-height:1.5;}
+.gov-actions{display:flex;gap:8px;margin-bottom:6px;}
+.gov-btn{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;border-radius:8px;cursor:pointer;border:none;}
+.gov-btn.primary{background:rgba(139,69,19,0.18);border:1px solid var(--yellow-border);color:var(--yellow-hot);}
+.gov-btn.ghost{background:transparent;border:1px solid var(--border);color:var(--ts);}
+.gov-dismiss{font-family:var(--fd);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ts);text-align:center;padding-bottom:4px;opacity:0.6;cursor:pointer;}
+  .greeting-zone {
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @keyframes ff-swipe-pulse {
+    0%, 100% { opacity: 0.35; transform: scaleX(1); }
+    50%       { opacity: 0.7;  transform: scaleX(1.04); }
+  }
+  .greeting-swipe-hint {
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 1px;
+    margin: 10px auto 0;
+    animation: ff-swipe-pulse 2.4s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+  .fault-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px 22px 8px;
+  }
+  .fault-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .fault-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .fault-label {
+    font-family: var(--fd);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .fault-pct {
+    font-family: var(--fd);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .fault-track {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 0;
+    position: relative;
+    overflow: visible;
+  }
+  .fault-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    border-radius: 0;
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fault-tip {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fault-fill.missed { background: #1E2535; box-shadow: none; width: 0% !important; transition: none; }
+  .fault-tip.missed  { display: none !important; }
+  .fault-label.missed, .fault-pct.missed { color: #2D3A50 !important; }
+  .spirit-f { background: linear-gradient(90deg, var(--green), #52A87D); box-shadow: 0 0 10px rgba(61,122,92,0.35); }
+  .spirit-t { background: #52A87D; box-shadow: 0 0 7px rgba(82,168,125,0.7); }
+  .mind-f   { background: linear-gradient(90deg, var(--blue), #6A94CC);   box-shadow: 0 0 10px rgba(74,111,165,0.35); }
+  .mind-t   { background: #6A94CC; box-shadow: 0 0 7px rgba(106,148,204,0.7); }
+  .body-f   { background: linear-gradient(90deg, var(--yellow), #B85C20); box-shadow: 0 0 10px rgba(139,69,19,0.35); }
+  .body-t   { background: #B85C20; box-shadow: 0 0 7px rgba(184,92,32,0.7); }
 </style>
 <script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -631,6 +763,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
         <!-- AI Personalised Opening -->
         <div id="today-greeting" style="padding:4px 22px 0;font-size:13px;color:var(--ts);line-height:1.55;font-style:italic;min-height:1px;"></div>
+        <div class="greeting-swipe-hint"></div>
 
         <!-- 1 Year Ago Today (renderAll populates) -->
         <div id="anniversary-mount"></div>
@@ -638,6 +771,38 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <!-- 4-domain strip -->
         <div class="domain-strip" id="domain-strip"></div>
         <div class="system-bar" id="system-bar"></div>
+        <div class="fault-lines" id="fault-lines">
+          <div class="fault-row" data-domain="spirit">
+            <div class="fault-meta">
+              <span class="fault-label" style="color:var(--green);">✦ Spirit</span>
+              <span class="fault-pct" id="spirit-pct" style="color:var(--green);">0%</span>
+            </div>
+            <div class="fault-track">
+              <div class="fault-fill spirit-f" id="spirit-fill" style="width:0%;"></div>
+              <div class="fault-tip spirit-t" id="spirit-tip" style="left:0%;display:none;"></div>
+            </div>
+          </div>
+          <div class="fault-row" data-domain="mind">
+            <div class="fault-meta">
+              <span class="fault-label" style="color:var(--blue);">◎ Mind</span>
+              <span class="fault-pct" id="mind-pct" style="color:var(--blue);">0%</span>
+            </div>
+            <div class="fault-track">
+              <div class="fault-fill mind-f" id="mind-fill" style="width:0%;"></div>
+              <div class="fault-tip mind-t" id="mind-tip" style="left:0%;display:none;"></div>
+            </div>
+          </div>
+          <div class="fault-row" data-domain="body">
+            <div class="fault-meta">
+              <span class="fault-label" style="color:var(--yellow);">◈ Body</span>
+              <span class="fault-pct" id="body-pct" style="color:var(--yellow);">0%</span>
+            </div>
+            <div class="fault-track">
+              <div class="fault-fill body-f" id="body-fill" style="width:0%;"></div>
+              <div class="fault-tip body-t" id="body-tip" style="left:0%;display:none;"></div>
+            </div>
+          </div>
+        </div>
         <div id="loop-insight"></div>
         <!-- /OLD-RINGS-REMOVED -->
 
@@ -753,11 +918,40 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           </div>
         </div>
 
+        <!-- GOVERNOR ALERT -->
+        <div class="gov-hairline"></div>
+        <div class="gov-zone" id="governor-zone" style="display:none">
+          <div class="gov-tag">
+            <div class="gov-tag-dot"></div>
+            Governor's Alert
+          </div>
+          <div class="gov-title" id="gov-title"></div>
+          <div class="gov-body" id="gov-body"></div>
+          <div class="gov-verse" id="gov-verse" style="display:none">
+            <div class="gov-verse-ref" id="gov-verse-ref"></div>
+            <div class="gov-verse-text" id="gov-verse-text"></div>
+          </div>
+          <div class="gov-actions">
+            <button class="gov-btn primary" onclick="openCheckin()">Begin Your Day</button>
+            <button class="gov-btn ghost" onclick="dismissGovernor()">I've got this</button>
+          </div>
+          <div class="gov-dismiss" onclick="dismissGovernor()">Dismiss · don't show again today</div>
+        </div>
+
         <div class="scroll-end"></div>
       </div>
 
       <!-- ═══ SPIRIT ═══ -->
       <div class="screen" id="s-spirit" data-screen-label="02 Spirit">
+
+        <!-- Spirit internal pill switcher -->
+        <div class="j-tabs" style="margin-top:16px;">
+          <div class="j-tab active" data-pane="spirit-disciplines" onclick="switchJTab(this)">Disciplines</div>
+          <div class="j-tab" data-pane="spirit-word" onclick="switchJTab(this)">Word</div>
+        </div>
+
+        <!-- Disciplines pane -->
+        <div class="j-pane active" id="spirit-disciplines">
         <div class="spirit-hd">
           <div class="screen-title">Spirit</div>
           <div style="font-family:var(--fd);font-size:28px;font-weight:800;color:var(--tp);text-transform:uppercase;">The fire doesn't<br>go out by accident.</div>
@@ -853,6 +1047,75 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           <div class="item-list" id="verses-list"></div>
         </div>
         <div class="scroll-end"></div>
+        </div><!-- end spirit-disciplines pane -->
+
+        <!-- Word pane (Bible reader) -->
+        <div class="j-pane" id="spirit-word" style="padding:20px 16px 28px">
+
+          <!-- Topical search -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">✦ Scripture Search</div>
+            <div style="display:flex;gap:8px">
+              <input id="bible-search" placeholder="Search topic, keyword, or reference…"
+                style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;
+                       padding:11px 14px;color:var(--tp);font-size:13px;font-family:inherit;outline:none"/>
+              <button onclick="bibleSearch()"
+                style="background:var(--gold);border:none;border-radius:10px;padding:11px 16px;
+                       color:#07090F;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer">Search</button>
+            </div>
+            <div id="bible-search-result" style="margin-top:12px"></div>
+          </div>
+
+          <!-- Daily reading -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">Today's Reading</div>
+            <div id="bible-reading-today"
+              style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px"></div>
+          </div>
+
+          <!-- Book browser -->
+          <div id="bible-browser-section" style="margin-bottom:20px">
+            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">Browse the Word</div>
+            <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px">
+              <button onclick="setBibleTestament('OT')" id="bt-ot"
+                style="flex-shrink:0;background:var(--gold);border:none;border-radius:20px;
+                       padding:7px 16px;color:#07090F;font-size:11px;font-weight:600;font-family:inherit;cursor:pointer">
+                Old Testament</button>
+              <button onclick="setBibleTestament('NT')" id="bt-nt"
+                style="flex-shrink:0;background:none;border:1px solid var(--border);border-radius:20px;
+                       padding:7px 16px;color:var(--ts);font-size:11px;font-family:inherit;cursor:pointer">
+                New Testament</button>
+            </div>
+            <div id="bible-book-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"></div>
+          </div>
+
+          <!-- Chapter reader -->
+          <div id="bible-reader-panel" style="display:none">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+              <button onclick="closeBibleReader()"
+                style="background:none;border:none;color:var(--ts);font-size:11px;
+                       font-family:inherit;cursor:pointer;letter-spacing:1px">← Back</button>
+              <div style="flex:1;font-size:14px;font-weight:500;color:var(--tp)" id="bible-reader-title"></div>
+              <div style="font-size:9px;color:var(--ts)" id="bible-translation-label">KJV</div>
+            </div>
+            <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px"
+              id="bible-chapter-nav"></div>
+            <div id="bible-reader-content"
+              style="font-size:14px;color:var(--tp);line-height:2;letter-spacing:0.01em"></div>
+            <div style="display:flex;justify-content:space-between;margin-top:24px;
+                        padding-top:16px;border-top:1px solid var(--border)">
+              <button onclick="bibleNavChapter(-1)"
+                style="background:none;border:1px solid var(--border);border-radius:8px;
+                       padding:10px 18px;color:var(--ts);font-size:12px;font-family:inherit;cursor:pointer">← Prev</button>
+              <button onclick="bibleNavChapter(1)"
+                style="background:none;border:1px solid var(--border);border-radius:8px;
+                       padding:10px 18px;color:var(--ts);font-size:12px;font-family:inherit;cursor:pointer">Next →</button>
+            </div>
+          </div>
+          <div class="scroll-end"></div>
+
+        </div><!-- end spirit-word pane -->
+
       </div>
 
       <!-- ═══ JOURNAL ═══ -->
@@ -865,6 +1128,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           <div class="j-tab active" data-pane="j-prayers" onclick="switchJTab(this)">Prayers</div>
           <div class="j-tab" data-pane="j-answered" onclick="switchJTab(this)">Answered</div>
           <div class="j-tab" data-pane="j-timeline" onclick="switchJTab(this)">God Moved</div>
+          <div class="j-tab" data-pane="j-counsel" onclick="switchJTab(this)">Counsel</div>
         </div>
 
         <div class="j-pane active" id="j-prayers">
@@ -893,6 +1157,51 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           <div class="timeline" id="tl-list"></div>
           <div class="scroll-end"></div>
         </div>
+
+        <div class="j-pane" id="j-counsel">
+          <div style="padding:22px 22px 0">
+            <div class="screen-title">THE COUNCIL</div>
+            <div style="font-size:13px;color:var(--ts);line-height:1.5;margin-top:4px;margin-bottom:18px">Five voices. One question. Ask it.</div>
+          </div>
+          <div style="padding:0 22px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <div class="council-card"><div class="cc-glyph">&#9876;&#65039;</div><div class="cc-name">The Sentinel</div><div class="cc-role">Body &amp; Stewardship</div></div>
+              <div class="council-card"><div class="cc-glyph">&#128218;</div><div class="cc-name">The Scribe</div><div class="cc-role">Mind &amp; Clarity</div></div>
+              <div class="council-card"><div class="cc-glyph">&#128293;</div><div class="cc-name">The Monk</div><div class="cc-role">Spirit &amp; Prayer</div></div>
+              <div class="council-card"><div class="cc-glyph">&#127795;</div><div class="cc-name">The Elder</div><div class="cc-role">Legacy &amp; Family</div></div>
+            </div>
+            <div style="display:flex;justify-content:center;margin-bottom:18px">
+              <div class="council-card" style="width:calc(50% - 4px)"><div class="cc-glyph">&#127959;&#65039;</div><div class="cc-name">The Builder</div><div class="cc-role">Mission &amp; Work</div></div>
+            </div>
+          </div>
+          <div style="padding:0 22px;margin-bottom:10px">
+            <textarea id="council-question" class="ci-textarea" placeholder="Ask the council a question&#8230;" style="min-height:80px;margin-bottom:12px"></textarea>
+            <button id="council-ask-btn" onclick="askTheCouncil()"
+              style="width:100%;background:var(--gold);color:#07090F;border:none;border-radius:14px;
+                     padding:15px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;
+                     text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg>
+              Ask The Full Council
+            </button>
+          </div>
+          <div id="council-responses" style="padding:0 22px;display:none">
+            <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">✦ Council Speaks</div>
+            <div id="council-response-cards"></div>
+            <button id="council-save-btn" onclick="saveCouncilToJournal(this)"
+              style="width:100%;margin-top:10px;background:transparent;color:var(--gold);
+                     border:1px solid var(--gold-border);border-radius:12px;padding:12px;
+                     font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:1px;
+                     text-transform:uppercase;cursor:pointer;margin-bottom:16px">
+              Save to Journal
+            </button>
+          </div>
+          <div style="padding:0 22px 28px">
+            <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">✦ Past Sessions</div>
+            <div id="council-history"></div>
+          </div>
+          <div class="scroll-end"></div>
+        </div>
+
       </div>
 
       <!-- ═══ PROFILE ═══ -->
@@ -988,147 +1297,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <div class="scroll-end"></div>
       </div>
 
-      <!-- ═══ THE COUNCIL ═══ -->
-      <div class="screen" id="s-council" data-screen-label="04 Council">
-
-        <div style="padding:22px 22px 0">
-          <div class="screen-title">THE COUNCIL</div>
-          <div style="font-size:13px;color:var(--ts);line-height:1.5;margin-top:4px;margin-bottom:18px">Five voices. One question. Ask it.</div>
-        </div>
-
-        <!-- Mentor preview cards -->
-        <div style="padding:0 22px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-            <div class="council-card">
-              <div class="cc-glyph">&#9876;&#65039;</div>
-              <div class="cc-name">The Sentinel</div>
-              <div class="cc-role">Body &amp; Stewardship</div>
-            </div>
-            <div class="council-card">
-              <div class="cc-glyph">&#128218;</div>
-              <div class="cc-name">The Scribe</div>
-              <div class="cc-role">Mind &amp; Clarity</div>
-            </div>
-            <div class="council-card">
-              <div class="cc-glyph">&#128293;</div>
-              <div class="cc-name">The Monk</div>
-              <div class="cc-role">Spirit &amp; Prayer</div>
-            </div>
-            <div class="council-card">
-              <div class="cc-glyph">&#127795;</div>
-              <div class="cc-name">The Elder</div>
-              <div class="cc-role">Legacy &amp; Family</div>
-            </div>
-          </div>
-          <div style="display:flex;justify-content:center;margin-bottom:18px">
-            <div class="council-card" style="width:calc(50% - 4px)">
-              <div class="cc-glyph">&#127959;&#65039;</div>
-              <div class="cc-name">The Builder</div>
-              <div class="cc-role">Mission &amp; Work</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Question input -->
-        <div style="padding:0 22px;margin-bottom:10px">
-          <textarea id="council-question" class="ci-textarea"
-            placeholder="Ask the council a question&#8230;"
-            style="min-height:80px;margin-bottom:12px"></textarea>
-          <button id="council-ask-btn" onclick="askTheCouncil()"
-            style="width:100%;background:var(--gold);color:#080B14;border:none;border-radius:14px;
-                   padding:15px;font-family:var(--fd);font-size:18px;font-weight:900;letter-spacing:1px;
-                   text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="2.5"/><circle cx="5" cy="14" r="2.5"/><circle cx="19" cy="14" r="2.5"/></svg>
-            Ask The Full Council
-          </button>
-        </div>
-
-        <!-- Responses area -->
-        <div id="council-responses" style="padding:0 22px;display:none">
-          <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">&#10022; Council Speaks</div>
-          <div id="council-response-cards"></div>
-          <button id="council-save-btn" onclick="saveCouncilToJournal(this)"
-            style="width:100%;margin-top:10px;background:transparent;color:var(--gold);
-                   border:1px solid var(--gold-border);border-radius:12px;padding:12px;
-                   font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:1px;
-                   text-transform:uppercase;cursor:pointer;margin-bottom:16px">
-            Save to Journal
-          </button>
-        </div>
-
-        <!-- History section -->
-        <div style="padding:0 22px 100px">
-          <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">&#10022; Past Sessions</div>
-          <div id="council-history"></div>
-        </div>
-
-      </div>
-
-      <!-- ═══════════ BIBLE TAB ═══════════ -->
-      <div class="screen" id="s-word" data-screen-label="05 Word" style="padding:20px 16px 100px">
-
-        <!-- Topical search -->
-        <div style="margin-bottom:20px">
-          <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">✦ Scripture Search</div>
-          <div style="display:flex;gap:8px">
-            <input id="bible-search" placeholder="Search topic, keyword, or reference…"
-              style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;
-                     padding:11px 14px;color:var(--tp);font-size:13px;font-family:inherit;outline:none"/>
-            <button onclick="bibleSearch()"
-              style="background:var(--gold);border:none;border-radius:10px;padding:11px 16px;
-                     color:#080B14;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer">Search</button>
-          </div>
-          <div id="bible-search-result" style="margin-top:12px"></div>
-        </div>
-
-        <!-- Daily reading -->
-        <div style="margin-bottom:20px">
-          <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">Today's Reading</div>
-          <div id="bible-reading-today"
-            style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px"></div>
-        </div>
-
-        <!-- Book browser -->
-        <div id="bible-browser-section" style="margin-bottom:20px">
-          <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">Browse the Word</div>
-          <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px">
-            <button onclick="setBibleTestament('OT')" id="bt-ot"
-              style="flex-shrink:0;background:var(--gold);border:none;border-radius:20px;
-                     padding:7px 16px;color:#080B14;font-size:11px;font-weight:600;font-family:inherit;cursor:pointer">
-              Old Testament</button>
-            <button onclick="setBibleTestament('NT')" id="bt-nt"
-              style="flex-shrink:0;background:none;border:1px solid var(--border);border-radius:20px;
-                     padding:7px 16px;color:var(--ts);font-size:11px;font-family:inherit;cursor:pointer">
-              New Testament</button>
-          </div>
-          <div id="bible-book-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"></div>
-        </div>
-
-        <!-- Chapter reader -->
-        <div id="bible-reader-panel" style="display:none">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-            <button onclick="closeBibleReader()"
-              style="background:none;border:none;color:var(--ts);font-size:11px;
-                     font-family:inherit;cursor:pointer;letter-spacing:1px">← Back</button>
-            <div style="flex:1;font-size:14px;font-weight:500;color:var(--tp)" id="bible-reader-title"></div>
-            <div style="font-size:9px;color:var(--ts)" id="bible-translation-label">KJV</div>
-          </div>
-          <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px"
-            id="bible-chapter-nav"></div>
-          <div id="bible-reader-content"
-            style="font-size:14px;color:var(--tp);line-height:2;letter-spacing:0.01em"></div>
-          <div style="display:flex;justify-content:space-between;margin-top:24px;
-                      padding-top:16px;border-top:1px solid var(--border)">
-            <button onclick="bibleNavChapter(-1)"
-              style="background:none;border:1px solid var(--border);border-radius:8px;
-                     padding:10px 18px;color:var(--ts);font-size:12px;font-family:inherit;cursor:pointer">← Prev</button>
-            <button onclick="bibleNavChapter(1)"
-              style="background:none;border:1px solid var(--border);border-radius:8px;
-                     padding:10px 18px;color:var(--ts);font-size:12px;font-family:inherit;cursor:pointer">Next →</button>
-          </div>
-        </div>
-
-      </div>
+      <!-- s-council and s-word moved into Journal#j-counsel and Spirit#spirit-word panes -->
+      <div class="screen" id="s-word" style="display:none!important"></div>
 
     </div>
 
@@ -1145,25 +1315,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <button class="tab" data-tab="journal" onclick="switchTab('journal',this)">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="16" height="16" rx="2"/><path d="M7 9h8M7 13h5"/></svg>
         Journal
-      </button>
-      <button class="tab" data-tab="council" onclick="switchTab('council',this)">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="2.5"/>
-          <circle cx="5" cy="14" r="2.5"/>
-          <circle cx="19" cy="14" r="2.5"/>
-          <path d="M12 10.5v2M8.2 13l-1.7 1M15.8 13l1.7 1"/>
-          <path d="M5 16.5c0 1.5 3 2.5 7 2.5s7-1 7-2.5"/>
-        </svg>
-        Council
-      </button>
-      <button class="tab" data-tab="word" onclick="switchTab('word',this)">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
-          stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-          <path d="M11 7h5M11 11h5M11 15h3"/>
-        </svg>
-        Word
       </button>
       <button class="tab" data-tab="profile" onclick="switchTab('profile',this)">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="8" r="3.5"/><path d="M4 19c0-3.866 3.134-7 7-7h0c3.866 0 7 3.134 7 7"/></svg>
@@ -2886,11 +3037,7 @@ function switchTab(id, btn){
   document.getElementById('s-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
   ls.set('ff_tab', id);
-  try{ window.parent.postMessage({slideIndexChanged: ['today','spirit','journal','council','word','profile'].indexOf(id)}, '*'); }catch(e){}
-  if(id === 'word') {
-    renderBibleBookGrid();
-    renderBibleReadingToday();
-  }
+  try{ window.parent.postMessage({slideIndexChanged: ['today','spirit','journal','profile'].indexOf(id)}, '*'); }catch(e){}
   if(id === 'today') {
     showEveningCard();
   } else {
@@ -2900,11 +3047,14 @@ function switchTab(id, btn){
 }
 function switchJTab(t){
   const pid = t.dataset.pane;
-  document.querySelectorAll('.j-tab').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.j-pane').forEach(p=>p.classList.remove('active'));
+  const screen = t.closest('.screen');
+  screen.querySelectorAll('.j-tab').forEach(x=>x.classList.remove('active'));
+  screen.querySelectorAll('.j-pane').forEach(p=>p.classList.remove('active'));
   t.classList.add('active');
   document.getElementById(pid)?.classList.add('active');
   if(pid === 'j-timeline') renderTimeline();
+  if(pid === 'spirit-word') { renderBibleBookGrid(); renderBibleReadingToday(); }
+  if(pid === 'j-counsel') renderCouncilHistory();
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -2975,6 +3125,7 @@ function toggleNonneg(id){
   persist();
   renderNonneg();
   animateRings();
+  navigator?.vibrate?.(40);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -3195,12 +3346,15 @@ function deleteItemDirect(kind, id){
 const RING_CIRC = 2*Math.PI*72, RING_TRACK = RING_CIRC*300/360;
 
 function animateRings(){
-  // Legacy hook — redirect to integral renderers (no rings exist anymore).
   renderDomainStrip();
   renderSystemBar();
   renderLoopInsight();
   renderIntegralChecks();
   renderMySystem();
+  setFaultLine('spirit', spiritPct());
+  setFaultLine('mind',   mindPct());
+  const bodyVal = typeof state.bodyScore === 'number' ? state.bodyScore : 0;
+  setFaultLine('body', bodyVal);
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -3529,17 +3683,28 @@ function renderStreakAndPrayer(){
 // MORNING CHECK-IN
 // ═══════════════════════════════════════════════════════════════════
 let ciStep = 1;
+let _ciSkipPhysical = false;
 function buildProg(){
+  const total = _ciSkipPhysical ? 4 : 6;
   const p = document.getElementById('modal-prog');
   p.innerHTML = '';
-  for(let i=1;i<=6;i++){
+  for (let i = 1; i <= total; i++) {
     const d = document.createElement('div');
-    d.className = 'mpd' + (i===ciStep?' cur':i<ciStep?' done':'');
+    d.className = 'mpd' + (i === ciStep ? ' cur' : i < ciStep ? ' done' : '');
     p.appendChild(d);
   }
-  document.getElementById('ci-back').style.visibility = ciStep>1 ? 'visible' : 'hidden';
+  document.getElementById('ci-back').style.visibility = ciStep > 1 ? 'visible' : 'hidden';
 }
 function openCheckin(){
+  const _whoopToday = state.whoopTokens?.access_token
+    && ls.get('ff_last_hrv')
+    && ls.get('ff_last_sync') === todayStr();
+  _ciSkipPhysical = !!_whoopToday;
+  document.querySelectorAll('.ci-step-num').forEach((el, i) => {
+    const stepNum = i + 1;
+    const total = _ciSkipPhysical ? 4 : 6;
+    el.textContent = `Step ${stepNum} of ${total}`;
+  });
   ciStep = 1;
   document.querySelectorAll('.ci-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('ci-1').classList.add('active');
@@ -3621,9 +3786,13 @@ async function submitBodyCheckin() {
 }
 
 function nextStep(n){
-  document.getElementById('ci-'+ciStep).classList.remove('active');
+  if (_ciSkipPhysical && (n === 4 || n === 5)) {
+    nextStep(n === 4 ? 5 : 6);
+    return;
+  }
+  document.querySelectorAll('.ci-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('ci-' + n)?.classList.add('active');
   ciStep = n;
-  document.getElementById('ci-'+ciStep).classList.add('active');
   buildProg();
 }
 function prevStep(){
@@ -3689,6 +3858,10 @@ function submitCheckin(){
   const s = state.streak;
   if([7,21,40,90,180,365].includes(s)){
     showToast(`${s}-day covenant reached. "${covenantVerse(s)}"`);
+  }
+  const WATERMARK_DAYS = [7, 21, 30, 40, 90, 180, 365];
+  if (WATERMARK_DAYS.includes(state.streak)) {
+    setTimeout(() => showStreakWatermark(state.streak), 300);
   }
 
   persist();
@@ -3767,6 +3940,7 @@ function renderPrayers(){
   ordered.forEach(p => {
     const div = document.createElement('div');
     div.className = 'prayer-entry';
+    div.dataset.prayerId = p.id;
     if(p.status === 'answered'){
       div.innerHTML = `
         <div class="pe-header"><div class="pe-date">${p.date}</div><div class="pe-status answered">✓ Answered</div></div>
@@ -3803,6 +3977,7 @@ function renderAnswered(){
       <div class="ae-answer-text">${escapeHtml(p.answeredText || '')}</div>`;
     wrap.appendChild(div);
   });
+  updateJournalBadge();
 }
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
@@ -3846,22 +4021,32 @@ function confirmAnswered(){
   const p = state.prayers.find(x=>x.id===pendingAnsweredId);
   if(p){
     const now = new Date();
-    p.status = 'answered';
+    p.status       = 'answered';
     p.answeredText = text;
     p.answeredDate = fmtDate(now);
-    p.answeredMs = now.getTime();
+    p.answeredMs   = now.getTime();
   }
-  persist();
-  renderPrayers();
-  renderAnswered();
+  const resolvedId = pendingAnsweredId;
   closeAnsweredModal();
-  setTimeout(() => triggerIdentityLoop('prayer answered and recorded'), 600);
-
-  // Paywall trigger — first answered prayer moment
-  const answeredCount = state.prayers.filter(p=>p.status==='answered').length;
-  if(answeredCount === 1 && !ls.get('ff_paywall_seen', false)){
-    ls.set('ff_paywall_seen', true);
-    setTimeout(showPaywall, 800);
+  const card = document.querySelector(`.prayer-entry[data-prayer-id="${resolvedId}"]`);
+  const finish = () => {
+    persist();
+    renderPrayers();
+    renderAnswered();
+    setTimeout(() => triggerIdentityLoop('prayer answered and recorded'), 600);
+    // Paywall trigger — first answered prayer moment
+    const answeredCount = state.prayers.filter(q=>q.status==='answered').length;
+    if(answeredCount === 1 && !ls.get('ff_paywall_seen', false)){
+      ls.set('ff_paywall_seen', true);
+      setTimeout(showPaywall, 800);
+    }
+    setTimeout(glowJournalTab, 80);
+  };
+  if(card){
+    card.classList.add('ff-ascending');
+    setTimeout(finish, 700);
+  } else {
+    finish();
   }
 }
 
@@ -4371,6 +4556,7 @@ initDB().then(() => {
     alertEl.classList.remove('show');
     alertEl.style.display = 'none';
   }
+  applyPreDawnShift();
   renderAll();
   renderCouncilHistory();
   renderGovernor();
@@ -4385,7 +4571,8 @@ initDB().then(() => {
   }
   renderPersonalisedOpening();
   const _rawLastTab = ls.get('ff_tab', 'today');
-  const lastTab = _rawLastTab === 'bible' ? 'word' : _rawLastTab;
+  const _tabMigrate = {bible:'spirit', word:'spirit', council:'journal'};
+  const lastTab = _tabMigrate[_rawLastTab] || _rawLastTab;
   if(lastTab && lastTab !== 'today'){
     const btn = document.querySelector(`.tab[data-tab="${lastTab}"]`);
     if(btn) switchTab(lastTab, btn);
@@ -4847,22 +5034,60 @@ async function refreshWHOOPToken() {
 
 function handleWHOOPReturn() {
   const params = new URLSearchParams(window.location.search);
-  const tokenParam = params.get('whoop_tokens');
-  const errorParam = params.get('whoop_error');
 
-  if (tokenParam) {
+  // Handle new individual token params format
+  const accessToken  = params.get('whoop_access_token');
+  const refreshToken = params.get('whoop_refresh_token');
+  const connected    = params.get('whoop_connected');
+  const errorParam   = params.get('whoop_error');
+
+  // Also handle legacy encoded format just in case
+  const legacyTokens = params.get('whoop_tokens');
+
+  if (accessToken && connected === '1') {
     try {
-      const tokens = JSON.parse(decodeURIComponent(tokenParam));
+      state.whoopTokens = {
+        access_token:  accessToken,
+        refresh_token: refreshToken,
+        connected_at:  new Date().toISOString()
+      };
+      persist();
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+      // Immediately sync to get first real data
+      syncWHOOP();
+    } catch(e) {
+      console.error('WHOOP token save failed:', e);
+    }
+    return;
+  }
+
+  // Legacy format support
+  if (legacyTokens) {
+    try {
+      const tokens = JSON.parse(decodeURIComponent(legacyTokens));
       state.whoopTokens = { ...tokens, connected_at: new Date().toISOString() };
       persist();
       window.history.replaceState({}, '', window.location.pathname);
       syncWHOOP();
-    } catch(e) { console.error('WHOOP token parse failed:', e); }
+    } catch(e) {
+      console.error('Legacy WHOOP token parse failed:', e);
+    }
+    return;
   }
 
   if (errorParam) {
+    console.error('WHOOP OAuth error:', errorParam);
     window.history.replaceState({}, '', window.location.pathname);
-    alert('Could not connect WHOOP. Please try again from Profile → Biometric Sources.');
+    // Show user-friendly error
+    const src = state.sources.find(s => s.id === 'whoop');
+    if (src) {
+      src.connected = false;
+      src.value = null;
+    }
+    state.whoop.error = 'Connection failed — tap Connect to try again';
+    persist();
+    renderBiometrics();
   }
 }
 
@@ -4905,36 +5130,95 @@ Return only the 3 sentences. No labels. No formatting.`,
   }
 }
 
-function renderGovernor() {
-  let banner = document.getElementById('governor-banner');
+function dismissGovernor() {
+  ls.set('ff_governor_dismissed', todayStr());
+  const zone = document.getElementById('governor-zone');
+  if (zone) zone.style.display = 'none';
+}
 
-  if (!state.governorActive || !state.governorMessage) {
-    if (banner) banner.style.display = 'none';
+function renderGovernor() {
+  const zone = document.getElementById('governor-zone');
+  if (!zone) return;
+
+  const dismissedToday = ls.get('ff_governor_dismissed', null) === todayStr();
+
+  if (!state.governorActive || !state.governorMessage || dismissedToday) {
+    zone.style.display = 'none';
     return;
   }
 
-  if (!banner) {
-    banner = document.createElement('div');
-    banner.id = 'governor-banner';
-    banner.style.cssText = 'margin:12px 22px 0;padding:18px 20px;background:linear-gradient(135deg,rgba(194,133,90,0.1) 0%,rgba(194,133,90,0.04) 100%);border:1px solid rgba(194,133,90,0.35);border-radius:16px;position:relative;';
-    banner.innerHTML = `
-      <div style="font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:2px;color:#C2855A;text-transform:uppercase;margin-bottom:10px;">
-        ◈ Governor Active — Body is Red
-      </div>
-      <div id="governor-message-text" style="font-size:13px;color:var(--tp);line-height:1.65;font-style:italic;margin-bottom:14px;"></div>
-      <button onclick="openCheckin()" style="background:#C2855A;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:var(--fd);font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;">
-        Receive Today →
-      </button>`;
+  // Populate message — split 3 sentences into title + body
+  const sentences = state.governorMessage.split(/(?<=\.)\s+/);
+  const title = sentences[0] || state.governorMessage;
+  const body  = sentences.slice(1).join(' ');
 
-    const streakHero = document.getElementById('streak-hero-today');
-    if (streakHero && streakHero.parentNode) {
-      streakHero.parentNode.insertBefore(banner, streakHero.nextSibling);
-    }
+  const titleEl = document.getElementById('gov-title');
+  const bodyEl  = document.getElementById('gov-body');
+  if (titleEl) titleEl.textContent = title;
+  if (bodyEl)  bodyEl.textContent  = body;
+
+  zone.style.display = 'block';
+}
+
+function updateJournalBadge() {
+  const count = state.prayers.filter(p => p.status === 'answered').length;
+  const btn = document.querySelector('.tab[data-tab="journal"]');
+  if (!btn) return;
+  let badge = btn.querySelector('.ff-journal-badge');
+  if (count === 0) { badge?.remove(); return; }
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'ff-journal-badge';
+    badge.style.cssText = [
+      'position:absolute', 'top:3px', 'right:6px',
+      'min-width:14px', 'height:14px', 'border-radius:7px',
+      'background:var(--green)', 'color:#fff',
+      'font-size:8px', 'font-weight:700',
+      'display:flex', 'align-items:center', 'justify-content:center',
+      'padding:0 3px', 'letter-spacing:0',
+    ].join(';');
+    btn.style.position = 'relative';
+    btn.appendChild(badge);
   }
+  badge.textContent = count;
+}
 
-  const msgEl = document.getElementById('governor-message-text');
-  if (msgEl) msgEl.textContent = state.governorMessage;
-  banner.style.display = 'block';
+function glowJournalTab() {
+  const btn = document.querySelector('.tab[data-tab="journal"]');
+  if (!btn) return;
+  btn.classList.add('ff-tab-glow');
+  setTimeout(() => btn.classList.remove('ff-tab-glow'), 1800);
+}
+
+function showStreakWatermark(n) {
+  const zone = document.getElementById('s-today');
+  if (!zone) return;
+  const el = document.createElement('div');
+  el.style.cssText = [
+    'position:absolute', 'inset:0', 'z-index:0',
+    'display:flex', 'align-items:center', 'justify-content:center',
+    'font-family:var(--fd)', 'font-size:clamp(96px,38vw,172px)',
+    'font-weight:900', 'letter-spacing:-4px',
+    'color:rgba(196,145,26,0.042)',
+    'pointer-events:none', 'user-select:none',
+    'transition:opacity 0.8s ease',
+  ].join(';');
+  el.textContent = n;
+  zone.style.position = 'relative';
+  zone.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; }, 3000);
+  setTimeout(() => el.remove(), 3800);
+}
+
+function applyPreDawnShift() {
+  const now = new Date(), h = now.getHours(), m = now.getMinutes();
+  const on = h > 4 || (h === 4 && m >= 30);
+  const off = h < 6 || (h === 6 && m < 30);
+  if (on && off) {
+    document.body.classList.add('pre-dawn');
+    const ms = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 30) - now;
+    setTimeout(() => document.body.classList.remove('pre-dawn'), ms);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -5156,6 +5440,42 @@ function confirmResetData() {
   if (typeof _db !== 'undefined') _db.kv.clear().catch(()=>{});
   window.location.reload();
 }
+
+function setFaultLine(domain, pct, missed) {
+  const fill  = document.getElementById(domain + '-fill');
+  const tip   = document.getElementById(domain + '-tip');
+  const pctEl = document.getElementById(domain + '-pct');
+  const label = document.querySelector(`.fault-row[data-domain="${domain}"] .fault-label`);
+  if (!fill || !tip || !pctEl) return;
+  if (missed) {
+    [fill, tip, pctEl, label].forEach(el => el?.classList.add('missed'));
+    pctEl.textContent = '—';
+    return;
+  }
+  [fill, tip, pctEl, label].forEach(el => el?.classList.remove('missed'));
+  const c = Math.min(100, Math.max(0, Math.round(pct)));
+  fill.style.width   = c + '%';
+  tip.style.left     = c + '%';
+  tip.style.display  = c > 0 ? 'block' : 'none';
+  pctEl.textContent  = c + '%';
+}
+
+(function attachSwipeCheckin() {
+  const zone = document.getElementById('today-greeting')?.closest('.today-hd')
+            || document.getElementById('today-greeting')?.parentElement;
+  if (!zone) return;
+  zone.classList.add('greeting-zone');
+  let startY = null;
+  zone.addEventListener('touchstart', e => {
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+  zone.addEventListener('touchend', e => {
+    if (startY === null) return;
+    const dy = e.changedTouches[0].clientY - startY;
+    startY = null;
+    if (dy < -72) openCheckin();   // 72px upward = intent
+  }, { passive: true });
+})();
 </script>
 
 <!-- ═══ PAYWALL OVERLAY ═══ -->
