@@ -9,7 +9,7 @@
 // CONFIGURATION — edit these lines only
 // ----------------------------------------------------------------
 const SHEET_NAME             = "Leads";
-const GOOGLE_DRIVE_FOLDER_ID = "PASTE_YOUR_FOLDER_ID";
+const GOOGLE_DRIVE_FOLDER_ID = "1msLnK-IFe6Gj-qJjf3d5vaOKkXY5EaDb";
 const DEAL_SURGE_FOLDER_NAME = "Deal Surge Imports";
 const EMAIL_SCORE_THRESHOLD  = 60;
 const EMAIL_SENDER_NAME      = "Nissi Asset Management";
