@@ -13,7 +13,8 @@ const GOOGLE_DRIVE_FOLDER_ID = "1msLnK-IFe6Gj-qJjf3d5vaOKkXY5EaDb";
 const DEAL_SURGE_FOLDER_NAME = "Deal Surge Imports";
 const EMAIL_SCORE_THRESHOLD  = 60;
 const EMAIL_SENDER_NAME      = "Nissi Asset Management";
-const EMAIL_REPLY_TO         = "ccelic17@gmail.com";
+const EMAIL_FROM_ADDRESS     = "collin@nissiassetmanagement.com"; // verified Gmail alias
+const EMAIL_REPLY_TO         = "collin@nissiassetmanagement.com";
 
 // Claude model — full ID required
 const CLAUDE_MODEL_FAST   = "claude-haiku-4-5-20251001";
@@ -190,6 +191,51 @@ function callClaudeWithImage(prompt, imageUrl, systemPrompt) {
 
   if (code !== 200) throw new Error(`Vision API error ${code}: ${body.error?.message || "Unknown"}`);
   return body.content[0].text;
+}
+
+
+/**
+ * Sends email from the verified Gmail alias (EMAIL_FROM_ADDRESS).
+ * Requires the Gmail Advanced Service to be enabled:
+ *   Apps Script editor → Extensions → Services → Gmail API → Add
+ *
+ * Falls back to GmailApp (personal account) if the Advanced Service
+ * is not yet enabled, logging a warning so you know which was used.
+ *
+ * @param {string} to      - Recipient email address
+ * @param {string} subject - Email subject line
+ * @param {string} body    - Plain-text message body (signature already included)
+ */
+function sendFromBusiness(to, subject, body) {
+  // Build a raw MIME message with the business address in From:
+  const mime = [
+    `From: ${EMAIL_SENDER_NAME} <${EMAIL_FROM_ADDRESS}>`,
+    `To: ${to}`,
+    `Reply-To: ${EMAIL_FROM_ADDRESS}`,
+    `Subject: ${subject}`,
+    `Content-Type: text/plain; charset=UTF-8`,
+    ``,
+    body
+  ].join("\r\n");
+
+  const encoded = Utilities.base64EncodeWebSafe(mime);
+
+  try {
+    // Gmail Advanced Service — sends from the alias
+    Gmail.Users.Messages.send({ raw: encoded }, "me");
+    Logger.log(`[sendFromBusiness] Sent from ${EMAIL_FROM_ADDRESS} → ${to}`);
+  } catch(e) {
+    if (e.message && e.message.includes("Gmail is not defined")) {
+      // Gmail Advanced Service not enabled yet — fall back gracefully
+      Logger.log(`[sendFromBusiness] WARNING: Gmail Advanced Service not enabled. Falling back to GmailApp (personal account). Enable it in Extensions → Services → Gmail API.`);
+      GmailApp.sendEmail(to, subject, body, {
+        name:    EMAIL_SENDER_NAME,
+        replyTo: EMAIL_FROM_ADDRESS
+      });
+    } else {
+      throw e;
+    }
+  }
 }
 
 
@@ -1116,21 +1162,19 @@ function agent_AutoEmailSender(sheet, rowIndex) {
   const fullBody = messageBody + `\n\n—\n${EMAIL_SENDER_NAME}\nPrivate Real Estate Acquisitions`;
 
   try {
-    GmailApp.sendEmail(sellerEmail, subject, fullBody, {
-      name:    EMAIL_SENDER_NAME,
-      replyTo: EMAIL_REPLY_TO
-    });
+    sendFromBusiness(sellerEmail, subject, fullBody);
 
     const sentAt = new Date().toLocaleString();
     markDone(`SENT ${sentAt}`, {
       sent:          true,
+      sent_from:     EMAIL_FROM_ADDRESS,
       sent_to:       sellerEmail,
       subject:       subject,
       sent_at:       sentAt,
       score_at_send: score,
       body_preview:  messageBody.substring(0, 300)
     });
-    Logger.log(`[AutoEmail] Row ${rowIndex}: SENT to ${sellerEmail} | Subject: "${subject}"`);
+    Logger.log(`[AutoEmail] Row ${rowIndex}: SENT from ${EMAIL_FROM_ADDRESS} to ${sellerEmail} | Subject: "${subject}"`);
 
   } catch(e) {
     sheet.getRange(rowIndex, COL.STATUS).setValue(`ERROR (AutoEmail): ${e.message}`);
@@ -1175,15 +1219,12 @@ function agent_FollowUpExecutor() {
         if (!toEmail) return;
 
         try {
-          GmailApp.sendEmail(
-            toEmail,
-            `Following up — ${details.street_name || details.property_address || "your property"}`,
-            touch.message + `\n\n—\n${EMAIL_SENDER_NAME}`,
-            { name: EMAIL_SENDER_NAME, replyTo: EMAIL_REPLY_TO }
-          );
-          followUps.push({ day: touch.day, touchpoint: "email", sent_at: new Date().toLocaleString(), status: "sent" });
+          const followSubject = `Following up — ${details.street_name || details.property_address || "your property"}`;
+          const followBody    = touch.message + `\n\n—\n${EMAIL_SENDER_NAME}`;
+          sendFromBusiness(toEmail, followSubject, followBody);
+          followUps.push({ day: touch.day, touchpoint: "email", sent_at: new Date().toLocaleString(), status: "sent", sent_from: EMAIL_FROM_ADDRESS });
           sent++;
-          Logger.log(`[FollowUpExecutor] Row ${rowIndex}: Day ${touch.day} email sent`);
+          Logger.log(`[FollowUpExecutor] Row ${rowIndex}: Day ${touch.day} email sent from ${EMAIL_FROM_ADDRESS}`);
         } catch(e) {
           Logger.log(`[FollowUpExecutor] Row ${rowIndex}: Day ${touch.day} error — ${e.message}`);
         }
@@ -1523,8 +1564,9 @@ function setupTriggers() {
 }
 
 function validateConfig() {
-  const issues = [];
-  const props  = PropertiesService.getScriptProperties();
+  const issues   = [];
+  const warnings = [];
+  const props    = PropertiesService.getScriptProperties();
 
   if (!props.getProperty("ANTHROPIC_API_KEY"))
     issues.push("MISSING: ANTHROPIC_API_KEY — set in Project Settings > Script Properties");
@@ -1535,9 +1577,26 @@ function validateConfig() {
   if (!sheet)
     issues.push(`MISSING: Sheet tab named "${SHEET_NAME}" — run initializeSheetHeaders() first`);
 
+  // Check Gmail Advanced Service (needed to send from alias)
+  try {
+    Gmail.Users.getProfile("me");
+    Logger.log(`[Config] Gmail Advanced Service: enabled — emails will send from ${EMAIL_FROM_ADDRESS}`);
+  } catch(e) {
+    if (e.message && e.message.includes("Gmail is not defined")) {
+      warnings.push(
+        `Gmail Advanced Service not enabled — emails will fall back to personal Gmail.\n` +
+        `  To fix: Apps Script editor → Extensions → Services → Gmail API → Add`
+      );
+    }
+  }
+
   if (issues.length) {
-    Logger.log("[Config] ⚠ ISSUES FOUND — fix before running:\n" + issues.map(s => "  • " + s).join("\n"));
-  } else {
+    Logger.log("[Config] ERRORS — fix before running:\n" + issues.map(s => "  • " + s).join("\n"));
+  }
+  if (warnings.length) {
+    Logger.log("[Config] WARNINGS:\n" + warnings.map(s => "  ⚠ " + s).join("\n"));
+  }
+  if (!issues.length && !warnings.length) {
     Logger.log("[Config] All configuration checks passed.");
   }
   return issues;
