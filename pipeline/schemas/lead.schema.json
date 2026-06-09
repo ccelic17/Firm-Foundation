@@ -1,0 +1,232 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "lead.schema.json",
+  "title": "Canonical Lead Record",
+  "type": "object",
+  "required": ["lead_id", "ingested_at", "source", "market", "property", "owner", "distress_signals", "pipeline_status"],
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "UUID v4 assigned at ingestion"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["propstream", "batchleads", "attom", "county_clerk", "manual", "custom_scrape"]
+    },
+    "import_batch_id": {
+      "type": "string",
+      "description": "Batch identifier: YYYY-MM-DD_STATE_COUNTY_SEQ"
+    },
+    "market": {
+      "type": "object",
+      "required": ["state", "county", "zip"],
+      "properties": {
+        "state": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "county": { "type": "string" },
+        "city": { "type": "string" },
+        "zip": { "type": "string", "pattern": "^\\d{5}$" },
+        "msa": { "type": ["string", "null"] },
+        "market_tier": {
+          "type": "string",
+          "enum": ["primary", "secondary", "tertiary", "rural"]
+        }
+      }
+    },
+    "property": {
+      "type": "object",
+      "required": ["address", "property_type"],
+      "properties": {
+        "address": {
+          "type": "object",
+          "required": ["street", "city", "state", "zip"],
+          "properties": {
+            "street": { "type": "string" },
+            "unit": { "type": ["string", "null"] },
+            "city": { "type": "string" },
+            "state": { "type": "string", "pattern": "^[A-Z]{2}$" },
+            "zip": { "type": "string", "pattern": "^\\d{5}$" },
+            "county": { "type": ["string", "null"] },
+            "standardized": { "type": "boolean", "default": false }
+          }
+        },
+        "parcel_id": { "type": ["string", "null"], "description": "APN or county folio number" },
+        "property_type": {
+          "type": "string",
+          "enum": ["SFR", "MF2", "MF3", "MF4", "CONDO", "TOWNHOUSE", "MOBILE", "LAND", "COMMERCIAL", "OTHER"]
+        },
+        "year_built": { "type": ["integer", "null"], "minimum": 1800, "maximum": 2026 },
+        "sqft_living": { "type": ["number", "null"], "minimum": 0 },
+        "sqft_lot": { "type": ["number", "null"], "minimum": 0 },
+        "beds": { "type": ["number", "null"] },
+        "baths": { "type": ["number", "null"] },
+        "stories": { "type": ["integer", "null"] },
+        "garage": { "type": ["boolean", "null"] },
+        "pool": { "type": ["boolean", "null"] },
+        "zoning": { "type": ["string", "null"] },
+        "condition": {
+          "type": ["string", "null"],
+          "enum": ["excellent", "good", "fair", "poor", "distressed", null]
+        }
+      }
+    },
+    "valuation": {
+      "type": "object",
+      "properties": {
+        "assessed_value": { "type": ["number", "null"] },
+        "assessed_land_value": { "type": ["number", "null"] },
+        "assessed_improvement_value": { "type": ["number", "null"] },
+        "last_sale_price": { "type": ["number", "null"] },
+        "last_sale_date": { "type": ["string", "null"], "format": "date" },
+        "estimated_market_value": { "type": ["number", "null"] },
+        "estimated_arv": { "type": ["number", "null"], "description": "Populated in Phase 2 comps engine" },
+        "estimated_equity_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "estimated_equity_amt": { "type": ["number", "null"] },
+        "mortgage_balance_est": { "type": ["number", "null"] },
+        "lien_count": { "type": ["integer", "null"] },
+        "open_lien_amt": { "type": ["number", "null"] }
+      }
+    },
+    "owner": {
+      "type": "object",
+      "required": ["owner_1_name"],
+      "properties": {
+        "owner_1_name": { "type": "string" },
+        "owner_2_name": { "type": ["string", "null"] },
+        "mailing_address": {
+          "type": ["object", "null"],
+          "properties": {
+            "street": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string" },
+            "zip": { "type": "string" }
+          }
+        },
+        "is_absentee": { "type": "boolean", "default": false },
+        "is_out_of_state": { "type": "boolean", "default": false },
+        "years_owned": { "type": ["number", "null"] },
+        "owner_type": {
+          "type": "string",
+          "enum": ["individual", "trust", "llc", "estate", "bank", "government", "reit", "unknown"]
+        },
+        "phone_1": { "type": ["string", "null"] },
+        "phone_1_type": { "type": ["string", "null"], "enum": ["mobile", "landline", "voip", "unknown", null] },
+        "phone_2": { "type": ["string", "null"] },
+        "phone_2_type": { "type": ["string", "null"], "enum": ["mobile", "landline", "voip", "unknown", null] },
+        "phone_3": { "type": ["string", "null"] },
+        "email_1": { "type": ["string", "null"], "format": "email" },
+        "email_2": { "type": ["string", "null"], "format": "email" },
+        "skip_traced": { "type": "boolean", "default": false },
+        "skip_traced_at": { "type": ["string", "null"], "format": "date-time" },
+        "skip_trace_source": { "type": ["string", "null"] }
+      }
+    },
+    "distress_signals": {
+      "type": "object",
+      "properties": {
+        "lis_pendens": { "type": "boolean", "default": false },
+        "lis_pendens_date": { "type": ["string", "null"], "format": "date" },
+        "nod_filed": { "type": "boolean", "default": false },
+        "nod_date": { "type": ["string", "null"], "format": "date" },
+        "foreclosure_stage": {
+          "type": ["string", "null"],
+          "enum": ["pre_foreclosure", "notice_of_sale", "auction_scheduled", "reo", null]
+        },
+        "foreclosure_auction_date": { "type": ["string", "null"], "format": "date" },
+        "tax_delinquent": { "type": "boolean", "default": false },
+        "tax_years_delinquent": { "type": ["integer", "null"], "minimum": 0 },
+        "tax_amount_owed": { "type": ["number", "null"] },
+        "tax_deed_auction_date": { "type": ["string", "null"], "format": "date" },
+        "code_violations": { "type": "boolean", "default": false },
+        "code_violation_count": { "type": ["integer", "null"], "minimum": 0 },
+        "code_violation_types": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "probate": { "type": "boolean", "default": false },
+        "probate_case_number": { "type": ["string", "null"] },
+        "probate_filing_date": { "type": ["string", "null"], "format": "date" },
+        "inherited": { "type": "boolean", "default": false },
+        "vacant": { "type": "boolean", "default": false },
+        "vacant_confirmed": { "type": "boolean", "default": false },
+        "divorce": { "type": "boolean", "default": false },
+        "bankruptcy": { "type": "boolean", "default": false },
+        "bankruptcy_chapter": { "type": ["string", "null"], "enum": ["7", "11", "13", null] },
+        "signal_count": {
+          "type": "integer",
+          "default": 0,
+          "description": "Total count of active distress signals — computed field"
+        }
+      }
+    },
+    "lead_scoring": {
+      "type": "object",
+      "properties": {
+        "distress_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "equity_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "motivation_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "composite_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "priority_tier": {
+          "type": ["integer", "null"],
+          "enum": [1, 2, 3, 4, null],
+          "description": "1=Hot(≥75), 2=Warm(55-74), 3=Pipeline(35-54), 4=Archive(<35)"
+        },
+        "scored_at": { "type": ["string", "null"], "format": "date-time" },
+        "score_version": { "type": ["string", "null"] }
+      }
+    },
+    "pipeline_status": {
+      "type": "object",
+      "properties": {
+        "dedup_status": {
+          "type": "string",
+          "enum": ["pending", "unique", "duplicate"],
+          "default": "pending"
+        },
+        "duplicate_of_lead_id": { "type": ["string", "null"] },
+        "filter_status": {
+          "type": "string",
+          "enum": ["pending", "pass", "fail"],
+          "default": "pending"
+        },
+        "filter_fail_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "outreach_channel": {
+          "type": ["string", "null"],
+          "enum": ["sms", "cold_call", "direct_mail", "email", "multi", null]
+        },
+        "outreach_status": {
+          "type": "string",
+          "enum": ["queued", "skip_trace_pending", "contacted", "no_answer", "callback_scheduled", "responded", "negotiating", "deal", "dead"],
+          "default": "queued"
+        },
+        "outreach_attempts": { "type": "integer", "default": 0 },
+        "last_outreach_at": { "type": ["string", "null"], "format": "date-time" },
+        "crm_id": { "type": ["string", "null"] },
+        "crm_sync_at": { "type": ["string", "null"], "format": "date-time" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "data_quality_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "raw_source_record": {
+          "type": ["object", "null"],
+          "description": "Original source row preserved for audit"
+        }
+      }
+    }
+  }
+}

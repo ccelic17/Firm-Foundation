@@ -1,0 +1,17 @@
+{
+  "name": "acquisition-pipeline",
+  "version": "1.0.0",
+  "description": "Multi-state off-market wholesale acquisition pipeline — Phase 1: data ingestion, normalization, filtering, deduplication, and scoring",
+  "main": "scripts/ingest.js",
+  "scripts": {
+    "ingest": "node scripts/ingest.js",
+    "test": "node --test scripts/*.test.js"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.6",
+    "uuid": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "target_states": ["FL", "NC", "OH", "AL", "TX", "TN", "GA"],
+
+  "year_built_floor": {
+    "default": 1950,
+    "FL": 1950,
+    "NC": 1960,
+    "OH": 1950,
+    "AL": 1950,
+    "TX": 1960,
+    "TN": 1960,
+    "GA": 1960
+  },
+
+  "luxury_ceiling_by_state": {
+    "FL": {
+      "Palm Beach": 850000,
+      "Miami-Dade": 900000,
+      "Broward": 750000,
+      "St. Lucie": 500000,
+      "default": 600000
+    },
+    "NC": { "default": 550000 },
+    "OH": { "default": 400000 },
+    "AL": { "default": 350000 },
+    "TX": { "default": 650000 },
+    "TN": { "default": 500000 },
+    "GA": { "default": 550000 }
+  },
+
+  "equity_floor_pct": 0.40,
+
+  "sqft_range": { "min": 600, "max": 4000 },
+
+  "bed_range": { "min": 2, "max": 6 },
+
+  "target_asset_types": ["SFR", "MF2", "MF3", "MF4"],
+
+  "excluded_zoning_keywords": [
+    "commercial", "industrial", "agricultural", "vacant", "land",
+    "c1", "c2", "c3", "i1", "i2", "ag", "a1", "a2"
+  ],
+
+  "excluded_owner_types": ["bank", "government", "reit"],
+
+  "hyper_focus_counties": {
+    "FL": ["Palm Beach", "Broward", "Miami-Dade", "St. Lucie"]
+  },
+
+  "market_tier_map": {
+    "primary": {
+      "FL": ["Miami", "Fort Lauderdale", "West Palm Beach", "Tampa", "Orlando", "Jacksonville"],
+      "NC": ["Charlotte", "Raleigh", "Durham", "Greensboro"],
+      "OH": ["Columbus", "Cleveland", "Cincinnati", "Dayton"],
+      "AL": ["Birmingham", "Montgomery", "Huntsville"],
+      "TX": ["Dallas", "Houston", "San Antonio", "Austin", "Fort Worth"],
+      "TN": ["Nashville", "Memphis", "Knoxville", "Chattanooga"],
+      "GA": ["Atlanta", "Savannah", "Augusta"]
+    }
+  },
+
+  "tax_delinquency_min_years": 2,
+
+  "outreach_priority": {
+    "hyper_focus": ["Palm Beach", "Broward", "Miami-Dade", "St. Lucie"],
+    "skip_trace_tier_threshold": 2
+  }
+}

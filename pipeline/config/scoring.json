@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+
+  "weights": {
+    "distress": 0.55,
+    "equity": 0.45
+  },
+
+  "distress_signal_points": {
+    "tax_delinquent_3yr_plus": 35,
+    "tax_delinquent_2yr": 25,
+    "tax_delinquent_1yr": 10,
+    "lis_pendens_active": 30,
+    "nod_filed": 28,
+    "foreclosure_stage_auction": 40,
+    "foreclosure_stage_pre": 25,
+    "probate": 20,
+    "inherited": 15,
+    "code_violations_2plus": 15,
+    "code_violations_1": 8,
+    "vacant_confirmed": 12,
+    "vacant_unconfirmed": 6,
+    "absentee_out_of_state": 15,
+    "absentee_in_state": 8,
+    "divorce": 12,
+    "bankruptcy_active": 18,
+    "years_owned_10plus": 8,
+    "years_owned_20plus": 15
+  },
+
+  "stacking_bonus": {
+    "2_signals": 5,
+    "3_signals": 12,
+    "4plus_signals": 20
+  },
+
+  "distress_score_cap": 100,
+
+  "equity_score_table": [
+    { "min_pct": 0.70, "score": 100 },
+    { "min_pct": 0.60, "score": 88 },
+    { "min_pct": 0.50, "score": 75 },
+    { "min_pct": 0.40, "score": 60 },
+    { "min_pct": 0.30, "score": 30 },
+    { "min_pct": 0.00, "score": 0 }
+  ],
+
+  "motivation_score_factors": {
+    "tax_auction_within_90_days": 25,
+    "tax_auction_within_180_days": 15,
+    "foreclosure_auction_within_60_days": 30,
+    "out_of_state_absentee": 12,
+    "multiple_liens": 10,
+    "senior_owner_estimate": 8
+  },
+
+  "priority_tiers": {
+    "1": { "label": "HOT", "min_score": 75, "action": "immediate_outreach", "skip_trace": true, "day_offset": 0 },
+    "2": { "label": "WARM", "min_score": 55, "action": "outreach_day3", "skip_trace": true, "day_offset": 3 },
+    "3": { "label": "PIPELINE", "min_score": 35, "action": "drip_sequence", "skip_trace": false, "day_offset": 14 },
+    "4": { "label": "ARCHIVE", "min_score": 0, "action": "hold", "skip_trace": false, "day_offset": null }
+  },
+
+  "data_quality_weights": {
+    "has_parcel_id": 15,
+    "has_phone": 20,
+    "has_email": 10,
+    "has_mailing_address": 15,
+    "has_year_built": 5,
+    "has_sqft": 5,
+    "has_beds_baths": 5,
+    "has_last_sale": 10,
+    "has_equity_estimate": 15
+  }
+}
