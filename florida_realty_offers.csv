@@ -1,17 +1,216 @@
-Property_#,Street_Address,City,State,Zip,County,List_Price,Beds,Baths,Sqft,Year_Built,Days_on_Market,High_Equity_Indicator,MLS_Number,Agent_First_Name,Agent_Last_Name,Agent_Phone,Agent_Email,Offer_Purchase_Price,Offer_Down_Payment_10pct,Offer_Seller_Financed_Amt,Offer_Interest_Rate,Offer_Monthly_Payment,Offer_Balloon_Month,Redfin_Search_URL,Email_Subject,Email_Body
-1,3412 NW 15th Ct,Lauderhill,FL,33311,Broward,"$385,000",3,2,1450,1978,112,Likely High Equity,[MLS#],Maria,Santos,[from Redfin listing],[from Redfin listing],"$385,000","$38,500","$346,500",0%,"$1,444/month",Month 24,https://www.redfin.com/county/442/FL/Broward-County/filter/days-on-market=90-plus,"Clean Offer for 3412 NW 15th Ct, Lauderhill, FL 33311 – No Bank, Fast Close","Hey Maria,
+Property_#,Street_Address,City,State,Zip,County,List_Price,Beds,Baths,Sqft,Year_Built,Days_on_Market,MLS_Number,Listing_Brokerage,Agent_First_Name,Agent_Last_Name,Agent_Phone,Agent_Email,Offer_Purchase_Price,Offer_Down_Payment_10pct,Offer_Seller_Financed_Amt,Offer_Interest_Rate,Offer_Monthly_Payment,Offer_Balloon_Month,Offer_Balloon_Balance,Property_Notes,Email_Subject,Email_Body
+1,525 NW 16th St,Pompano Beach,FL,33060,Broward,"$269,900",2,1,936,1961,335,A11837731,"Elite Housing Advisors, LLC",Tyler,Silverman,[verify on Redfin],[verify on Redfin],"$269,900","$26,990","$242,910",0%,"$1,012/month",Month 60 (Year 5),"$182,190","Single family, built 1961 – high equity likely","Clean Seller-Finance Offer – 525 NW 16th St, Pompano Beach – 10% Down, 0% Interest, 5-Yr Balloon","Hey Tyler,
 
-I've been following your listing at 3412 NW 15th Ct, Lauderhill, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
+I've been following your listing at 525 NW 16th St, Pompano Beach, FL 33060 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $269,900
+• Down Payment: $26,990 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $242,910
+• Interest Rate: 0%
+• Monthly Payment: $1,012/month (100% principal)
+• Balloon Payoff: Remaining balance of $182,190 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+2,1450 NW 69th Ave,Margate,FL,33063,Broward,"$305,000",2,1,1061,1970,345,F10512725,United Realty Group Inc.,Jean,Alexis,[verify on Redfin],[verify on Redfin],"$305,000","$30,500","$274,500",0%,"$1,144/month",Month 60 (Year 5),"$205,860","55+ community (Paradise Gardens), no HOA issue for investor","Clean Seller-Finance Offer – 1450 NW 69th Ave, Margate – 10% Down, 0% Interest, 5-Yr Balloon","Hey Jean,
+
+I've been following your listing at 1450 NW 69th Ave, Margate, FL 33063 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $305,000
+• Down Payment: $30,500 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $274,500
+• Interest Rate: 0%
+• Monthly Payment: $1,144/month (100% principal)
+• Balloon Payoff: Remaining balance of $205,860 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+3,4714 NW 44th St,Tamarac,FL,33319,Broward,"$324,900",2,1,806,1969,418,F10499059,"Access USA Realty, LLC",Larry,Milligan,[verify on Redfin],[verify on Redfin],"$324,900","$32,490","$292,410",0%,"$1,218/month",Month 60 (Year 5),"$219,330","55+ community (Mainlands of Tamarac Lakes), built 1969","Clean Seller-Finance Offer – 4714 NW 44th St, Tamarac – 10% Down, 0% Interest, 5-Yr Balloon","Hey Larry,
+
+I've been following your listing at 4714 NW 44th St, Tamarac, FL 33319 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $324,900
+• Down Payment: $32,490 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $292,410
+• Interest Rate: 0%
+• Monthly Payment: $1,218/month (100% principal)
+• Balloon Payoff: Remaining balance of $219,330 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+4,155 NW 30th Ter,Fort Lauderdale,FL,33311,Broward,"$350,000",3,1,851,1965,300,A11596611,London Foster Realty,[VERIFY],,[verify on Redfin],[verify on Redfin],"$350,000","$35,000","$315,000",0%,"$1,312/month",Month 60 (Year 5),"$236,280","Tenant in place at $2,332/mo, lease renews 06/2026","Clean Seller-Finance Offer – 155 NW 30th Ter, Fort Lauderdale – 10% Down, 0% Interest, 5-Yr Balloon","(Replace 'Hi,' with 'Hey [Agent First Name],' once confirmed via Redfin/MLS)
+
+Hi,
+
+I've been following your listing at 155 NW 30th Ter, Fort Lauderdale, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $350,000
+• Down Payment: $35,000 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $315,000
+• Interest Rate: 0%
+• Monthly Payment: $1,312/month (100% principal)
+• Balloon Payoff: Remaining balance of $236,280 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+5,10 NW 28th Way,Fort Lauderdale,FL,33311,Broward,"$325,000",3,1,1232,1952,280,[verify MLS#],Blue Door Real Estate Group LLC,Rene,Sanchez,[verify on Redfin],[verify on Redfin],"$325,000","$32,500","$292,500",0%,"$1,219/month",Month 60 (Year 5),"$219,360","Corner lot, built 1952 – likely high equity","Clean Seller-Finance Offer – 10 NW 28th Way, Fort Lauderdale – 10% Down, 0% Interest, 5-Yr Balloon","Hey Rene,
+
+I've been following your listing at 10 NW 28th Way, Fort Lauderdale, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $325,000
+• Down Payment: $32,500 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $292,500
+• Interest Rate: 0%
+• Monthly Payment: $1,219/month (100% principal)
+• Balloon Payoff: Remaining balance of $219,360 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+6,172 NW 29th Ave,Fort Lauderdale,FL,33311,Broward,"$355,000",4,1,1092,1966,260,[verify MLS#],[verify on Redfin],Denise,Haeussler Leatherbee,[verify on Redfin],[verify on Redfin],"$355,000","$35,500","$319,500",0%,"$1,331/month",Month 60 (Year 5),"$239,640","Tenant in place $2,640/mo, lease renews 11/2026, built 1966","Clean Seller-Finance Offer – 172 NW 29th Ave, Fort Lauderdale – 10% Down, 0% Interest, 5-Yr Balloon","Hey Denise,
+
+I've been following your listing at 172 NW 29th Ave, Fort Lauderdale, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $355,000
+• Down Payment: $35,500 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $319,500
+• Interest Rate: 0%
+• Monthly Payment: $1,331/month (100% principal)
+• Balloon Payoff: Remaining balance of $239,640 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+7,330 Long Island Ave,Fort Lauderdale,FL,33312,Broward,"$459,900",3,2,1616,1957,297,R11116474,SVC Realty,[VERIFY],,[verify on Redfin],[verify on Redfin],"$459,900","$45,990","$413,910",0%,"$1,725/month",Month 60 (Year 5),"$310,410","Melrose Park area, built 1957","Clean Seller-Finance Offer – 330 Long Island Ave, Fort Lauderdale – 10% Down, 0% Interest, 5-Yr Balloon","(Replace 'Hi,' with 'Hey [Agent First Name],' once confirmed via Redfin/MLS)
+
+Hi,
+
+I've been following your listing at 330 Long Island Ave, Fort Lauderdale, FL 33312 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $459,900
+• Down Payment: $45,990 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $413,910
+• Interest Rate: 0%
+• Monthly Payment: $1,725/month (100% principal)
+• Balloon Payoff: Remaining balance of $310,410 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+8,400 NW 18th Ave,Fort Lauderdale,FL,33311,Broward,"$330,000",2,1,922,1960,220,R11165631,Coldwell Banker,[VERIFY],,[verify on Redfin],[verify on Redfin],"$330,000","$33,000","$297,000",0%,"$1,238/month",Month 60 (Year 5),"$222,720",Redfin est. value $307K; verify list price on Coldwell Banker listing,"Clean Seller-Finance Offer – 400 NW 18th Ave, Fort Lauderdale – 10% Down, 0% Interest, 5-Yr Balloon","(Replace 'Hi,' with 'Hey [Agent First Name],' once confirmed via Redfin/MLS)
+
+Hi,
+
+I've been following your listing at 400 NW 18th Ave, Fort Lauderdale, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $330,000
+• Down Payment: $33,000 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $297,000
+• Interest Rate: 0%
+• Monthly Payment: $1,238/month (100% principal)
+• Balloon Payoff: Remaining balance of $222,720 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+9,800 NW 33rd Ave,Lauderhill,FL,33311,Broward,"$375,000",3,2,1090,1972,245,A11977010,JoyStar Realty Group,[VERIFY],,(954) 919-1210,[verify on Redfin],"$375,000","$37,500","$337,500",0%,"$1,406/month",Month 60 (Year 5),"$253,140","New roof 2022, AC/windows/water heater 2021, No HOA","Clean Seller-Finance Offer – 800 NW 33rd Ave, Lauderhill – 10% Down, 0% Interest, 5-Yr Balloon","(Replace 'Hi,' with 'Hey [Agent First Name],' once confirmed via Redfin/MLS)
+
+Hi,
+
+I've been following your listing at 800 NW 33rd Ave, Lauderhill, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
+
+• Purchase Price: $375,000
+• Down Payment: $37,500 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $337,500
+• Interest Rate: 0%
+• Monthly Payment: $1,406/month (100% principal)
+• Balloon Payoff: Remaining balance of $253,140 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
+• Seller's Position: First lien on the property for the full term
+
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
+
+Happy to get on a quick call anytime. I'm looking forward to hearing from you.
+
+Best,
+
+Collin
+
++1 (786) 763-0771"
+10,1712 NW 15th Ter,Fort Lauderdale,FL,33311,Broward,"$385,000",3,1,912,1968,250,[verify MLS#],Marview International Realty,[VERIFY],,[verify on Redfin],[verify on Redfin],"$385,000","$38,500","$346,500",0%,"$1,444/month",Month 60 (Year 5),"$259,860","Lauderdale Manors area, built 1968","Clean Seller-Finance Offer – 1712 NW 15th Ter, Fort Lauderdale – 10% Down, 0% Interest, 5-Yr Balloon","(Replace 'Hi,' with 'Hey [Agent First Name],' once confirmed via Redfin/MLS)
+
+Hi,
+
+I've been following your listing at 1712 NW 15th Ter, Fort Lauderdale, FL 33311 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
 
 • Purchase Price: $385,000
-• Down Payment: $38,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
+• Down Payment: $38,500 (10% hard cash — deliverable within 7-10 days of executed agreement)
 • Seller-Financed Amount: $346,500
 • Interest Rate: 0%
 • Monthly Payment: $1,444/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
+• Balloon Payoff: Remaining balance of $259,860 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
 • Seller's Position: First lien on the property for the full term
 
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
 
 Happy to get on a quick call anytime. I'm looking forward to hearing from you.
 
@@ -20,502 +219,19 @@ Best,
 Collin
 
 +1 (786) 763-0771"
-2,5821 SW 38th St,Hollywood,FL,33023,Broward,"$425,000",3,2,1680,1982,98,Likely High Equity,[MLS#],Robert,Diaz,[from Redfin listing],[from Redfin listing],"$425,000","$42,500","$382,500",0%,"$1,594/month",Month 24,https://www.redfin.com/city/8176/FL/Hollywood/filter/days-on-market=90-plus,"Clean Offer for 5821 SW 38th St, Hollywood, FL 33023 – No Bank, Fast Close","Hey Robert,
+11,910 NW 49th Ct,Deerfield Beach,FL,33064,Broward,"$229,900",2,2,960,1970,290,[verify MLS#],Integral Realty LLC,Lucmon,Joseph,(754) 702-0793,[verify on Redfin],"$229,900","$22,990","$206,910",0%,$862/month,Month 60 (Year 5),"$155,190","Crystal Lake community, $20K price drop, split floorplan, screened patio","Clean Seller-Finance Offer – 910 NW 49th Ct, Deerfield Beach – 10% Down, 0% Interest, 5-Yr Balloon","Hey Lucmon,
 
-I've been following your listing at 5821 SW 38th St, Hollywood, FL 33023 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
+I've been following your listing at 910 NW 49th Ct, Deerfield Beach, FL 33064 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting — just a straightforward deal designed for a fast close.
 
-• Purchase Price: $425,000
-• Down Payment: $42,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $382,500
+• Purchase Price: $229,900
+• Down Payment: $22,990 (10% hard cash — deliverable within 7-10 days of executed agreement)
+• Seller-Financed Amount: $206,910
 • Interest Rate: 0%
-• Monthly Payment: $1,594/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
+• Monthly Payment: $862/month (100% principal)
+• Balloon Payoff: Remaining balance of $155,190 paid via refinance or sale at month 60 (5-year term — flexible to 3-year if preferred)
 • Seller's Position: First lien on the property for the full term
 
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-3,7203 Buchanan St,Hollywood,FL,33024,Broward,"$470,000",4,2,1920,1975,134,Likely High Equity,[MLS#],Jennifer,Torres,[from Redfin listing],[from Redfin listing],"$470,000","$47,000","$423,000",0%,"$1,762/month",Month 24,https://www.redfin.com/city/8176/FL/Hollywood/filter/days-on-market=90-plus,"Clean Offer for 7203 Buchanan St, Hollywood, FL 33024 – No Bank, Fast Close","Hey Jennifer,
-
-I've been following your listing at 7203 Buchanan St, Hollywood, FL 33024 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $470,000
-• Down Payment: $47,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $423,000
-• Interest Rate: 0%
-• Monthly Payment: $1,762/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-4,1840 SW 68th Ter,Pembroke Pines,FL,33023,Broward,"$510,000",4,3,2100,1985,107,Likely High Equity,[MLS#],Carlos,Rivera,[from Redfin listing],[from Redfin listing],"$510,000","$51,000","$459,000",0%,"$1,912/month",Month 24,https://www.redfin.com/city/14437/FL/Pembroke-Pines/filter/days-on-market=90-plus,"Clean Offer for 1840 SW 68th Ter, Pembroke Pines, FL 33023 – No Bank, Fast Close","Hey Carlos,
-
-I've been following your listing at 1840 SW 68th Ter, Pembroke Pines, FL 33023 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $510,000
-• Down Payment: $51,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $459,000
-• Interest Rate: 0%
-• Monthly Payment: $1,912/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-5,9127 NW 24th Ct,Coral Springs,FL,33065,Broward,"$545,000",4,2,2250,1980,91,Likely High Equity,[MLS#],Angela,Kowalski,[from Redfin listing],[from Redfin listing],"$545,000","$54,500","$490,500",0%,"$2,044/month",Month 24,https://www.redfin.com/city/3744/FL/Coral-Springs/filter/days-on-market=90-plus,"Clean Offer for 9127 NW 24th Ct, Coral Springs, FL 33065 – No Bank, Fast Close","Hey Angela,
-
-I've been following your listing at 9127 NW 24th Ct, Coral Springs, FL 33065 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $545,000
-• Down Payment: $54,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $490,500
-• Interest Rate: 0%
-• Monthly Payment: $2,044/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-6,2644 NE 14th St,Pompano Beach,FL,33064,Broward,"$395,000",3,2,1560,1970,118,Likely High Equity,[MLS#],Thomas,Walker,[from Redfin listing],[from Redfin listing],"$395,000","$39,500","$355,500",0%,"$1,481/month",Month 24,https://www.redfin.com/city/15042/FL/Pompano-Beach/filter/days-on-market=90-plus,"Clean Offer for 2644 NE 14th St, Pompano Beach, FL 33064 – No Bank, Fast Close","Hey Thomas,
-
-I've been following your listing at 2644 NE 14th St, Pompano Beach, FL 33064 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $395,000
-• Down Payment: $39,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $355,500
-• Interest Rate: 0%
-• Monthly Payment: $1,481/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-7,4820 NW 36th Ave,Fort Lauderdale,FL,33309,Broward,"$480,000",3,2,1750,1972,156,Likely High Equity,[MLS#],Lisa,Chen,[from Redfin listing],[from Redfin listing],"$480,000","$48,000","$432,000",0%,"$1,800/month",Month 24,https://www.redfin.com/city/6173/FL/Fort-Lauderdale/filter/days-on-market=90-plus,"Clean Offer for 4820 NW 36th Ave, Fort Lauderdale, FL 33309 – No Bank, Fast Close","Hey Lisa,
-
-I've been following your listing at 4820 NW 36th Ave, Fort Lauderdale, FL 33309 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $480,000
-• Down Payment: $48,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $432,000
-• Interest Rate: 0%
-• Monthly Payment: $1,800/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-8,8103 SW 12th St,Pembroke Pines,FL,33025,Broward,"$520,000",4,2,2020,1988,103,Likely High Equity,[MLS#],Michael,Hernandez,[from Redfin listing],[from Redfin listing],"$520,000","$52,000","$468,000",0%,"$1,950/month",Month 24,https://www.redfin.com/city/14437/FL/Pembroke-Pines/filter/days-on-market=90-plus,"Clean Offer for 8103 SW 12th St, Pembroke Pines, FL 33025 – No Bank, Fast Close","Hey Michael,
-
-I've been following your listing at 8103 SW 12th St, Pembroke Pines, FL 33025 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $520,000
-• Down Payment: $52,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $468,000
-• Interest Rate: 0%
-• Monthly Payment: $1,950/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-9,624 N 57th Ave,Hollywood,FL,33021,Broward,"$440,000",3,2,1640,1968,127,Likely High Equity,[MLS#],Patrice,Martin,[from Redfin listing],[from Redfin listing],"$440,000","$44,000","$396,000",0%,"$1,650/month",Month 24,https://www.redfin.com/city/8176/FL/Hollywood/filter/days-on-market=90-plus,"Clean Offer for 624 N 57th Ave, Hollywood, FL 33021 – No Bank, Fast Close","Hey Patrice,
-
-I've been following your listing at 624 N 57th Ave, Hollywood, FL 33021 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $440,000
-• Down Payment: $44,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $396,000
-• Interest Rate: 0%
-• Monthly Payment: $1,650/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-10,11207 Taft St,Pembroke Pines,FL,33026,Broward,"$530,000",4,3,2180,1990,94,Likely High Equity,[MLS#],David,Kim,[from Redfin listing],[from Redfin listing],"$530,000","$53,000","$477,000",0%,"$1,988/month",Month 24,https://www.redfin.com/city/14437/FL/Pembroke-Pines/filter/days-on-market=90-plus,"Clean Offer for 11207 Taft St, Pembroke Pines, FL 33026 – No Bank, Fast Close","Hey David,
-
-I've been following your listing at 11207 Taft St, Pembroke Pines, FL 33026 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $530,000
-• Down Payment: $53,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $477,000
-• Interest Rate: 0%
-• Monthly Payment: $1,988/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-11,6315 Miramar Pkwy,Miramar,FL,33023,Broward,"$465,000",3,2,1800,1984,142,Likely High Equity,[MLS#],Sandra,Perez,[from Redfin listing],[from Redfin listing],"$465,000","$46,500","$418,500",0%,"$1,744/month",Month 24,https://www.redfin.com/city/12030/FL/Miramar/filter/days-on-market=90-plus,"Clean Offer for 6315 Miramar Pkwy, Miramar, FL 33023 – No Bank, Fast Close","Hey Sandra,
-
-I've been following your listing at 6315 Miramar Pkwy, Miramar, FL 33023 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $465,000
-• Down Payment: $46,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $418,500
-• Interest Rate: 0%
-• Monthly Payment: $1,744/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-12,3007 NW 78th Ter,Sunrise,FL,33322,Broward,"$495,000",4,2,1990,1979,115,Likely High Equity,[MLS#],Kevin,Johnson,[from Redfin listing],[from Redfin listing],"$495,000","$49,500","$445,500",0%,"$1,856/month",Month 24,https://www.redfin.com/city/17476/FL/Sunrise/filter/days-on-market=90-plus,"Clean Offer for 3007 NW 78th Ter, Sunrise, FL 33322 – No Bank, Fast Close","Hey Kevin,
-
-I've been following your listing at 3007 NW 78th Ter, Sunrise, FL 33322 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $495,000
-• Down Payment: $49,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $445,500
-• Interest Rate: 0%
-• Monthly Payment: $1,856/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-13,1420 SE 4th Ave,Deerfield Beach,FL,33441,Broward,"$415,000",3,2,1600,1971,109,Likely High Equity,[MLS#],Maria,Gonzalez,[from Redfin listing],[from Redfin listing],"$415,000","$41,500","$373,500",0%,"$1,556/month",Month 24,https://www.redfin.com/city/4362/FL/Deerfield-Beach/filter/days-on-market=90-plus,"Clean Offer for 1420 SE 4th Ave, Deerfield Beach, FL 33441 – No Bank, Fast Close","Hey Maria,
-
-I've been following your listing at 1420 SE 4th Ave, Deerfield Beach, FL 33441 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $415,000
-• Down Payment: $41,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $373,500
-• Interest Rate: 0%
-• Monthly Payment: $1,556/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-14,4812 W 28th Ave,Hialeah,FL,33016,Miami-Dade,"$490,000",3,2,1650,1976,138,Likely High Equity,[MLS#],Jorge,Ruiz,[from Redfin listing],[from Redfin listing],"$490,000","$49,000","$441,000",0%,"$1,838/month",Month 24,https://www.redfin.com/city/7649/FL/Hialeah/filter/days-on-market=90-plus,"Clean Offer for 4812 W 28th Ave, Hialeah, FL 33016 – No Bank, Fast Close","Hey Jorge,
-
-I've been following your listing at 4812 W 28th Ave, Hialeah, FL 33016 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $490,000
-• Down Payment: $49,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $441,000
-• Interest Rate: 0%
-• Monthly Payment: $1,838/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-15,16210 NW 22nd Ave,Miami Gardens,FL,33054,Miami-Dade,"$435,000",3,2,1520,1980,122,Likely High Equity,[MLS#],Yanely,Fuentes,[from Redfin listing],[from Redfin listing],"$435,000","$43,500","$391,500",0%,"$1,631/month",Month 24,https://www.redfin.com/city/11477/FL/Miami-Gardens/filter/days-on-market=90-plus,"Clean Offer for 16210 NW 22nd Ave, Miami Gardens, FL 33054 – No Bank, Fast Close","Hey Yanely,
-
-I've been following your listing at 16210 NW 22nd Ave, Miami Gardens, FL 33054 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $435,000
-• Down Payment: $43,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $391,500
-• Interest Rate: 0%
-• Monthly Payment: $1,631/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-16,820 NE 143rd St,North Miami,FL,33161,Miami-Dade,"$575,000",4,3,2050,1983,99,Likely High Equity,[MLS#],Paul,Williams,[from Redfin listing],[from Redfin listing],"$575,000","$57,500","$517,500",0%,"$2,156/month",Month 24,https://www.redfin.com/city/12748/FL/North-Miami/filter/days-on-market=90-plus,"Clean Offer for 820 NE 143rd St, North Miami, FL 33161 – No Bank, Fast Close","Hey Paul,
-
-I've been following your listing at 820 NE 143rd St, North Miami, FL 33161 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $575,000
-• Down Payment: $57,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $517,500
-• Interest Rate: 0%
-• Monthly Payment: $2,156/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-17,3416 NW 167th St,Opa-locka,FL,33055,Miami-Dade,"$360,000",3,2,1380,1965,165,Likely High Equity,[MLS#],Miriam,Valdes,[from Redfin listing],[from Redfin listing],"$360,000","$36,000","$324,000",0%,"$1,350/month",Month 24,https://www.redfin.com/city/13314/FL/Opa-locka/filter/days-on-market=90-plus,"Clean Offer for 3416 NW 167th St, Opa-locka, FL 33055 – No Bank, Fast Close","Hey Miriam,
-
-I've been following your listing at 3416 NW 167th St, Opa-locka, FL 33055 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $360,000
-• Down Payment: $36,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $324,000
-• Interest Rate: 0%
-• Monthly Payment: $1,350/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-18,22410 SW 112th Ave,Homestead,FL,33032,Miami-Dade,"$420,000",4,2,1950,1992,102,Likely High Equity,[MLS#],Roberto,Acosta,[from Redfin listing],[from Redfin listing],"$420,000","$42,000","$378,000",0%,"$1,575/month",Month 24,https://www.redfin.com/city/8366/FL/Homestead/filter/days-on-market=90-plus,"Clean Offer for 22410 SW 112th Ave, Homestead, FL 33032 – No Bank, Fast Close","Hey Roberto,
-
-I've been following your listing at 22410 SW 112th Ave, Homestead, FL 33032 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $420,000
-• Down Payment: $42,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $378,000
-• Interest Rate: 0%
-• Monthly Payment: $1,575/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-19,7625 W 36th Ave,Hialeah,FL,33018,Miami-Dade,"$535,000",4,3,2100,1987,119,Likely High Equity,[MLS#],Natasha,Brooks,[from Redfin listing],[from Redfin listing],"$535,000","$53,500","$481,500",0%,"$2,006/month",Month 24,https://www.redfin.com/city/7649/FL/Hialeah/filter/days-on-market=90-plus,"Clean Offer for 7625 W 36th Ave, Hialeah, FL 33018 – No Bank, Fast Close","Hey Natasha,
-
-I've been following your listing at 7625 W 36th Ave, Hialeah, FL 33018 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $535,000
-• Down Payment: $53,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $481,500
-• Interest Rate: 0%
-• Monthly Payment: $2,006/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-20,29910 SW 182nd Ave,Homestead,FL,33030,Miami-Dade,"$390,000",3,2,1500,1989,147,Likely High Equity,[MLS#],Juan,Morales,[from Redfin listing],[from Redfin listing],"$390,000","$39,000","$351,000",0%,"$1,462/month",Month 24,https://www.redfin.com/city/8366/FL/Homestead/filter/days-on-market=90-plus,"Clean Offer for 29910 SW 182nd Ave, Homestead, FL 33030 – No Bank, Fast Close","Hey Juan,
-
-I've been following your listing at 29910 SW 182nd Ave, Homestead, FL 33030 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $390,000
-• Down Payment: $39,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $351,000
-• Interest Rate: 0%
-• Monthly Payment: $1,462/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-21,18230 NW 37th Ave,Miami Gardens,FL,33056,Miami-Dade,"$460,000",4,2,1780,1977,96,Likely High Equity,[MLS#],Stephanie,Davis,[from Redfin listing],[from Redfin listing],"$460,000","$46,000","$414,000",0%,"$1,725/month",Month 24,https://www.redfin.com/city/11477/FL/Miami-Gardens/filter/days-on-market=90-plus,"Clean Offer for 18230 NW 37th Ave, Miami Gardens, FL 33056 – No Bank, Fast Close","Hey Stephanie,
-
-I've been following your listing at 18230 NW 37th Ave, Miami Gardens, FL 33056 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $460,000
-• Down Payment: $46,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $414,000
-• Interest Rate: 0%
-• Monthly Payment: $1,725/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-22,9815 SW 211th St,Cutler Bay,FL,33189,Miami-Dade,"$555,000",4,3,2200,1993,108,Verify via County Records,[MLS#],Rafael,Suarez,[from Redfin listing],[from Redfin listing],"$555,000","$55,500","$499,500",0%,"$2,081/month",Month 24,https://www.redfin.com/city/3752/FL/Cutler-Bay/filter/days-on-market=90-plus,"Clean Offer for 9815 SW 211th St, Cutler Bay, FL 33189 – No Bank, Fast Close","Hey Rafael,
-
-I've been following your listing at 9815 SW 211th St, Cutler Bay, FL 33189 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $555,000
-• Down Payment: $55,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $499,500
-• Interest Rate: 0%
-• Monthly Payment: $2,081/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-23,14720 SW 108th St,Kendall,FL,33196,Miami-Dade,"$610,000",4,3,2380,1995,93,Verify via County Records,[MLS#],Amanda,Foster,[from Redfin listing],[from Redfin listing],"$610,000","$61,000","$549,000",0%,"$2,288/month",Month 24,https://www.redfin.com/county/479/FL/Miami-Dade-County/filter/days-on-market=90-plus,"Clean Offer for 14720 SW 108th St, Kendall, FL 33196 – No Bank, Fast Close","Hey Amanda,
-
-I've been following your listing at 14720 SW 108th St, Kendall, FL 33196 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $610,000
-• Down Payment: $61,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $549,000
-• Interest Rate: 0%
-• Monthly Payment: $2,288/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-24,2105 NE 171st St,North Miami Beach,FL,33162,Miami-Dade,"$525,000",3,2,1870,1986,131,Likely High Equity,[MLS#],Vincent,Moreau,[from Redfin listing],[from Redfin listing],"$525,000","$52,500","$472,500",0%,"$1,969/month",Month 24,https://www.redfin.com/city/12748/FL/North-Miami/filter/days-on-market=90-plus,"Clean Offer for 2105 NE 171st St, North Miami Beach, FL 33162 – No Bank, Fast Close","Hey Vincent,
-
-I've been following your listing at 2105 NE 171st St, North Miami Beach, FL 33162 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $525,000
-• Down Payment: $52,500 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $472,500
-• Interest Rate: 0%
-• Monthly Payment: $1,969/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
-
-Happy to get on a quick call anytime. I'm looking forward to hearing from you.
-
-Best,
-
-Collin
-
-+1 (786) 763-0771"
-25,5904 NW 183rd St,Hialeah,FL,33015,Miami-Dade,"$480,000",4,2,1860,1981,114,Likely High Equity,[MLS#],Isabelle,Rojas,[from Redfin listing],[from Redfin listing],"$480,000","$48,000","$432,000",0%,"$1,800/month",Month 24,https://www.redfin.com/city/7649/FL/Hialeah/filter/days-on-market=90-plus,"Clean Offer for 5904 NW 183rd St, Hialeah, FL 33015 – No Bank, Fast Close","Hey Isabelle,
-
-I've been following your listing at 5904 NW 183rd St, Hialeah, FL 33015 and I'm ready to move forward with a clean, structured offer. No bank, no waiting on underwriting - just a straightforward deal designed for a fast close.
-
-• Purchase Price: $480,000
-• Down Payment: $48,000 (10% hard cash - deliverable within 7-10 days of executed agreement)
-• Seller-Financed Amount: $432,000
-• Interest Rate: 0%
-• Monthly Payment: $1,800/month (100% principal)
-• Balloon Payoff: Full remaining balance paid via refinance or sale at month 24
-• Seller's Position: First lien on the property for the full term
-
-I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined 24-month path to full payoff.
+I know this property has had a long run on the market. I'm not here to play games or renegotiate at the finish line. I'm offering a real close with cash down, zero management headaches for the seller going forward, and a defined path to full payoff within 3-5 years.
 
 Happy to get on a quick call anytime. I'm looking forward to hearing from you.
 
