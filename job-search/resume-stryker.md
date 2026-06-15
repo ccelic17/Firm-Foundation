@@ -1,71 +1,65 @@
 # COLLIN CELIC
-Charlotte / Raleigh, NC (Relocating — Available Immediately)  
-ccelic17@gmail.com | 786-763-0771
+ccelic17@gmail.com | (978) 512-2026 | linkedin.com/in/collin-celic
+Relocating to Raleigh, NC — Available Immediately
 
 ---
 
 ## PROFESSIONAL SUMMARY
 
-High-performing outside sales professional with [X]+ years of B2B field sales, territory management, and consultative selling experience. Proven record of building territories from the ground up, driving net-new business through strategic prospecting, and consistently attaining or exceeding quota. Seeking to transition expertise into medical device sales with Stryker's Surgical Technologies division — where a track record of persuasive product presentations, multi-stakeholder relationship management, and competitive new account acquisition maps directly to the role requirements.
-
----
-
-## EXPERIENCE
-
-### Territory Manager
-**KraftMaid Cabinetry** | *[Start Year] – [End Year]* | *[Territory]*
-
-- Managed and grew a B2B territory of [X] dealer, designer, and builder accounts, achieving [X]% of quota in [year] and ranking in the top [X]% nationally
-- Prospected and closed [X]+ net-new accounts through targeted cold calling, in-person visits, product demonstrations, and trade events — generating $[X]M in incremental revenue
-- Delivered persuasive product presentations and showroom training sessions for dealer principals, interior designers, and general contractors — routinely evaluated on product knowledge, competitive positioning, and close rate
-- Built trusted advisor relationships with senior decision-makers across multi-step purchase cycles, navigating budget reviews, design approvals, and procurement timelines
-- Leveraged [CRM] to manage a [X]-account pipeline, log field activity, and accurately forecast monthly and quarterly revenue
-- Collaborated cross-functionally with logistics, customer service, and product teams to resolve field issues and protect account retention
-- Earned [President's Club / Top Performer Award / etc.] in [year] for exceeding annual quota by [X]%
-
----
-
-### Founder & Managing Member
-**NISSI Asset Management LLC** | *[Start Year] – Present*
-
-- Founded and manage a real estate investment firm — prospecting, underwriting, negotiating, and closing acquisitions independently
-- Demonstrates entrepreneurial initiative, self-management, and complex deal navigation
-
----
-
-### Founder & CEO
-**PermitAI** | *[Start Year] – Present*
-
-- Built and led go-to-market strategy for a SaaS permitting platform — drove customer discovery, early sales pipeline, and stakeholder presentations
-- Demonstrates technical learning agility and ability to sell innovative solutions to skeptical buyers
-
----
-
-## EDUCATION
-
-**[Degree], [Major]**  
-[University Name] | [Graduation Year]
+Results-driven B2B outside sales professional with 4+ years of field experience managing multimillion-dollar territories through consultative selling, persuasive product demonstrations, and disciplined new account acquisition. Proven track record of exceeding quota, growing market share in competitive environments, and earning trusted advisor status with key decision-makers. Seeking to bring a high-activity, customer-first field sales approach to Stryker's Surgical Technologies division — where B2B territory management excellence and a coachable, competitive mindset are the entry point.
 
 ---
 
 ## CORE COMPETENCIES
 
-- Territory Building & New Account Acquisition
-- Consultative / Solution Selling
-- Competitive Product Demonstrations (showroom, in-person, event-based)
-- Multi-Stakeholder Selling (dealers, designers, contractors, executives)
-- Prospecting: Cold Calling, Networking, Trade Events
-- Pipeline Management & CRM (Salesforce / [other])
-- Contract Negotiation & Closing
-- Languages: Portuguese (conversational), Spanish (intermediate)
+| | | |
+|---|---|---|
+| Outside B2B Field Sales | Territory Management & New Account Acquisition | Consultative / Solution Selling |
+| Persuasive Product Demonstrations | Quota Attainment & Sales Execution | Multi-Stakeholder Relationship Building |
+| Salesforce CRM & Power BI Reporting | Competitive Market Share Growth | Full Sales Cycle — Discovery to Close |
 
 ---
 
-## WHY STRYKER / ATS KEYWORDS EMBEDDED
+## PROFESSIONAL EXPERIENCE
 
-*Territory management · outside sales · B2B sales · medical device sales · product demonstrations · quota attainment · new business development · consultative selling · Surgical Technologies · Stryker · field sales representative · account management · relationship building · prospecting · cold calling · CRM · Salesforce*
+### Territory Manager — KraftMaid Cabinetry (CabinetWorks Group)
+*Boston, MA | February 2025 – March 2026*
+
+- **Territory Ownership:** Managed full sales responsibility for a $5.47M annual portfolio across 23 high-volume retail locations in the greater Boston market — owning the account base, the pipeline, and the results.
+- **Quota Performance:** Achieved 145% of monthly sales quota in January 2026, demonstrating strong closing execution and product presentation discipline when fully ramped.
+- **Competitive Market Share Growth:** Grew market share across multiple key accounts during an industry-wide 8% market downturn — winning against incumbents through superior consultative engagement and account partnership.
+- **Product Education & Demonstration:** Delivered structured product education and in-location demonstrations across 23 accounts, converting store-level associates into confident brand advocates and improving sell-through at the consumer level.
+- **Data-Driven Territory Planning:** Used Salesforce CRM and Power BI dashboards to manage account activity, prioritize high-value targets, optimize field routing, and forecast territory performance for management review.
+
+### Field Sales & Marketing Representative — Techtronic Industries (TTI)
+*Bellingham, MA | July 2023 – February 2025*
+
+- **Territory Revenue:** Managed a $4.06M multi-brand territory across Milwaukee Tool, Ryobi, and Ridgid product lines — driving 5.15% YOY revenue growth through disciplined daily outbound activity.
+- **Face-to-Face New Business Development:** Grew incremental revenue through daily in-person prospecting, relationship development with buyers, department managers, and store leadership across a defined field territory.
+- **In-Field Product Demonstrations:** Conducted product demonstrations, launch presentations, and competitive comparisons in retail and contractor-facing environments — persuading professional buyers on product performance and value.
+- **Executional Excellence:** Maintained 100% planogram compliance and a 90%+ completion rate on complex resets and new product launches — demonstrating the follow-through and reliability that build lasting account trust.
+- **Space Acquisition:** Secured additional primary and off-aisle floor space for brand displays, increasing account-level visibility and driving incremental purchase volume.
+
+### Collections Administrator / Information Specialist — Digital Federal Credit Union (DCU)
+*Marlborough, MA | October 2019 – September 2022*
+
+- **Quota Attainment:** Consistently exceeded monthly sales quotas by 10%, closing approximately 50 credit cards and 20 auto loans per month through consultative, needs-based selling.
+- **Objection Handling & Negotiation:** Developed strong skills in overcoming objections, navigating complex financial conversations, and closing in a high-compliance, high-volume environment.
 
 ---
 
-**Cover Letter:** See cover-letter-stryker.md  
-**Apply at:** https://careers.stryker.com/sales-representative-raleigh-south-surgical-technologies/job/95B13113FCF559D0FA64DBF6A5F6FE08
+## EDUCATION
+
+**B.S. in Marketing & Management (Dual Major) — University of Massachusetts Lowell**
+*Graduated August 2021*
+
+---
+
+## TECHNICAL SKILLS & LANGUAGES
+
+**Platforms:** Salesforce CRM | Power BI | PEGA CRM | Microsoft Office Suite (Excel / PowerPoint) | Bloomberg Certified
+**Languages:** English (Native) | Portuguese (Conversational) | Spanish (Intermediate)
+
+---
+
+*Apply: https://careers.stryker.com/sales-representative-raleigh-south-surgical-technologies/job/95B13113FCF559D0FA64DBF6A5F6FE08*

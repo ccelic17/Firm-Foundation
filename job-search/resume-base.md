@@ -1,77 +1,60 @@
 # COLLIN CELIC
-Charlotte / Raleigh, NC (Relocating — Available Immediately)  
-ccelic17@gmail.com | 786-763-0771  
-LinkedIn: linkedin.com/in/collincelic *(update with actual URL)*
+ccelic17@gmail.com | (978) 512-2026 | linkedin.com/in/collin-celic
+Relocating to Charlotte / Raleigh, NC — Available Immediately
 
 ---
 
 ## PROFESSIONAL SUMMARY
 
-Results-driven B2B field sales professional with a track record of building territories, winning new accounts, and consistently exceeding quotas. Most recently served as Territory Manager at KraftMaid Cabinetry, managing a multi-state book of business, growing market share through consultative selling to dealers, designers, and builders. Entrepreneurial mindset backed by founding experience in real estate and SaaS. Relocating to Charlotte/Raleigh and targeting high-growth medical device, aesthetic, or B2B outside sales roles. Portuguese conversational, Spanish intermediate.
+Results-driven B2B Territory Sales Manager with 4+ years of field experience managing multimillion-dollar territories through consultative, relationship-based selling. Proven ability to grow market share in declining markets, build strategic account relationships, and execute disciplined face-to-face prospecting activity. Actively relocating to Charlotte/Raleigh, NC — targeting high-growth medical device or B2B outside sales roles with strong base + commission upside.
 
 ---
 
-## EXPERIENCE
+## CORE COMPETENCIES
 
-### Territory Manager
-**KraftMaid Cabinetry** | *[Start Year] – [End Year]* | *[Territory — e.g., MA/RI/CT]*
-
-- Managed a territory of [X] accounts generating $[X]M in annual revenue; exceeded quota [X]% in [years]
-- Prospected and onboarded [X]+ net-new dealer and designer accounts through cold calling, in-person visits, and trade events
-- Conducted consultative product presentations, showroom walk-throughs, and design center training sessions for dealer principals and interior designers
-- Built and maintained relationships with key decision-makers across the supply chain: dealers, builders, general contractors, and interior designers
-- Collaborated with internal support teams to resolve order, delivery, and service escalations — maintaining a [X]% customer retention rate
-- Utilized [CRM platform, e.g., Salesforce] to track pipeline, log activity, and forecast territory performance
-- Ranked [#X of X / top X%] nationally in [new account acquisition / revenue growth / quota attainment] in [year]
+| | | |
+|---|---|---|
+| B2B Field Sales & Territory Management | New Business Prospecting & Pipeline Development | Consultative Solution Selling |
+| CRM & Data-Driven Territory Planning | Full Sales Cycle — Discovery to Close | Account Relationship Management |
+| Salesforce & Power BI Reporting | Product Education & Stakeholder Training | Market Share Growth in Declining Markets |
 
 ---
 
-### Founder & Managing Member
-**NISSI Asset Management LLC** | *[Start Year] – Present* | *Remote*
+## PROFESSIONAL EXPERIENCE
 
-- Founded and operate a private real estate investment and asset management firm
-- Source, underwrite, negotiate, and close acquisition deals; manage contractor and tenant relationships
-- Developed systems for lead generation, deal screening, and portfolio tracking
-- [Add any specific milestones: units acquired, capital deployed, returns generated]
+### Territory Manager — KraftMaid Cabinetry (CabinetWorks Group)
+*Boston, MA | February 2025 – March 2026*
 
----
+- **Territory Ownership:** Held full sales responsibility for a $5.47M annual portfolio spanning 23 high-volume retail locations across the greater Boston market.
+- **Market Share Growth:** Grew market share in multiple key accounts during an industry-wide 8% market downturn through strategic account prioritization and consultative partnership with store leadership and dealer principals.
+- **Quota Performance:** Achieved 145% of monthly sales quota in January 2026 — demonstrating strong execution and closing discipline when fully ramped.
+- **Data-Driven Planning:** Leveraged Power BI dashboards and Salesforce CRM to track KPIs, optimize call routing, and identify high-potential accounts for targeted outreach.
+- **Associate Training:** Delivered ongoing product education across 23 locations, converting floor associates into brand advocates and improving the end-consumer experience.
 
-### Founder & CEO
-**PermitAI** | *[Start Year] – Present* | *Remote*
+### Field Sales & Marketing Representative — Techtronic Industries (TTI)
+*Bellingham, MA | July 2023 – February 2025*
 
-- Founded SaaS platform streamlining the permitting process for contractors, developers, and municipalities
-- Led go-to-market strategy, customer discovery, and early sales pipeline development
-- Engaged directly with stakeholders (contractors, GCs, city planning offices) to validate product-market fit and drive adoption
-- [Add any specific milestones: customers, ARR, pilots, contracts]
+- **Territory Revenue:** Managed a $4.06M multi-brand territory for Milwaukee, Ryobi, and Ridgid — achieving 5.15% YOY sales growth through disciplined outbound engagement.
+- **Face-to-Face Prospecting:** Drove new business and incremental revenue through daily field activity, building relationships with buyers, department managers, and store leadership.
+- **Executional Excellence:** Maintained 100% planogram compliance and a 90%+ completion rate on complex merchandising resets and new product launches across all accounts.
+- **Display & Space Acquisition:** Secured additional floor space and secondary off-aisle displays to increase brand visibility and drive incremental purchase behavior.
+
+### Collections Administrator / Information Specialist — Digital Federal Credit Union (DCU)
+*Marlborough, MA | October 2019 – September 2022*
+
+- **Quota Attainment:** Consistently exceeded monthly sales quotas by 10%, closing approximately 50 credit cards and 20 auto loans per month via consultative, needs-based selling.
+- **Regulated Sales Environment:** Built strong objection-handling, negotiation, and pipeline management skills in a high-compliance, high-volume customer-facing role.
 
 ---
 
 ## EDUCATION
 
-**[Degree], [Major]**  
-[University Name] | [Graduation Year]
+**B.S. in Marketing & Management (Dual Major) — University of Massachusetts Lowell**
+*Graduated August 2021*
 
 ---
 
-## SKILLS & HIGHLIGHTS
+## TECHNICAL SKILLS & LANGUAGES
 
-- Territory Management & New Business Development
-- Consultative / Solution Selling
-- Cold Calling, Prospecting, Pipeline Management
-- Multi-Stakeholder Relationship Building
-- CRM: [Salesforce / HubSpot / other]
-- Contract Negotiation
-- Trade Show / Event Sales
-- Languages: Portuguese (conversational), Spanish (intermediate)
-- Valid driver's license; comfortable with extensive field travel
-
----
-
-## AWARDS & RECOGNITION
-
-- [Award Name] — KraftMaid Cabinetry, [Year]
-- [Quota Club / President's Club / etc.]
-
----
-
-*Quantified placeholders marked [X] — replace with actual figures before submitting.*
+**Platforms:** Salesforce CRM | Power BI | PEGA CRM | Microsoft Office Suite (Excel / PowerPoint) | Bloomberg Certified
+**Languages:** English (Native) | Portuguese (Conversational) | Spanish (Intermediate)

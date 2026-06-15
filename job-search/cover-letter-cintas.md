@@ -1,41 +1,34 @@
-# Cover Letter — Cintas Sales Representative (Charlotte, NC)
+# Cover Letter — Cintas | Sales Representative (Charlotte, NC)
 
 ---
 
-**Collin Celic**  
-ccelic17@gmail.com | 786-763-0771  
-Relocating to Charlotte, NC (Available Immediately)
+Collin Celic | ccelic17@gmail.com | (978) 512-2026 | linkedin.com/in/collin-celic
+Relocating to Charlotte, NC — Available Immediately
 
 June 15, 2026
 
-Hiring Manager  
-Cintas Corporation  
+Hiring Manager
+Cintas Corporation
 Charlotte, NC
 
 ---
 
 Dear Hiring Manager,
 
-There are two things that define my career in B2B field sales: I am relentless about prospecting, and I do not walk away from competitive markets. That combination is what made me effective as a Territory Manager at KraftMaid, and it is exactly what the Cintas Sales Representative role demands.
+I have spent four years doing exactly what Cintas Sales Representatives do: prospecting cold, showing up in person, building account relationships from scratch, and protecting a territory through consistent presence and service. I am relocating to Charlotte immediately and want to do that work in this market.
 
-At KraftMaid Cabinetry, I managed a territory of [X] business accounts, including dealers, designers, and builders. I grew that territory through disciplined cold calling, in-person visits, referral development, and trade event presence — winning new accounts in a competitive market where existing vendor loyalty is the norm. I exceeded my quota by [X]% in [year] and earned recognition for [new account growth / top performance / etc.].
+As a Territory Manager at KraftMaid Cabinetry, I owned a $5.47M annual portfolio across 23 B2B accounts in greater Boston. Every new account I opened was a cold prospecting win — calling on businesses that already had a vendor, building a reason to switch, and earning the placement through better service and follow-through. I achieved 145% of monthly quota in January 2026 and grew market share across multiple accounts during an industry-wide 8% downturn. At TTI before that, I drove 5.15% year-over-year growth on a $4.06M multi-brand territory through disciplined daily field activity.
 
-I am relocating to Charlotte immediately and looking for a high-activity, field-based sales role where my ability to prospect, build relationships, and close new business creates compounding results. Cintas fits that profile perfectly.
+What I respect about Cintas is the same thing that made me effective in my prior roles: the belief that the rep who shows up, listens, and makes it easy to do business wins. Value-based selling over price competition. Relationship longevity over one-time transactions. Cintas's reputation for building elite B2B field sales professionals makes it the right next step for me — and I am prepared to compete for the top of the leaderboard in Charlotte.
 
-A few specific reasons I am excited about this role:
+I have Salesforce CRM experience, a clean driver's record, and zero delay on relocation. I am ready to start the territory from day one.
 
-**I thrive in a cold-call-first culture.** At KraftMaid, new business did not come inbound — it came from picking up the phone, showing up at a business unannounced, and earning a 15-minute conversation. I am comfortable doing that every day.
+Thank you for your consideration.
 
-**I understand B2B value selling.** Cintas is not selling on price — it is selling professionalism, compliance, and time savings. I am experienced helping business owners see the value of investing in a vendor relationship beyond the lowest bid.
-
-**I want to be in a territory I can own.** Charlotte is a high-growth market. I want to be the rep who builds a dominant position in a defined geography — and I am prepared to put in the field hours to make that happen from day one.
-
-Cintas has a well-earned reputation for being the best sales training ground in B2B. I would welcome the chance to join that culture and prove my contribution.
-
-Sincerely,  
-**Collin Celic**  
-ccelic17@gmail.com | 786-763-0771
+Sincerely,
+**Collin Celic**
+ccelic17@gmail.com | (978) 512-2026
 
 ---
 
-*Apply at: https://careers.cintas.com/job/Charlotte-Sales-Representative-NC-28217/1274264700/*
+*Apply: https://careers.cintas.com/job/Charlotte-Sales-Representative-NC-28217/1274264700/*
