@@ -1,0 +1,166 @@
+DealSurge Research Prompt — Broward & Miami-Dade Off-Market Leads
+Research Date: 06/16/2026
+=======================================================================
+
+For EVERY lead below, search DealSurge (and cross-reference bcpa.net or
+miamidade.gov/pa where noted) to find:
+  1. Owner full name + mailing address (if different from property)
+  2. Phone number(s)
+  3. Email address (if available)
+  4. Estimated property value (ARV)
+  5. Estimated equity % and dollar amount
+  6. Property address (for any row marked "N/A — lookup")
+
+Return results as a table: Name | Property Address | Mailing Address |
+Phone | Email | Est. Value | Est. Equity | Notes
+
+=======================================================================
+SECTION A — BROWARD FORECLOSURE AUCTIONS (06/30–07/01/2026)
+Cross-reference each Case# at broward.realforeclose.com → Quick Search,
+then pull owner info from bcpa.net (Broward County Property Appraiser).
+=======================================================================
+
+#  | Case#            | Auction Date | Judgment Amt   | Address
+---|------------------|--------------|----------------|----------------------------------------------
+1  | CACE-18-014899   | 06/30/2026   | $174,785.09    | 392 NW 46 AVE, Deerfield Beach FL 33442
+2  | CACE-22-009441   | 06/30/2026   | $310,779.36    | 527 S 28 AVE, Hollywood FL 33020
+3  | CACE-23-012633   | 06/30/2026   | $171,214.67    | 870 NW 34 TER, Lauderhill FL 33311
+4  | CACE-24-002065   | 06/30/2026   | $257,954.20    | 2120 NW 47 TER, Lauderhill FL 33311
+5  | CACE-24-012970   | 06/30/2026   | $68,369.18     | 2625 NE 14 AVE #104, Wilton Manors FL 33334
+6  | CACE-25-006667   | 06/30/2026   | $1,016,596.31  | 814 S DIXIE HWY, Hollywood FL 33020
+7  | CACE-25-011375   | 06/30/2026   | $27,933.32     | 7400 NW 5 PL, Margate FL 33063
+8  | CACE-25-013061   | 06/30/2026   | $1,065,028.62  | 1775 Eagle Trace Blvd W, Coral Springs FL 33071
+9  | CACE-25-013913   | 06/30/2026   | $78,067.97     | 606 SW Natura Blvd, Deerfield Beach FL 33441
+10 | CACE-25-015315   | 06/30/2026   | $25,784.91     | 10710 W Clairmont Cir, Tamarac FL 33321
+11 | CACE-24-000407   | 07/01/2026   | $424,052.74    | 10275 SW 24 ST, Miramar FL 33025
+12 | CACE-24-016458   | 07/01/2026   | $0.00 (TBD)    | 3231 N 47 AVE, Hollywood FL 33021
+13 | CACE-25-006953   | 07/01/2026   | $422,187.99    | 6201 N Falls Circle Dr #111, Lauderhill FL 33319
+14 | CACE-25-010260   | 07/01/2026   | $55,362.38     | 2900 NW 48 TER, Lauderdale Lakes FL 33313
+15 | CACE-25-011467   | 07/01/2026   | $90,636.89     | 5000 Adams ST, Hollywood FL 33021
+16 | CACE-25-017996   | 07/01/2026   | $416,826.11    | MISSING — look up case on broward.realforeclose.com
+
+
+=======================================================================
+SECTION B — MIAMI-DADE LIS PENDENS (Filed 05/18–05/22/2026)
+Source: onlineservices.miamidadeclerk.gov/officialrecords
+For rows with address: confirm ownership via miamidade.gov/pa
+For rows marked N/A: find property address via case# first, then owner info.
+SKIP corporate plaintiffs (banks/mortgage companies) — focus on individual homeowners.
+=======================================================================
+
+Case#                  | Filed      | Defendant/Owner                              | Property Address
+-----------------------|------------|----------------------------------------------|----------------------------------
+2026-009815-CA-01      | 5/18/2026  | MARTINO YOHAN M                              | N/A — find via case#
+2026-008449-CA-01      | 5/18/2026  | CACV OF COLORADO LLC (owner: find via deed)  | 15638 SW 38 TER, Miami
+2026-007203-CA-01      | 5/19/2026  | CARLTON BAY CONDO ASSOC (unit owner: lookup) | 2821 N MIAMI BEACH BLVD 4J
+2026-058719-CC-26      | 5/19/2026  | JARDON GRETEL                                | N/A — find via case#
+2026-009837-CA-01      | 5/19/2026  | SOLER INDIRA W                               | N/A — find via case#
+2026-009838-CA-01      | 5/19/2026  | ROCKET MORTGAGE (borrower: find via deed)    | N/A — find via case#
+2026-009836-CA-01      | 5/19/2026  | WILMINGTON SAVINGS (borrower: find via deed) | N/A — find via case#
+2026-009846-CA-01      | 5/19/2026  | ESPINAL ELDIN                                | N/A — find via case#
+2026-009862-CA-01      | 5/19/2026  | CRIADO SHIRLEY                               | N/A — find via case#
+2026-009637-CA-01      | 5/19/2026  | LIPAZ SCHWARTZ                               | 17121 COLLINS AVE 4803, Sunny Isles
+2026-009863-CA-01      | 5/19/2026  | CHAMBERS CAROL E                             | N/A — find via case#
+2026-009868-CA-01      | 5/19/2026  | RAMIREZ FRANCISCO                            | N/A — find via case#
+2023-014899-CA-01      | 5/19/2026  | GONZALEZ OSNIEL                              | 34790 SW 212 AVE, Miami
+2025-024179-CA-01      | 5/19/2026  | FREEDOM MORTGAGE (borrower: find via deed)   | 561 NE 170 ST, Miami
+2026-009764-CA-01      | 5/19/2026  | LIEN LIQUIDATORS (owner: find via deed)      | 14075 NW 8 AVE, Miami
+2026-061166-CC-05      | 5/19/2026  | REECE BUILDERS (owner: find via deed)        | 16440 NW 19 AVE, Miami
+2026-009974-CA-01      | 5/19/2026  | VILLAGES OF HOMESTEAD HOA (owner: lookup)    | 1000 CONSTITUTION DR 1000E
+2026-009981-CA-01      | 5/19/2026  | HOUSING & URBAN DEV (owner: find via deed)   | 970 E 3 ST, Miami
+2026-005499-CA-01      | 5/19/2026  | GONZALEZ LUIS G                              | 1080 BRICKELL AVE 2306, Miami
+2026-005499-CA-01      | 5/19/2026  | GONZALEZ LUIS G                              | 1080 BRICKELL AVE 2302, Miami
+2026-005499-CA-01      | 5/19/2026  | GONZALEZ LUIS G                              | 1080 BRICKELL AVE 1400, Miami
+2026-005499-CA-01      | 5/19/2026  | MATEOS RODRIGO L                             | 1080 BRICKELL AVE 2006, Miami
+2026-005499-CA-01      | 5/19/2026  | MATEOS RODRIGO L                             | 1080 BRICKELL AVE 1809, Miami
+2026-010039-CA-01      | 5/19/2026  | MARLENE COLON LLC (owner: find via deed)     | 330 NW 58 CT, Miami
+2026-065494-CC-25      | 5/19/2026  | MIRANDA ALTAGRACIA                           | 2821 N MIAMI BEACH BLVD 2G
+2026-010125-CA-01      | 5/20/2026  | MONTALVO SANTOS                              | 20 NW 58 CT, Miami
+2026-010116-CA-01      | 5/20/2026  | RABASSA LUIS                                 | 1810 W 56 ST 3205, Hialeah
+2026-010123-CA-01      | 5/20/2026  | GOVANTES MIRTHA                              | 1000 QUAYSIDE TER 1609, Miami
+2026-010273-CA-01      | 5/21/2026  | KOVACS SEBESTYEN                             | 3500 CORAL WAY 513, Miami
+2026-010276-CA-01      | 5/21/2026  | GARCIA ROSEMERY                              | 1423 NW 69 TER, Miami
+2026-010277-CA-01      | 5/21/2026  | BIANCHI PETER C JR                           | 4716 SW 67 AVE D3, Miami
+2026-010175-CA-01      | 5/21/2026  | RAMIREZ CARIDAD G                            | 10305 SW 70 ST, Miami
+2026-010286-CA-01      | 5/21/2026  | JAGHAI AUDLEY                                | 2861 NW 184 ST, Miami
+2026-010305-CA-01      | 5/21/2026  | VENTURA ALEJANDRO M                          | 916 NW 8 ST 4, Miami
+2026-007080-CA-01      | 5/21/2026  | INCITATUS REAL ESTATE LLC (owner: find)      | 230 SW 3 ST, Miami
+(remaining 80 N/A cases — search each case# for address, focus on individual homeowners)
+
+
+=======================================================================
+SECTION C — MIAMI-DADE PROBATE FILINGS (Filed 05/18–06/16/2026)
+Source: onlineservices.miamidadeclerk.gov/officialrecords
+For rows with address: confirm via miamidade.gov/pa and find heir/PR contact.
+For rows marked N/A: find property address via decedent name at miamidade.gov/pa.
+Target: estates with real property — contact personal representative (PR) or heir.
+=======================================================================
+
+File#          | Filed      | Decedent / Estate                    | PR or Heir           | Address
+---------------|------------|--------------------------------------|----------------------|---------------------------
+2026 R 333890  | 5/18/2026  | PLACEY DEBORAH M                     | COALS WILLIAM        | 10262 SW 127 PL, Miami
+2026 R 334487  | 5/18/2026  | PEREZ JUANA M                        | HERNANDEZ VITALINA   | 14404 SW 158 CT, Miami
+2026 R 334894  | 5/18/2026  | FRANCIOS LIGELINE                    | —                    | N/A — find via miamidade.gov/pa
+2026 R 335406  | 5/18/2026  | PEREA HILDA M                        | ALVAREZ YVONNE       | N/A — find via miamidade.gov/pa
+2026 R 337716  | 5/19/2026  | CARTER LUCILLE Y                     | CARTER SOPHIA L      | N/A — find via miamidade.gov/pa
+2026 R 345509  | 5/21/2026  | PHILIPPE ANCELA                      | CAMILLE KELVIN T     | N/A — find via miamidade.gov/pa
+2026 R 349947  | 5/21/2026  | DORVAL EDWARD                        | TABUTEAU DERBY       | N/A — find via miamidade.gov/pa
+2026 R 350257  | 5/21/2026  | LEBOWITZA EVELYN                     | MAURER SHARON        | N/A — find via miamidade.gov/pa
+2026 R 352330  | 5/22/2026  | RODRIGUEZ CLAUDIO                    | —                    | N/A — find via miamidade.gov/pa
+2026 R 352834  | 5/22/2026  | BRADDOCK RUTH F                      | —                    | N/A — find via miamidade.gov/pa
+2026 R 356280  | 5/26/2026  | MANEGGIO MICHAEL                     | MANEGGIO MARGARET J  | N/A — find via miamidade.gov/pa
+2026 R 359249  | 5/27/2026  | GALE MICHAEL P (EST OF)              | MURDOCK EVE          | N/A — find via miamidade.gov/pa
+2026 R 359250  | 5/27/2026  | ESTATE OF MICHAEL PAUL GALE          | ROODMAN STEPHANIE    | N/A — find via miamidade.gov/pa
+2026 R 360940  | 5/27/2026  | DE ZAYAS CARLOS L                    | —                    | N/A — find via miamidade.gov/pa
+2026 R 361384  | 5/27/2026  | BAGINSKI BONRAT                      | JANMAK BOONRUX       | 13224 SW 255 TER, Miami
+2026 R 362642  | 5/28/2026  | MCCORMICK CHARLES R                  | GONZALEZ RUBEN       | 470 NE 18 AVE 108, Miami
+2026 R 364140  | 5/28/2026  | MINNIS RUTH M                        | MINNIS QUINTIN       | N/A — find via miamidade.gov/pa
+2026 R 364142  | 5/28/2026  | MINNIS RUTH                          | MINNIS QUINTIN       | N/A — find via miamidade.gov/pa
+2026 R 366384  | 5/29/2026  | LAWRENCE MARIA                       | KRAMER SUSANNE       | N/A — find via miamidade.gov/pa
+2026 R 367130  | 5/29/2026  | SAWKIWI RONNY A                      | —                    | 26682 SW 125 CT, Miami
+2026 R 368081  | 6/1/2026   | ABRAHAM BENITA E                     | —                    | N/A — find via miamidade.gov/pa
+2026 R 368379  | 6/1/2026   | TAWIL JACOBO S                       | —                    | N/A — find via miamidade.gov/pa
+2026 R 369716  | 6/1/2026   | JONES BETTY (EST OF)                 | CANNON ANGELA R      | N/A — find via miamidade.gov/pa
+2026 R 371732  | 6/1/2026   | GOMEZ PAULA M (EST OF)               | MIRANDA JUDITH H     | N/A — find via miamidade.gov/pa
+2026 R 372127  | 6/1/2026   | STANLEY LILLIE M (EST OF)            | STANLEY TANJIA L     | N/A — find via miamidade.gov/pa
+2026 R 372350  | 6/1/2026   | RAPPAPORT ROBERT L (EST OF)          | RAPPAPORT CAROL S    | N/A — find via miamidade.gov/pa
+2026 R 373389  | 6/2/2026   | MOREJON LUIS                         | MOREJON GILDA        | 105 NW 5 AVE, Miami
+2026 R 375776  | 6/2/2026   | DASCOLI ADRIANA C                    | DASCOLI ANTHONY F    | N/A — find via miamidade.gov/pa
+2026 R 377763  | 6/3/2026   | ECHENIQUE ILEANA MARCHANTE           | ECHENIQUE MIRTA      | N/A — find via miamidade.gov/pa
+2026 R 378292  | 6/3/2026   | DAVIS HOMER JR                       | DAVIS LAWRENCE       | N/A — find via miamidade.gov/pa
+2026 R 379301  | 6/4/2026   | LAWRENCE PATRICIA C                  | CONNELL AMELIA       | N/A — find via miamidade.gov/pa
+2026 R 387407  | 6/5/2026   | ESTATE OF DANIEL EDWARD PTACEK       | PTACEK STEPHEN T     | N/A — find via miamidade.gov/pa
+2026 R 388945  | 6/8/2026   | KENDALL SANDY (EST)                  | ALEXANDER JZANEEN D  | N/A — find via miamidade.gov/pa
+2026 R 389033  | 6/8/2026   | MARTINEZ AIDA E                      | MARTINEZ ESTHER A    | N/A — find via miamidade.gov/pa
+2026 R 389952  | 6/8/2026   | GOMEZ JUAN M                         | GOMEZ VEGA MILAGROS  | N/A — find via miamidade.gov/pa
+2026 R 390018  | 6/8/2026   | CORONA ARTURO D                      | CORONA HENRY         | N/A — find via miamidade.gov/pa
+2026 R 391601  | 6/8/2026   | ESPINOSA JOSE L SR                   | —                    | N/A — find via miamidade.gov/pa
+2026 R 393860  | 6/9/2026   | ALAYON JUSTINA                       | ALAYON SANCHEZ VIDAL | N/A — find via miamidade.gov/pa
+2026 R 395012  | 6/9/2026   | CARRANZA IVAN M (EST OF)             | LLANO ILEANA B       | N/A — find via miamidade.gov/pa
+2026 R 397139  | 6/10/2026  | ESTATE OF MARIA JOSEFA RIVERA        | RAMIRO RIVERA JR     | N/A — find via miamidade.gov/pa
+2026 R 399504  | 6/10/2026  | THARP DAVID K                        | SIMMONS HINZ VICKI   | N/A — find via miamidade.gov/pa
+2026 R 399975  | 6/10/2026  | RUIZ MARTA                           | CARBALLO LILIAN      | N/A — find via miamidade.gov/pa
+2026 R 400406  | 6/10/2026  | CHIROLE MARILYN                      | CHIROLE AMELIA       | N/A — find via miamidade.gov/pa
+2026 R 402176  | 6/11/2026  | MILLSTEIN SIDNEY N                   | LISA BRESS           | 20281 E COUNTRY CLUB DR 2101, Aventura
+2026 R 403071  | 6/11/2026  | GRAVE DE PERALTA ERICK               | LUNA BARBARA         | N/A — find via miamidade.gov/pa
+2026 R 404677  | 6/11/2026  | TARAFA ELVIRA                        | TARAFA FRANCISCO J   | 3501 SW 16 TER, Miami
+2026 R 405712  | 6/12/2026  | BLANCO VIRGIL H                      | HUNGRIA CHRISTINA    | 4301 SW 1 ST, Miami
+2026 R 409211  | 6/15/2026  | RIVERO EVANGELIO                     | —                    | N/A — find via miamidade.gov/pa
+2026 R 411456  | 6/15/2026  | LEROY BRYANT JR                      | —                    | N/A — find via miamidade.gov/pa
+2026 R 413060  | 6/16/2026  | JEUNE GENS AVELL                     | GENS ISMAELIE L      | N/A — find via miamidade.gov/pa
+2026 R 413645  | 6/16/2026  | ESTATE OF EMANUELE J DE MARTINEZ     | MARTINEZ MANUEL A    | N/A — find via miamidade.gov/pa
+2026 R 413950  | 6/16/2026  | DEPKIN MELVA                         | DEPKIN WILLIAM       | N/A — find via miamidade.gov/pa
+
+
+=======================================================================
+OUTPUT FORMAT REQUESTED
+=======================================================================
+
+Return one row per property. Columns:
+  Category | Name (Owner/Decedent/Defendant) | Property Address |
+  Mailing Address | Phone | Email | Est. Value | Est. Equity % | Case# | Notes
+
+Flag any property where:
+  - Equity > 40% (high-priority wholesale target)
+  - Auction within 14 days (urgent outreach needed)
+  - No phone/email found (needs skip trace)
