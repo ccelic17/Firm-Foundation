@@ -62,12 +62,12 @@ resume_html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
   <h1>Collin Celic</h1>
   <div class="contact">
     ccelic17@gmail.com &nbsp;|&nbsp; (978) 512-2026 &nbsp;|&nbsp; linkedin.com/in/collin-celic<br>
-    Relocating to Charlotte, NC &mdash; Available Immediately
+    Greater Boston, MA &mdash; Available Immediately
   </div>
 </div>
 
 <div class="section-title">Professional Summary</div>
-<div class="summary"><p>Financial services and B2B territory sales professional with 4+ years of field experience managing multimillion-dollar territories and a direct background in automotive and consumer lending. At Digital Federal Credit Union, closed approximately 20 auto loans and 50 credit cards per month through consultative, needs-based selling &mdash; directly aligned with Capital One Auto Finance&rsquo;s dealer and consumer lending model. At KraftMaid and Techtronic Industries, managed 23+ retail partner accounts and drove product adoption through structured in-person presentations, stakeholder training, and data-driven monthly territory planning with Salesforce CRM. Seeking to bring a high-activity, relationship-first field sales approach to Capital One&rsquo;s Area Sales Manager role in the Carolina market.</p></div>
+<div class="summary"><p>Financial services and B2B territory sales professional with 4+ years of field experience managing multimillion-dollar territories and a direct background in automotive and consumer lending. At Digital Federal Credit Union, closed approximately 20 auto loans and 50 credit cards per month through consultative, needs-based selling &mdash; directly aligned with Capital One Auto Finance&rsquo;s dealer and consumer lending model. At KraftMaid and Techtronic Industries, managed 23+ retail partner accounts and drove product adoption through structured in-person presentations, stakeholder training, and data-driven monthly territory planning with Salesforce CRM. Seeking to bring a high-activity, relationship-first field sales approach to Capital One&rsquo;s Area Sales Manager role in the greater Boston market.</p></div>
 
 <div class="section-title">Core Competencies</div>
 <table class="competencies-table">
@@ -169,7 +169,7 @@ body {{
 
 <div class="sender">
   <div class="name">Collin Celic</div>
-  <div class="contact">ccelic17@gmail.com &nbsp;|&nbsp; (978) 512-2026 &nbsp;|&nbsp; linkedin.com/in/collin-celic &nbsp;|&nbsp; Relocating to Charlotte, NC &mdash; Available Immediately</div>
+  <div class="contact">ccelic17@gmail.com &nbsp;|&nbsp; (978) 512-2026 &nbsp;|&nbsp; linkedin.com/in/collin-celic &nbsp;|&nbsp; Greater Boston, MA &mdash; Available Immediately</div>
 </div>
 
 <div class="salutation">Dear Capital One Hiring Team,</div>
@@ -179,7 +179,7 @@ body {{
 
   <p>At KraftMaid Cabinetry, I managed a $5.47M annual portfolio across 23 retail partner accounts using a dealer-engagement model that maps directly to Capital One&rsquo;s Area Sales Manager role &mdash; structured monthly planning based on CRM analytics, in-person product training for multi-level store teams, and consistent field presence to drive adoption and revenue growth. I achieved 145% of monthly quota in January 2026 and grew market share in multiple key accounts during an industry-wide 8% market downturn by staying closer to my accounts and delivering more value than the incumbent. At Techtronic Industries, I drove 5.15% YOY growth across a $4.06M multi-brand territory through daily outbound field activity, persuasive product demonstrations, and disciplined new business prospecting &mdash; the same high-activity, results-focused approach Capital One&rsquo;s ASM role demands.</p>
 
-  <p>I&rsquo;m relocating to the Carolina market immediately and available to start on your timeline. The combination of my financial services lending background, B2B field territory track record, and Salesforce CRM proficiency positions me to contribute quickly &mdash; not in six months, but in week one. I&rsquo;d welcome a 15-minute conversation to talk through the territory and how my background translates. My resume and cover letter are attached.</p>
+  <p>I&rsquo;m based in the greater Boston market and available to start immediately. The combination of my financial services lending background, B2B field territory track record, and Salesforce CRM proficiency positions me to contribute quickly &mdash; not in six months, but in week one. I&rsquo;d welcome a 15-minute conversation to talk through the territory and how my background translates. My resume and cover letter are attached.</p>
 </div>
 
 <div class="closing">

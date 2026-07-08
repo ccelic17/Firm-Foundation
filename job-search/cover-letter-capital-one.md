@@ -2,7 +2,7 @@
 
 Collin Celic
 ccelic17@gmail.com | (978) 512-2026 | linkedin.com/in/collin-celic
-Relocating to Charlotte, NC — Available Immediately
+Greater Boston, MA — Available Immediately
 
 ---
 
@@ -12,7 +12,7 @@ I'm applying for the Area Sales Manager role on Capital One Auto Finance's deale
 
 At KraftMaid Cabinetry, I managed a $5.47M annual portfolio across 23 retail partner accounts using a dealer-engagement model that maps directly to what Capital One's Area Sales Managers do — structured monthly planning based on CRM analytics, in-person product training for multi-level store teams, and consistent field presence to drive adoption and revenue growth. I achieved 145% of monthly quota in January 2026 and grew market share in multiple key accounts during an industry-wide 8% market downturn by staying closer to my accounts and delivering more value than the incumbent. At Techtronic Industries, I drove 5.15% YOY growth across a $4.06M multi-brand territory through daily outbound field activity, persuasive product demonstrations, and disciplined new business prospecting — the same high-activity, results-focused approach Capital One's ASM role demands.
 
-I'm relocating to the Carolina market immediately and available to start on your timeline. The combination of my financial services lending background, B2B field territory track record, and Salesforce CRM proficiency positions me to contribute quickly — not in six months, but in week one. I'd welcome a 15-minute conversation to talk through the territory and how my background translates. My resume and cover letter are attached.
+I'm based in the greater Boston market and available to start immediately. The combination of my financial services lending background, B2B field territory track record, and Salesforce CRM proficiency positions me to contribute quickly — not in six months, but in week one. I'd welcome a 15-minute conversation to talk through the territory and how my background translates. My resume and cover letter are attached.
 
 Best regards,
 Collin Celic

@@ -1,12 +1,12 @@
 # COLLIN CELIC
 ccelic17@gmail.com | (978) 512-2026 | linkedin.com/in/collin-celic
-Relocating to Charlotte, NC — Available Immediately
+Greater Boston, MA — Available Immediately
 
 ---
 
 ## PROFESSIONAL SUMMARY
 
-Financial services and B2B territory sales professional with 4+ years of field experience managing multimillion-dollar territories and a direct background in automotive and consumer lending. At Digital Federal Credit Union, closed approximately 20 auto loans and 50 credit cards per month through consultative, needs-based selling — directly aligned with Capital One Auto Finance's dealer and consumer lending model. At KraftMaid and Techtronic Industries, managed 23+ retail partner accounts and drove product adoption through structured in-person presentations, stakeholder training, and data-driven monthly territory planning with Salesforce CRM. Seeking to bring a high-activity, relationship-first field sales approach to Capital One's Area Sales Manager role in the Carolina market.
+Financial services and B2B territory sales professional with 4+ years of field experience managing multimillion-dollar territories and a direct background in automotive and consumer lending. At Digital Federal Credit Union, closed approximately 20 auto loans and 50 credit cards per month through consultative, needs-based selling — directly aligned with Capital One Auto Finance's dealer and consumer lending model. At KraftMaid and Techtronic Industries, managed 23+ retail partner accounts and drove product adoption through structured in-person presentations, stakeholder training, and data-driven monthly territory planning with Salesforce CRM. Seeking to bring a high-activity, relationship-first field sales approach to Capital One's Area Sales Manager role in the greater Boston market.
 
 ---
 
