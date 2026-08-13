@@ -12,11 +12,40 @@
 const path = require('path');
 const fs = require('fs');
 
-const PLAYWRIGHT = '/opt/node22/lib/node_modules/playwright';
-const CHROMIUM = '/opt/pw-browsers/chromium';
 const REPO = path.resolve(__dirname, '..');
 
-const { chromium } = require(PLAYWRIGHT);
+// Playwright comes from node_modules on CI. In the dev container it is only
+// installed globally, so fall back to that path rather than requiring a local
+// install there.
+const GLOBAL_PLAYWRIGHT = '/opt/node22/lib/node_modules/playwright';
+
+function loadPlaywright() {
+  try {
+    return require('playwright');
+  } catch (localErr) {
+    try {
+      return require(GLOBAL_PLAYWRIGHT);
+    } catch {
+      console.error(
+        'Could not load Playwright.\n' +
+        '  Tried: require("playwright") — ' + localErr.message + '\n' +
+        '  Tried: ' + GLOBAL_PLAYWRIGHT + '\n' +
+        'Run `npm ci` (and `npx playwright install chromium`) first.'
+      );
+      process.exit(1);
+    }
+  }
+}
+
+const { chromium } = loadPlaywright();
+
+// The dev container ships a prebuilt Chromium; CI uses the one Playwright
+// downloads itself. Passing a non-existent executablePath is a hard failure,
+// so only set it when the file is actually there.
+const CONTAINER_CHROMIUM = '/opt/pw-browsers/chromium';
+const LAUNCH_OPTS = fs.existsSync(CONTAINER_CHROMIUM)
+  ? { executablePath: CONTAINER_CHROMIUM }
+  : {};
 
 // Minimal in-memory stand-in for the Dexie surface this app uses:
 // new Dexie(name), .version().stores(), .kv.toArray/put/clear
@@ -65,7 +94,7 @@ function makeRouter(page, { stubDexie }) {
 }
 
 async function boot(stubDexie) {
-  const browser = await chromium.launch({ executablePath: CHROMIUM });
+  const browser = await chromium.launch(LAUNCH_OPTS);
   const page = await browser.newPage();
   const errors = [];
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
