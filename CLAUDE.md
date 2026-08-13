@@ -134,7 +134,9 @@ POST with `{ access_token }`. Returns `{ score, hrv, rhr, sleepHours, label, syn
 POST with `{ refresh_token }`. Returns new token set from WHOOP.
 
 ### `body-score.js`
-POST with `{ sleep, energy, soreness }` (0–100 each). Returns `{ score, label }`. Weights: sleep 40%, energy 35%, soreness 25%.
+POST with `{ sleep, energy, soreness }` — each an integer **1–10** (the check-in sliders), not 0–100. Returns `{ score, label }` where `score` is 0–100. Weights: sleep 40%, energy 35%, soreness 25%.
+
+`submitBodyCheckin()` in `index.html` has an offline fallback (`scoreLocally()`) that **must** stay identical to this function's weights and label cutoffs, or the same inputs produce different scores depending on network state.
 
 ---
 
@@ -183,6 +185,10 @@ Tab switching: `switchTab(id, btn)`. Journal sub-tabs: `switchJTab(el)`.
 | `ONESIGNAL_APP_ID` | `config.js` | OneSignal Web Push App ID |
 | `WHOOP_CLIENT_ID` | `whoop-auth.js`, `whoop-refresh.js` | WHOOP OAuth client ID |
 | `WHOOP_CLIENT_SECRET` | `whoop-auth.js`, `whoop-refresh.js` | WHOOP OAuth client secret |
+| `OURA_CLIENT_ID` | `oura-auth.js`, `oura-refresh.js` | Oura OAuth client ID (optional — Oura is off until set) |
+| `OURA_CLIENT_SECRET` | `oura-auth.js`, `oura-refresh.js` | Oura OAuth client secret |
+| `APP_ORIGIN` | all OAuth functions | Optional. Redirect origin; defaults to `https://thefirmfoundation.app` |
+| `CLAUDE_TIMEOUT_MS` | `claude.js` | Optional. Defaults to 9000 — must stay under the Netlify function timeout |
 
 > Terra integration removed — Phase 2.
 

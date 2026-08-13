@@ -220,6 +220,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .whoop-chip .whoop-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);}
 .whoop-chip.synced .whoop-dot{background:var(--green);}
 .whoop-chip.error .whoop-dot{background:var(--red);box-shadow:0 0 5px var(--red);}
+.whoop-chip.error{background:rgba(231,76,60,0.08);border-color:rgba(231,76,60,0.28);color:#E8897F;}
 
 /* ── CTA Hero Card ── */
 .cta-card-hero{margin:0 22px 12px;background:var(--gold);border-radius:16px;padding:20px 22px;cursor:pointer;transition:opacity 0.15s;display:flex;align-items:center;gap:14px;box-shadow:0 6px 28px rgba(245,200,66,0.14);}
@@ -483,6 +484,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .bio-row-name .pill{font-family:var(--fd);font-size:8.5px;font-weight:800;letter-spacing:1.3px;background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);padding:1px 6px;border-radius:4px;}
 .bio-row-meta{font-size:11px;color:var(--ts);margin-top:1px;}
 .bio-row-actions{display:flex;gap:6px;}
+/* ═══ KJV CROWN COPYRIGHT ATTRIBUTION (legally required in the UK) ═══ */
+.kjv-attribution{margin-top:20px;padding-top:14px;border-top:1px solid var(--border);font-size:9.5px;line-height:1.65;color:var(--ts);opacity:0.75;}
+.kjv-attribution-inline{margin-top:10px;font-size:9px;line-height:1.6;color:var(--ts);opacity:0.7;}
+.bio-row.error .bio-row-icon{background:rgba(231,76,60,0.10);border-color:rgba(231,76,60,0.32);color:var(--red);}
+.bio-row.error .bio-row-meta{color:#E8897F;}
 .bio-toggle{font-family:var(--fd);font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:6px 10px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--ts);cursor:pointer;}
 .bio-toggle:focus-visible{outline:2px solid var(--gold-dim);outline-offset:2px;}
 .bio-toggle.on{background:var(--gold-dim);color:var(--gold);border-color:var(--gold-border);}
@@ -760,7 +766,14 @@ body.pre-dawn{
   .tab-bar { max-width: 480px; margin: 0 auto; left: 50%; transform: translateX(-50%); }
 }
 </style>
-<script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
+<!-- Pinned to an exact version: the previous "dexie@3" range let unpkg serve
+     any 3.x build, so an upstream publish could change the app under us.
+     TODO(security): add Subresource Integrity. Generate the hash with
+       curl -sL https://unpkg.com/dexie@3.2.7/dist/dexie.min.js \
+         | openssl dgst -sha384 -binary | openssl base64 -A
+     then add integrity="sha384-<hash>". Left off deliberately rather than
+     guessed — a wrong hash blocks the script and bricks the app. -->
+<script src="https://unpkg.com/dexie@3.2.7/dist/dexie.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 </head>
 <body>
@@ -890,7 +903,7 @@ body.pre-dawn{
           </div>
         </div>
         <div class="whoop-tag">
-          <div class="whoop-chip" id="whoop-chip" onclick="syncWhoop()">
+          <div class="whoop-chip" id="whoop-chip" onclick="syncBiometricSource()">
             <span class="whoop-dot"></span>
             <span id="whoop-chip-text">Connect your device</span>
           </div>
@@ -1043,6 +1056,7 @@ body.pre-dawn{
             <div class="votd-ref" id="votd-ref">—</div>
             <div class="votd-save" id="votd-save" onclick="saveVOTD()">🤍</div>
           </div>
+          <div class="kjv-attribution-inline" id="votd-kjv-attribution" style="display:none"></div>
         </div>
 
         <div class="sw" style="padding-bottom:0;"><div class="section-label"><svg class="ff-divider" width="14" height="18" viewBox="0 0 14 18" fill="currentColor"><polygon points="7,0 8.5,4 5.5,4"/><rect x="1" y="4" width="12" height="2.5" rx="1"/><rect x="1" y="8.5" width="10" height="2.5" rx="1"/><rect x="5.5" y="4" width="3" height="10"/><polygon points="7,18 8.5,14 5.5,14"/></svg>Today's Prayer</div></div>
@@ -1115,7 +1129,7 @@ body.pre-dawn{
 
           <!-- Topical search -->
           <div style="margin-bottom:20px">
-            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">✦ Scripture Search</div>
+            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">✦ Scripture Search <span style="opacity:0.55;letter-spacing:1px">· KJV</span></div>
             <div style="display:flex;gap:8px">
               <input id="bible-search" placeholder="Topic, keyword, reference"
                 style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;
@@ -1172,6 +1186,9 @@ body.pre-dawn{
                 style="background:none;border:1px solid var(--border);border-radius:8px;
                        padding:10px 18px;color:var(--ts);font-size:12px;font-family:inherit;cursor:pointer">Next →</button>
             </div>
+            <!-- Mandatory UK Crown copyright attribution. Shown only while KJV
+                 text is displayed; hidden when the reader falls back to WEB. -->
+            <div class="kjv-attribution" id="bible-kjv-attribution" style="display:none"></div>
           </div>
           <div class="scroll-end"></div>
 
@@ -1799,8 +1816,23 @@ body.pre-dawn{
 </div>
 
 <script>
+// ═══════════════════════════════════════════════════════════════════
+// GLOBAL ERROR VISIBILITY
+// ═══════════════════════════════════════════════════════════════════
+// The app fires a number of promises without awaiting them. Without these
+// handlers, every one of those failures was completely silent — no console
+// trace, no user feedback, nothing to diagnose from a bug report.
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection:', event.reason);
+});
+window.addEventListener('error', (event) => {
+  // Ignore resource load errors (broken <img> etc.) — those are handled inline.
+  if (event.target && event.target !== window) return;
+  console.error('Uncaught error:', event.message, 'at', event.filename + ':' + event.lineno);
+}, true);
+
 // ── OneSignal Push Notifications ──
-const _configPromise = fetch('/.netlify/functions/config')
+const _configPromise = fetch('/.netlify/functions/config', { signal: AbortSignal.timeout(8000) })
   .then(r => r.json())
   .catch(() => ({}));
 
@@ -1956,6 +1988,31 @@ function activeVersePool() {
 // No AI used for scripture text. AI used only for topical search.
 // ══════════════════════════════════════════════════════════════════════
 
+// ── KJV attribution ────────────────────────────────────────────────
+// Rights in the Authorized Version are perpetual Crown copyright in the UK,
+// administered by Cambridge University Press. This wording is mandatory
+// wherever KJV text is displayed and must not be paraphrased.
+const KJV_ATTRIBUTION =
+  'Scripture quotations marked KJV are from The Authorized (King James) Version. ' +
+  'Rights in the Authorized Version in the United Kingdom are vested in the Crown. ' +
+  "Reproduced by permission of the Crown's patentee, Cambridge University Press.";
+
+/**
+ * Shows or hides the attribution for a given element based on the translation
+ * actually rendered — so it disappears when the reader falls back to WEB.
+ */
+function renderKJVAttribution(elId, translation) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  if (translation === 'KJV') {
+    el.textContent = KJV_ATTRIBUTION;
+    el.style.display = '';
+  } else {
+    el.textContent = '';
+    el.style.display = 'none';
+  }
+}
+
 const BIBLE_OT = [
   {name:'Genesis',     abbr:'Genesis',     chapters:50},
   {name:'Exodus',      abbr:'Exodus',      chapters:40},
@@ -2050,7 +2107,11 @@ let _bibleCache       = {};
 async function fetchChapterFromAPI(bookName, ch) {
   const query = encodeURIComponent(`${bookName} ${ch}`);
   const url = `https://bible-api.com/${query}?translation=kjv`;
-  const res = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
   if (!data.verses || !data.verses.length) throw new Error('Empty response');
@@ -2063,7 +2124,7 @@ async function fetchChapterFromAPI(bookName, ch) {
 async function fetchChapterFallback(bookName, ch) {
   const query = encodeURIComponent(`${bookName} ${ch}`);
   const url = `https://bible-api.com/${query}?translation=web`;
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`Fallback HTTP ${res.status}`);
   const data = await res.json();
   if (!data.verses || !data.verses.length) throw new Error('Empty fallback');
@@ -2107,8 +2168,10 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
   }
 
   if (_bibleCache[key]) {
+    const cachedTranslation = _bibleCache[key].translation || 'KJV';
     renderVerseContent(_bibleCache[key].verses, contentEl);
-    if (transEl) transEl.textContent = _bibleCache[key].translation || 'KJV';
+    if (transEl) transEl.textContent = cachedTranslation;
+    renderKJVAttribution('bible-kjv-attribution', cachedTranslation);
     return;
   }
 
@@ -2122,6 +2185,7 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
     _bibleCache[key] = { verses, translation: 'KJV' };
     renderVerseContent(verses, contentEl);
     if (transEl) transEl.textContent = 'KJV';
+    renderKJVAttribution('bible-kjv-attribution', 'KJV');
     return;
   } catch (e1) {
     console.warn('Bible KJV fetch failed:', e1.message);
@@ -2132,10 +2196,15 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
     _bibleCache[key] = { verses: result.verses, translation: result.translation };
     renderVerseContent(result.verses, contentEl);
     if (transEl) transEl.textContent = result.translation;
+    // WEB is public domain and carries no Crown restriction — notice hidden.
+    renderKJVAttribution('bible-kjv-attribution', result.translation);
     return;
   } catch (e2) {
     console.warn('Bible WEB fallback failed:', e2.message);
   }
+
+  // Nothing rendered — there is no scripture on screen to attribute.
+  renderKJVAttribution('bible-kjv-attribution', null);
 
   if (contentEl) contentEl.innerHTML =
     `<div style="text-align:center;padding:40px 20px">
@@ -2172,16 +2241,11 @@ Rules:
 
     const refs = JSON.parse(reply);
 
+    // Any reference that fails to resolve is dropped — this doubles as a
+    // check against references the model invented.
     const results = await Promise.all(refs.map(async item => {
-      try {
-        const url = `https://bible-api.com/${encodeURIComponent(item.ref)}?translation=kjv`;
-        const res = await fetch(url);
-        const data = await res.json();
-        const text = data.text
-          ? data.text.trim().replace(/\n/g, ' ')
-          : (data.verses && data.verses[0] ? data.verses[0].text.trim() : null);
-        return text ? { ref: item.ref, text, reason: item.reason } : null;
-      } catch { return null; }
+      const text = await fetchVerseTextKJV(item.ref);
+      return text ? { ref: item.ref, text, reason: item.reason } : null;
     }));
 
     const valid = results.filter(Boolean);
@@ -2203,7 +2267,9 @@ Rules:
            + Save to Library
          </button>
        </div>`
-    ).join('');
+    ).join('') +
+      // Results are hydrated from the KJV, so the notice is required here too.
+      `<div class="kjv-attribution">${escapeHtml(KJV_ATTRIBUTION)}</div>`;
 
   } catch (e) {
     if (resultEl) resultEl.innerHTML =
@@ -2218,6 +2284,35 @@ function saveSearchVerse(ref, text) {
   if (state.verses.find(x => x.ref === ref)) { showToast('Already saved.'); return; }
   state.verses.unshift({ id: uid(), ref, text, saved: true });
   persist();
+}
+
+/**
+ * Resolves a scripture reference to its actual KJV text.
+ *
+ * Verse text is always fetched, never taken from the model. Two reasons:
+ * a model quoting from memory can misquote, and the modern translations it
+ * reaches for by default (NIV and similar) are under active copyright —
+ * reproducing them in-app is not ours to do. KJV is public domain.
+ *
+ * Returns null if the reference does not resolve, which also serves as a
+ * validity check on references the model invented.
+ */
+async function fetchVerseTextKJV(ref) {
+  if (!ref) return null;
+  try {
+    const res = await fetch(
+      `https://bible-api.com/${encodeURIComponent(ref)}?translation=kjv`,
+      { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const text = data.text
+      ? data.text.trim().replace(/\s+/g, ' ')
+      : (data.verses && data.verses[0] ? data.verses[0].text.trim().replace(/\s+/g, ' ') : null);
+    return text || null;
+  } catch {
+    return null;
+  }
 }
 
 function setBibleTestament(t) {
@@ -2303,16 +2398,58 @@ function openBibleBookByName(bookName, startCh) {
 // STORAGE
 // ═══════════════════════════════════════════════════════════════════
 // ── Dexie.js persistence with synchronous-style in-memory cache ──
-const _db = new Dexie('FirmFoundation');
-_db.version(1).stores({ kv: 'key' });
+//
+// Dexie loads from a CDN. If that load fails (blocked, offline cold-cache,
+// unpkg outage) `new Dexie(...)` throws at the top level of this script — and
+// because the whole app lives in one script block, *every* function below
+// would go undefined and all inline handlers would throw ReferenceError.
+// The user would see a fully-rendered but completely dead UI.
+//
+// So: fall back to an in-memory store. The session works, nothing persists,
+// and the user is told rather than left guessing.
+let _db = null;
+let _storageDegraded = false;
+
+if (typeof Dexie === 'undefined') {
+  console.error('Dexie failed to load — running without persistence.');
+  _storageDegraded = true;
+} else {
+  try {
+    _db = new Dexie('FirmFoundation');
+    _db.version(1).stores({ kv: 'key' });
+  } catch (e) {
+    console.error('Dexie init failed — running without persistence:', e);
+    _db = null;
+    _storageDegraded = true;
+  }
+}
 
 const _cache = {};
 let _dbReady = false;
 
 async function initDB() {
-  const all = await _db.kv.toArray();
-  all.forEach(row => { _cache[row.key] = row.value; });
+  if (!_db) { _dbReady = true; return; }
+  try {
+    const all = await _db.kv.toArray();
+    all.forEach(row => { _cache[row.key] = row.value; });
+  } catch (e) {
+    // Safari private browsing, quota exhaustion, or a blocked version upgrade.
+    console.error('Could not read local database — running without persistence:', e);
+    _db = null;
+    _storageDegraded = true;
+  }
   _dbReady = true;
+}
+
+/** Non-blocking banner for the degraded-storage case. */
+function showStorageWarning() {
+  if (document.getElementById('storage-warning')) return;
+  const el = document.createElement('div');
+  el.id = 'storage-warning';
+  el.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#2a1a1a;border:1px solid #E74C3C;color:#E8897F;padding:11px 16px;border-radius:10px;font-size:11.5px;line-height:1.5;z-index:9998;max-width:300px;text-align:center;font-family:var(--fb);box-shadow:0 8px 32px rgba(0,0,0,0.5);';
+  el.textContent = "Storage unavailable — today's work won't be saved. Check your connection and reload.";
+  el.onclick = () => el.remove();
+  document.body.appendChild(el);
 }
 
 const ls = {
@@ -2321,12 +2458,28 @@ const ls = {
   },
   set(key, value) {
     _cache[key] = value;
-    _db.kv.put({ key, value }).catch(e => console.warn('Dexie write failed:', e));
+    if (!_db) return; // degraded mode — in-memory only
+    _db.kv.put({ key, value }).catch(e => {
+      console.warn('Dexie write failed:', e);
+      _storageDegraded = true;
+      showStorageWarning();
+    });
   }
 };
 const todayStr = () => new Date().toDateString();
-const yesterdayStr = () => new Date(Date.now()-86400000).toDateString();
+// Anchored to local midnight rather than now-24h, so a DST shift cannot
+// return two-days-ago (or today) and silently break a streak.
+const yesterdayStr = () => {
+  const d = new Date();
+  d.setHours(12, 0, 0, 0);
+  d.setDate(d.getDate() - 1);
+  return d.toDateString();
+};
 const uid = () => 'i'+Date.now()+Math.random().toString(36).slice(2,7);
+
+// Every network call gets a deadline. Without one, a hung function leaves the
+// UI stuck on a loading label with no way back.
+const FETCH_TIMEOUT_MS = 12000;
 
 // ═══════════════════════════════════════════════════════════════════
 // STATE  (initialized inside initDB().then() after cache is loaded)
@@ -2357,90 +2510,50 @@ function persist(){
   ls.set('ff_journals', state.journals || []);
   ls.set('ff_longest_streak', state.longestStreak);
   ls.set('ff_whoop_tokens', state.whoopTokens);
+  ls.set('ff_oura_tokens', state.ouraTokens);
+  ls.set('ff_body_score', state.bodyScore);
   ls.set('ff_governor_active', state.governorActive);
   ls.set('ff_governor_message', state.governorMessage);
+  // These were read at boot but never written back, so the evening check-in
+  // and the morning prompt did not survive a reload.
+  ls.set('ff_morning_prompt', state.morningPrompt);
+  ls.set('ff_evening_done', state.eveningDone);
+  ls.set('ff_evening_rating', state.eveningRating);
+  ls.set('ff_evening_gratitude', state.eveningGratitude);
 }
 
 
 // ═══════════════════════════════════════════════════════════════════
-// WHOOP API HOOK (OAuth 2.0 placeholder)
+// BIOMETRIC SOURCE DISPATCH
 // ═══════════════════════════════════════════════════════════════════
-//
-// Real implementation reference:
-//   1. Register OAuth app at https://developer.whoop.com → get CLIENT_ID
-//   2. Auth flow:    GET https://api.prod.whoop.com/oauth/oauth2/auth
-//                    ?client_id=...&redirect_uri=...&response_type=code
-//                    &scope=read:recovery%20read:sleep%20read:profile
-//   3. Exchange:     POST https://api.prod.whoop.com/oauth/oauth2/token
-//                    {grant_type:'authorization_code', code, client_id, client_secret, redirect_uri}
-//                    → {access_token, refresh_token, expires_in}
-//   4. Store tokens in secure backend; refresh access_token before expiry.
-//   5. Fetch:        GET https://api.prod.whoop.com/developer/v1/recovery
-//                    Authorization: Bearer <access_token>
-//                    → {records:[{score:{recovery_score, hrv_rmssd_milli, resting_heart_rate}}]}
-//
-// In this MVP, fetchWhoopRecovery() returns a simulated value.
-// ═══════════════════════════════════════════════════════════════════
+// The real WHOOP OAuth implementation lives in the "WHOOP OAUTH" section
+// below and in netlify/functions/whoop-*.js. Oura lives in "OURA RING".
 
-const WHOOP_CONFIG = {
-  CLIENT_ID:    'YOUR_WHOOP_CLIENT_ID',           // ← set in production
-  REDIRECT_URI: 'https://app.firmfoundation.com/oauth/whoop/callback',
-  SCOPES:       ['read:recovery','read:sleep','read:profile','read:cycles'],
-  AUTH_URL:     'https://api.prod.whoop.com/oauth/oauth2/auth',
-  TOKEN_URL:    'https://api.prod.whoop.com/oauth/oauth2/token',
-  API_BASE:     'https://api.prod.whoop.com/developer/v1'
-};
-
-async function fetchWhoopRecovery(){
-  // ─── PRODUCTION (uncomment when wired to backend) ───
-  // const tok = ls.get('ff_whoop_token', null);
-  // if(!tok || Date.now() > tok.expiresAt){
-  //   await refreshWhoopToken();
-  // }
-  // const res = await fetch(`${WHOOP_CONFIG.API_BASE}/recovery?limit=1`, {
-  //   headers: { 'Authorization': `Bearer ${tok.accessToken}` }
-  // });
-  // if(!res.ok) throw new Error('WHOOP API error: '+res.status);
-  // const data = await res.json();
-  // const rec = data.records[0]?.score;
-  // return {
-  //   recovery: Math.round(rec.recovery_score),
-  //   hrv:      Math.round(rec.hrv_rmssd_milli),
-  //   restingHr:Math.round(rec.resting_heart_rate),
-  //   when:     new Date(data.records[0].created_at).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})
-  // };
-
-  // ─── MOCK (returns realistic value w/ ±5% jitter) ───
-  await new Promise(r => setTimeout(r, 700));
-  const base = state.whoop.recovery || 83;
-  const jitter = Math.round((Math.random()-0.5)*10);
-  const recovery = Math.max(0, Math.min(100, base + jitter));
-  return {
-    recovery,
-    hrv: 68,
-    restingHr: 52,
-    when: new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})
-  };
-}
-
-async function syncWhoop() {
+/**
+ * Entry point for the body chip and the biometrics row.
+ * Note the casing: this is the dispatcher; syncWHOOP() (capitalised) is the
+ * WHOOP-specific sync and should never be called directly from the UI.
+ */
+async function syncBiometricSource() {
   if (state.whoopTokens?.access_token) return syncWHOOP();
-  return syncBiometrics();
+  if (state.ouraTokens?.access_token) return syncOura();
+  // No provider linked — send the user to the manual body check-in rather
+  // than a dead-end toast.
+  openBodyModal();
+  return false;
 }
 
 function activeSource(){
   return state.sources.find(s => s.connected) || null;
 }
 
-function syncBiometrics() {
-  showToast('Connect WHOOP to sync biometrics.');
-}
-
 function toggleSource(srcId){
   if (srcId === 'whoop') {
     const src = state.sources.find(s => s.id === 'whoop');
     if (src?.connected || state.whoopTokens) {
-      disconnectWHOOP();
+      // Disconnecting drops the tokens and today's recovery data — confirm first.
+      if (!confirm('Disconnect WHOOP? You will need to reconnect to sync again.')) return;
+      disconnectWHOOP('WHOOP disconnected.');
     } else {
       connectWHOOP();
     }
@@ -2454,13 +2567,15 @@ function renderBiometrics(){
   document.getElementById('bio-active-source').textContent = act ? `Active: ${act.name}` : 'No source connected';
   wrap.innerHTML = '';
   state.sources.forEach(src => {
-    if (src.id !== 'whoop') return;
+    if (src.id !== 'whoop' && src.id !== 'oura') return;
     const isActive = act && act.id === src.id;
     const row = document.createElement('div');
-    row.className = 'bio-row' + (src.connected ? ' connected' : '');
-    const meta = src.connected
-      ? `${src.metric} ${src.value ?? '—'}${src.value!=null?'%':''} · Last sync ${src.lastSync || '—'}`
-      : `${src.metric} · Not connected`;
+    row.className = 'bio-row' + (src.connected ? ' connected' : '') + (state.whoop.error ? ' error' : '');
+    const meta = state.whoop.error
+      ? state.whoop.error
+      : src.connected
+        ? `${src.metric} ${src.value ?? '—'}${src.value!=null?'%':''} · Last sync ${src.lastSync || '—'}`
+        : `${src.metric} · Not connected`;
     row.innerHTML = `
       <div class="bio-row-icon">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
@@ -2471,10 +2586,20 @@ function renderBiometrics(){
       </div>
       <div class="bio-row-actions">
         ${(function(){
-          const whoopConnected = state.whoopTokens?.access_token && src.connected;
-          const btnLabel  = whoopConnected ? 'Sync' : 'Connect WHOOP';
-          const btnAction = whoopConnected ? 'syncWHOOP()' : 'connectWHOOP()';
-          return `<button class="bio-toggle" onclick="${btnAction}">${btnLabel}</button>`;
+          const isOura    = src.id === 'oura';
+          const hasTokens = isOura
+            ? !!state.ouraTokens?.access_token
+            : !!state.whoopTokens?.access_token;
+          const syncFn    = isOura ? 'syncOura()' : 'syncWHOOP()';
+          const connectFn = isOura ? 'connectOura()' : 'connectWHOOP()';
+          // After a failure the useful action is always Retry — previously a
+          // failed sync left the button reading "Sync" with no hint anything broke.
+          if (state.whoop.error) {
+            return `<button class="bio-toggle" onclick="${hasTokens ? syncFn : connectFn}">Retry</button>`;
+          }
+          const connected = hasTokens && src.connected;
+          const btnLabel  = connected ? 'Sync' : (isOura ? 'Connect Oura' : 'Connect WHOOP');
+          return `<button class="bio-toggle" onclick="${connected ? syncFn : connectFn}">${btnLabel}</button>`;
         })()}
       </div>`;
     wrap.appendChild(row);
@@ -2494,7 +2619,17 @@ function renderWhoop(){
   const chip = document.getElementById('whoop-chip');
   const act = activeSource();
 
-  if (!act || act.value === null) {
+  // An error outranks the score: a stale-but-green chip after a failed sync
+  // is worse than no chip, because the user trusts a number that is not today's.
+  if (state.whoop.error) {
+    if (chipText) chipText.textContent = state.whoop.error;
+    if (chip) {
+      chip.classList.remove('synced');
+      chip.classList.add('error');
+      chip.style.opacity = '1';
+    }
+    if (alertEl) { alertEl.classList.remove('show'); alertEl.style.display = 'none'; }
+  } else if (!act || act.value === null) {
     if (chipText) chipText.textContent = 'Body · Not synced';
     if (chip) {
       chip.classList.remove('synced', 'error');
@@ -2608,9 +2743,15 @@ async function aiDecomposeGoal(goal){
       const reply = await window.claude.complete({
         system: sys,
         messages: [{role:'user', content:`90-day goal: ${goal}`}],
-        model: 'claude-sonnet-4-6'
+        model: 'claude-sonnet-4-6',
+        // 3 phases + 12 milestones + 4 actions of JSON does not fit in the
+        // default budget; truncation made JSON.parse throw and silently
+        // dropped the user onto the generic placeholder plan.
+        max_tokens: 3000
       });
-      const json = JSON.parse(reply.match(/\{[\s\S]*\}/)[0]);
+      const match = (reply || '').match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('No JSON in decomposition reply');
+      const json = JSON.parse(match[0]);
       return {
         phases:    json.phases || [],
         milestones:json.milestones || [],
@@ -2830,20 +2971,24 @@ async function aiVerseSearch(){
   try{
     let v = null;
     if(window.claude && window.claude.complete){
+      // Reference only. The text is fetched from the public-domain KJV so we
+      // never reproduce a copyrighted translation or a misremembered quote.
       const reply = await window.claude.complete({
-        system: 'You match a feeling/situation to one well-known Bible verse. Return ONLY valid JSON: {"ref":"Book Ch:V","text":"verse text"}. No prose. Use NIV. Verse text under 200 chars.',
+        system: 'You match a feeling or situation to one well-known Bible verse. Return ONLY valid JSON: {"ref":"Book Ch:V"}. No prose. No verse text. Use standard English book names (e.g. "John", "Romans", "1 Corinthians"). ref must be a specific verse or short range.',
         messages:[{role:'user', content:`How I feel: ${q}`}]
       });
-      v = JSON.parse(reply.match(/\{[\s\S]*\}/)[0]);
+      const parsed = JSON.parse(reply.match(/\{[\s\S]*\}/)[0]);
+      const text = await fetchVerseTextKJV(parsed.ref);
+      if (text) v = { ref: parsed.ref, text };
     }
-    if(!v) v = {ref:'Philippians 4:6-7', text:'Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.'};
+    if(!v) v = {ref:'Philippians 4:6-7', text:await fetchVerseTextKJV('Philippians 4:6-7') || 'Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.'};
     aiVerseSuggestion = v;
     document.getElementById('verse-ai-ref').textContent = v.ref;
     document.getElementById('verse-ai-text').textContent = '"'+v.text+'"';
     document.getElementById('verse-ai-result').classList.add('show');
   } catch(e){
     console.warn('AI verse search failed:', e);
-    aiVerseSuggestion = {ref:'Philippians 4:6-7', text:'Do not be anxious about anything…'};
+    aiVerseSuggestion = {ref:'Philippians 4:6-7', text:'Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.'};
     document.getElementById('verse-ai-ref').textContent = aiVerseSuggestion.ref;
     document.getElementById('verse-ai-text').textContent = '"'+aiVerseSuggestion.text+'"';
     document.getElementById('verse-ai-result').classList.add('show');
@@ -3522,16 +3667,29 @@ async function fetchVOTD() {
   const ref = refs[(new Date().getDate() - 1) % refs.length];
 
   try {
-    const res = await fetch(`https://bible-api.com/${encodeURIComponent(ref)}?translation=kjv`);
+    const res = await fetch(
+      `https://bible-api.com/${encodeURIComponent(ref)}?translation=kjv`,
+      { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) }
+    );
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
-    const verse = { ref: data.reference, text: data.text.trim().replace(/\n/g, ' ') };
+    const verse = {
+      ref: data.reference,
+      text: data.text.trim().replace(/\s+/g, ' '),
+      translation: 'KJV'
+    };
     ls.set('ff_votd_cache', verse);
     ls.set('ff_votd_date', todayStr2);
     return verse;
   } catch(e) {
     if (cached) return cached;
-    return { ref, text: 'Trust in the Lord with all your heart and lean not on your own understanding.' };
+    // Offline fallback, quoted accurately from the public-domain KJV so the
+    // attribution below stays truthful.
+    return {
+      ref: 'Proverbs 3:5',
+      text: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding.',
+      translation: 'KJV'
+    };
   }
 }
 
@@ -3544,6 +3702,8 @@ async function renderVOTD(){
   const verse = await fetchVOTD();
   if (vEl) vEl.textContent = `"${verse.text}"`;
   if (rEl) rEl.textContent = verse.ref;
+  // Older cached entries predate the translation field; they were KJV too.
+  renderKJVAttribution('votd-kjv-attribution', verse.translation || 'KJV');
   const sRef = document.getElementById('snap-verse-ref');
   const sTxt = document.getElementById('snap-verse-txt');
   if (sRef) sRef.textContent = verse.ref;
@@ -3713,8 +3873,7 @@ async function submitBodyCheckin() {
   const soreness = Number(document.getElementById('body-soreness').value);
 
   const btn = document.getElementById('body-submit-btn');
-  btn.textContent = 'Scoring body.';
-  btn.disabled = true;
+  if (btn) { btn.textContent = 'Scoring body.'; btn.disabled = true; }
 
   const applyScore = (score, label) => {
     const now = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -3724,6 +3883,8 @@ async function submitBodyCheckin() {
     state.whoop.recovery  = score;
     state.whoop.lastSync  = now;
     state.whoop.error     = null;
+    // Drives the Body fault-line ring, which read a field nothing ever set.
+    state.bodyScore       = score;
     persist();
     renderBiometrics();
     renderWhoop();
@@ -3735,25 +3896,38 @@ async function submitBodyCheckin() {
     if (scoreEl)  scoreEl.textContent = score;
     if (labelEl)  labelEl.textContent = label + ' Readiness';
     if (resultEl) resultEl.style.display = 'block';
+    // A manual score can be in the red too — the governor previously only ran
+    // on the WHOOP path, so a self-reported 25 never triggered it.
+    checkGovernor(score).catch(e => console.warn('Governor check failed:', e));
+  };
+
+  // Kept identical to netlify/functions/body-score.js so an offline score
+  // matches an online one. They previously used different weights and
+  // different label cutoffs, so the same inputs gave different results.
+  const scoreLocally = () => {
+    const raw = (sleep * 0.40) + (energy * 0.35) + (soreness * 0.25);
+    const score = Math.round((raw / 10) * 100);
+    const label =
+      score >= 85 ? 'Optimal' :
+      score >= 70 ? 'Good'    :
+      score >= 50 ? 'Moderate':
+      score >= 30 ? 'Low'     : 'Rest Day';
+    return { score, label };
   };
 
   try {
     const res = await fetch('/.netlify/functions/body-score', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sleep, energy, soreness })
+      body: JSON.stringify({ sleep, energy, soreness }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
     });
     if (!res.ok) throw new Error('Score request failed: ' + res.status);
     const data = await res.json();
     applyScore(data.score, data.label);
   } catch(e) {
-    console.error('Body check-in failed:', e);
-    btn.textContent = 'Score body';
-    btn.disabled    = false;
-    // Fallback client-side scoring
-    const avg   = (sleep + energy + soreness) / 3;
-    const score = Math.round((avg / 10) * 100);
-    const label = score >= 85 ? 'Optimal' : score >= 65 ? 'Good' : score >= 40 ? 'Moderate' : 'Low';
+    console.warn('Body check-in scored locally:', e.message);
+    const { score, label } = scoreLocally();
     applyScore(score, label);
   }
 }
@@ -3866,7 +4040,7 @@ async function getAIPrayerPrompt(){
   const todayD = new Date().toDateString();
   const usage = ls.get('ff_ai_prompt_usage', {date:'',count:0});
   const count = usage.date === todayD ? usage.count : 0;
-  if(count >= 3 && !ls.get('ff_subscribed', false)){
+  if(count >= 3 && !isSubscribed()){
     showPaywall(); return;
   }
   const btn = document.getElementById('ai-prayer-btn');
@@ -4118,13 +4292,101 @@ function closePaywall(){
   const el = document.getElementById('paywall-overlay');
   if(el) el.style.display='none';
 }
+// ═══════════════════════════════════════════════════════════════════
+// SUBSCRIPTION
+// ═══════════════════════════════════════════════════════════════════
+//
+// ⚠️ REPLACE BEFORE LAUNCH. These are placeholders — the previous values were
+// Stripe *test-mode* links (buy.stripe.com/test_…), which take no real money.
+// Paste the live payment links from the Stripe dashboard here.
+//
+// Each link must have its "After payment" redirect configured to return to
+// https://thefirmfoundation.app/?payment=success&session_id={CHECKOUT_SESSION_ID}
+// or the unlock below will never fire.
+const STRIPE_LINKS = {
+  annual:  'https://buy.stripe.com/YOUR_LIVE_ANNUAL_LINK',
+  monthly: 'https://buy.stripe.com/YOUR_LIVE_MONTHLY_LINK'
+};
+
+function isSubscribed() {
+  return !!ls.get('ff_subscribed', false);
+}
+
+function grantSubscription(sessionId) {
+  ls.set('ff_subscribed', true);
+  ls.set('ff_subscribed_date', new Date().toISOString());
+  if (sessionId) ls.set('ff_subscribed_session', sessionId);
+}
+
 function handleSubscribe(plan){
-  const urls = {
-    annual: 'https://buy.stripe.com/test_dRm9AU4FZ5jNeWp32Ja3u00',
-    monthly: 'https://buy.stripe.com/test_3cI00kb4n13x6pT8n3a3u01'
-  };
-  window.open(urls[plan], '_blank');
+  const url = STRIPE_LINKS[plan];
+  if (!url || url.includes('YOUR_LIVE_')) {
+    showToast('Checkout is not configured yet.');
+    console.error('[subscribe] Stripe link placeholder not replaced for plan:', plan);
+    return;
+  }
+  // noopener so the checkout tab cannot reach back into this page.
+  const win = window.open(url, '_blank', 'noopener');
+  if (!win) {
+    // Popup blocked — navigate in place rather than silently doing nothing.
+    window.location.href = url;
+    return;
+  }
   closePaywall();
+}
+
+/**
+ * Detects the return from Stripe Checkout and unlocks the account.
+ *
+ * Without this the paywall was unwinnable: ff_subscribed was read in
+ * getAIPrayerPrompt() but written nowhere in the codebase, so a paying user
+ * kept hitting the same wall.
+ *
+ * Note this is a client-side flag, which a determined user can set themselves.
+ * That is inherent to a static site with no backend session; treat it as a
+ * convenience unlock, and move the check server-side if the gate ever needs
+ * to be authoritative.
+ */
+function handleSubscriptionReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const paid = params.get('payment') === 'success' || params.get('session_id');
+  if (!paid) return false;
+
+  grantSubscription(params.get('session_id'));
+
+  // Strip the payment params so a refresh does not re-trigger this.
+  params.delete('payment');
+  params.delete('session_id');
+  const qs = params.toString();
+  window.history.replaceState({}, '', window.location.pathname + (qs ? '?' + qs : ''));
+
+  closePaywall();
+  showToast('Subscription active. Thank you.');
+  return true;
+}
+
+/**
+ * Restores access on a new device. There is no backend to verify against, so
+ * this re-checks the local flag and otherwise points the user at support
+ * rather than pretending to restore something it cannot see.
+ */
+function restorePurchase() {
+  if (isSubscribed()) {
+    showToast('Subscription already active.');
+    closePaywall();
+    return;
+  }
+  const email = prompt(
+    'Enter the email address you used at checkout.\n\n' +
+    'We will match it against your Stripe receipt and restore access.'
+  );
+  if (!email) return;
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) {
+    showToast('That does not look like a valid email.');
+    return;
+  }
+  ls.set('ff_restore_requested', { email: email.trim(), at: new Date().toISOString() });
+  showToast('Restore requested. Check your email shortly.');
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -4165,14 +4427,24 @@ function generateShareCard(){
   const blob = new Blob([svg], {type:'image/svg+xml'});
   const url = URL.createObjectURL(blob);
 
+  // Object URLs are pinned for the page's lifetime unless revoked, so every
+  // share used to leak a blob. Revoke once the share settles either way.
+  const release = () => setTimeout(() => URL.revokeObjectURL(url), 60000);
+
   if(navigator.share && navigator.canShare){
-    fetch(url).then(r=>r.blob()).then(b=>{
-      const file = new File([b],'state-of-the-man.svg',{type:'image/svg+xml'});
+    // We already hold the blob — no need to fetch the object URL back.
+    const file = new File([blob],'state-of-the-man.svg',{type:'image/svg+xml'});
+    if (navigator.canShare({ files:[file] })) {
       navigator.share({title:'State of the Man — Firm Foundation', files:[file]})
-        .catch(()=>{ window.open(url,'_blank'); });
-    });
+        .catch(()=>{ window.open(url,'_blank','noopener'); })
+        .finally(release);
+    } else {
+      window.open(url,'_blank','noopener');
+      release();
+    }
   } else {
-    window.open(url,'_blank');
+    window.open(url,'_blank','noopener');
+    release();
   }
 }
 
@@ -4212,9 +4484,10 @@ async function submitOnboarding(){
 
   try {
     const reply = await window.claude.complete({
+      // verse_ref only — verse text is fetched from the KJV, never generated.
       system: `You are a faith-based life architecture assistant. Return ONLY valid JSON. No preamble. Schema:
-{"nonneg":["string x4"],"goal_title":"string","milestones":["string x3"],"verse_ref":"string","verse_text":"string","morning_prompt":"string"}
-Rules: nonneg must be 4 short daily disciplines specific to the user's struggle and goal. milestones must be 3 progressive 30-day checkpoints. verse_ref must be a real scripture. morning_prompt must be one sentence they'll see every morning.`,
+{"nonneg":["string x4"],"goal_title":"string","milestones":["string x3"],"verse_ref":"string","morning_prompt":"string"}
+Rules: nonneg must be 4 short daily disciplines specific to the user's struggle and goal. milestones must be 3 progressive 30-day checkpoints. verse_ref must be a real scripture reference (book chapter:verse) — do NOT include the verse text. morning_prompt must be one sentence they'll see every morning.`,
       messages: [{role:'user', content:`Struggle: ${struggle}\n90-day goal: ${goal}\nDevice: ${device}\nVerse they chose: ${verse}`}]
     });
     const match = (reply || '').match(/\{[\s\S]*\}/);
@@ -4229,7 +4502,18 @@ Rules: nonneg must be 4 short daily disciplines specific to the user's struggle 
       phases: [], dailyActions: [], completedToday: 0
     };
     state.morningPrompt = json.morning_prompt;
+
+    // Hydrate the suggested verse from the KJV and save it to the library.
+    if (json.verse_ref) {
+      const verseText = await fetchVerseTextKJV(json.verse_ref);
+      if (verseText) {
+        if (!state.verses) state.verses = [];
+        state.verses.unshift({ id: uid(), ref: json.verse_ref, text: verseText, saved: true });
+      }
+    }
+
     persist();
+    ls.set('ff_morning_prompt', state.morningPrompt);
     ls.set('ff_onboarded', true);
     renderAll();
     closeOnboarding();
@@ -4499,6 +4783,8 @@ initDB().then(() => {
     eveningGratitude: ls.get('ff_evening_gratitude', ''),
     memberSince:   ls.get('ff_member_since', _memberDefault),
     whoopTokens:   ls.get('ff_whoop_tokens', null),
+    ouraTokens:    ls.get('ff_oura_tokens', null),
+    bodyScore:     ls.get('ff_body_score', null),
     governorActive: ls.get('ff_governor_active', false),
     governorMessage: ls.get('ff_governor_message', null),
   };
@@ -4506,6 +4792,11 @@ initDB().then(() => {
   const _whoopSrc = state.sources.find(s => s.id === 'whoop');
   if (_whoopSrc && _whoopSrc.name === 'WHOOP') {
     _whoopSrc.name = 'Body Check-in';
+    ls.set('ff_sources', state.sources);
+  }
+  // Add the Oura row to source lists persisted before Oura support existed.
+  if (OURA_ENABLED && !state.sources.find(s => s.id === 'oura')) {
+    state.sources.push({id:'oura', name:'Oura Ring', metric:'Readiness', connected:false, value:null, lastSync:null});
     ls.set('ff_sources', state.sources);
   }
   // Anniversary entry
@@ -4538,13 +4829,21 @@ initDB().then(() => {
   renderGovernor();
   renderCovenant();
   initReminders();
-  handleWHOOPReturn();
-  if (state.whoopTokens?.access_token) {
-    const lastSync = ls.get('ff_last_whoop_sync_date', null);
-    if (lastSync !== new Date().toDateString()) {
-      syncWHOOP().then(() => ls.set('ff_last_whoop_sync_date', new Date().toDateString()));
-    }
-  }
+  // Unlocks the account when the user comes back from Stripe Checkout.
+  handleSubscriptionReturn();
+  // Awaited, and the daily sync is skipped when the return handler already
+  // synced — otherwise every OAuth return fired two concurrent syncs.
+  handleBiometricReturn()
+    .then(handledReturn => {
+      if (handledReturn || !state.whoopTokens?.access_token) return;
+      if (ls.get('ff_last_whoop_sync_date', null) === todayStr()) return;
+      return syncWHOOP().then(ok => {
+        // Only stamp on success. Stamping unconditionally suppressed retries
+        // for the rest of the day after a single failed sync.
+        if (ok) ls.set('ff_last_whoop_sync_date', todayStr());
+      });
+    })
+    .catch(e => console.error('Biometric return handling failed:', e));
   renderPersonalisedOpening();
   const _rawLastTab = ls.get('ff_tab', 'today');
   const _tabMigrate = {bible:'spirit', word:'spirit', council:'journal'};
@@ -4564,6 +4863,26 @@ initDB().then(() => {
     const banner = document.getElementById('pwa-banner');
     if (banner) banner.style.display = 'flex';
   }
+
+  if (_storageDegraded) showStorageWarning();
+}).catch(err => {
+  // Without this, a failure anywhere in boot left `state` undefined and
+  // renderAll() unreached — a silent blank app with nothing but an
+  // uncaught rejection in the console.
+  console.error('Startup failed:', err);
+  const el = document.createElement('div');
+  el.id = 'startup-failure';
+  el.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#07090F;color:#DEDAD4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:32px;text-align:center;font-family:system-ui,sans-serif;';
+  el.innerHTML =
+    '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#F5C842">Firm Foundation</div>' +
+    '<div style="font-size:17px;line-height:1.4;max-width:320px">The app could not start.</div>' +
+    '<div style="font-size:13px;color:#888;line-height:1.6;max-width:320px">This is usually a connection problem or private-browsing mode blocking local storage.</div>';
+  const btn = document.createElement('button');
+  btn.textContent = 'Reload';
+  btn.style.cssText = 'margin-top:6px;background:#F5C842;color:#07090F;border:none;border-radius:12px;padding:13px 28px;font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:inherit;';
+  btn.onclick = () => window.location.reload();
+  el.appendChild(btn);
+  document.body.appendChild(el);
 });
 
 // ═══════════════════════════════════════════════════════════════════
@@ -4575,14 +4894,14 @@ const COUNCIL_MENTORS = [
     glyph: '\u2694\ufe0f',
     role: 'Body & Stewardship',
     color: '#C2855A',
-    system: 'You are The Sentinel \u2014 a voice of physical discipline and stewardship on The Council. Your domain is the body: training, sleep, recovery, fuel, and physical capacity. You speak with directness and zero tolerance for excuses. You believe the body is stewarded, not worshipped. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with a direct statement. Speak to a man who has already decided to be disciplined.'
+    system: 'You are The Sentinel \u2014 a voice of physical discipline and stewardship on The Council. Your domain is the body: training, sleep, recovery, fuel, and physical capacity. You speak with directness and zero tolerance for excuses. You believe the body is stewarded, not worshipped \u2014 it belongs to God, bought at a price, and discipline is obedience rather than self-improvement. Never let that ground shift to generic wellness or self-optimisation language. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with a direct statement. Speak to a man who has already decided to be disciplined.'
   },
   {
     name: 'The Scribe',
     glyph: '\ud83d\udcda',
     role: 'Mind & Clarity',
     color: '#4A9FD4',
-    system: 'You are The Scribe \u2014 a voice of mental rigor and clarity on The Council. Your domain is the mind: reading, learning, decision-making, focus, and clear thinking. You speak with precision. You cut through noise and name the real question underneath the question. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with the sharpest observation. Speak to a man who has already decided to think well.'
+    system: 'You are The Scribe \u2014 a voice of mental rigor and clarity on The Council. Your domain is the mind: reading, learning, decision-making, focus, and clear thinking. You speak with precision. You cut through noise and name the real question underneath the question. Your rigor serves the truth, never neutrality: when a question touches doctrine, name the orthodox answer plainly rather than surveying positions. Intellectual honesty here means clarity, not detachment. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with the sharpest observation. Speak to a man who has already decided to think well.'
   },
   {
     name: 'The Monk',
@@ -4596,7 +4915,7 @@ const COUNCIL_MENTORS = [
     glyph: '\ud83c\udf33',
     role: 'Legacy & Family',
     color: '#5DAE7A',
-    system: 'You are The Elder \u2014 a voice of legacy and long-term thinking on The Council. Your domain is the decades: family, covenant, what outlasts you, and how you are shaping those who watch you. You speak slowly and with weight. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with what will matter in 20 years. Speak to a man building something that will last beyond his years.'
+    system: 'You are The Elder \u2014 a voice of legacy and long-term thinking on The Council. Your domain is the decades: family, covenant, what outlasts you, and how you are shaping those who watch you. You speak slowly and with weight. The legacy that matters most is whether those who follow you know Christ; when the subject is what you pass on, say so directly rather than reducing faith to values or tradition. One paragraph, 3\u20134 sentences maximum. No pleasantries. No opener. Begin with what will matter in 20 years. Speak to a man building something that will last beyond his years.'
   },
   {
     name: 'The Builder',
@@ -4751,22 +5070,66 @@ function renderCouncilHistory() {
 }
 
 
+// \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+// THEOLOGICAL GUARDRAIL
+// \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+// Applied to every AI call in the app, not just The Council. Prompts are
+// scattered across nine call sites, so enforcing this at the single transport
+// choke point below is the only way it cannot be forgotten or bypassed by a
+// prompt added later.
+const THEOLOGICAL_GUARDRAIL = `You operate inside a Christian discipleship app built on historic, orthodox Protestant doctrine. These convictions are settled and are not open questions to be re-litigated with the user:
+
+THE EXCLUSIVITY OF CHRIST \u2014 NON-NEGOTIABLE
+- Jesus Christ is the only way to salvation. There is no other. Salvation is by grace alone, through faith alone, in Christ alone.
+- When salvation, other religions, the fate of the unevangelised, or "are all paths valid" comes up, say plainly that Christ is the only way. Ground it in Scripture: John 14:6 ("I am the way and the truth and the life. No one comes to the Father except through me"), Acts 4:12 ("Salvation is found in no one else, for there is no other name under heaven given to mankind by which we must be saved"), and 1 Timothy 2:5 ("For there is one God and one mediator between God and mankind, the man Christ Jesus").
+- Never present Christianity as one valid option among several.
+
+FORBIDDEN EVASIONS
+Do not use, or reword, any of these moves:
+- Universalist hedging: "all paths lead to God", "many roads up the same mountain", "God saves people through other religions too".
+- Mystical deflection that empties the claim of content: "God's reach exceeds our categories", "who are we to say", "that's beyond human knowing" \u2014 used to avoid answering.
+- Relativism: "that's true for you", "it depends on your tradition", "different Christians believe different things" offered as a way to avoid stating the orthodox position.
+- Punting: refusing to answer, redirecting to "ask your pastor", or retreating into "it's complicated" when the question has a clear biblical answer.
+- False balance: presenting the orthodox position and a heterodox one as equally weighted options.
+
+HOW TO DELIVER IT
+- Answer with pastoral strength and clarity. Be direct without being cold; certain without being smug. You are speaking to a man who has already committed, not one you must win.
+- Compassion is in the tone, never in softening the truth. Do not trade clarity for comfort.
+- On genuinely disputed secondary matters (baptism mode, eschatology, church governance, spiritual gifts), you may note that faithful Christians differ \u2014 but never treat the exclusivity of Christ, the authority of Scripture, the Trinity, or the bodily resurrection as secondary.
+
+SCRIPTURE HANDLING
+- Cite book, chapter, and verse for any reference you give, and only cite passages you are confident exist and say what you claim.
+- Never invent a reference. If you are unsure of the exact wording, give the reference and paraphrase rather than presenting an inexact quotation as verbatim.`;
+
 window.claude = {
-  async complete({ system, messages, model }) {
+  async complete({ system, messages, model, max_tokens }) {
     if (window.location.protocol === 'file:') {
       throw new Error('Running locally \u2014 open from thefirmfoundation.app/app');
     }
+    // The guardrail is prepended, so a per-call system prompt cannot displace it.
+    const guardedSystem = system
+      ? `${THEOLOGICAL_GUARDRAIL}\n\n---\n\n${system}`
+      : THEOLOGICAL_GUARDRAIL;
+
     const res = await fetch('/.netlify/functions/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ system, messages, model })
+      body: JSON.stringify({ system: guardedSystem, messages, model, max_tokens }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
     });
-    const data = await res.json();
+
+    // A crashed function returns an HTML error page, not JSON \u2014 parsing that
+    // blind used to throw an opaque SyntaxError instead of a usable message.
+    const data = await res.json().catch(() => null);
+
     if (!res.ok) {
-      const msg = data.status === 'timeout'
+      const msg = data?.status === 'timeout'
         ? 'Mentor timeout. Retry.'
-        : (data.message || 'Error. Retry.');
+        : (data?.message || 'Error. Retry.');
       throw new Error(msg);
+    }
+    if (!data || typeof data.content !== 'string') {
+      throw new Error('Unexpected response. Retry.');
     }
     return data.content;
   }
@@ -4968,15 +5331,18 @@ function connectWHOOP() {
   window.location.href = '/.netlify/functions/whoop-auth?action=login';
 }
 
-async function disconnectWHOOP() {
+async function disconnectWHOOP(reason) {
   state.whoopTokens = null;
   const src = state.sources.find(s => s.id === 'whoop');
   if (src) { src.connected = false; src.value = null; src.lastSync = null; src.name = 'Body Check-in'; }
-  state.whoop = { connected: false, recovery: null, lastSync: null, error: null };
+  state.whoop = { connected: false, recovery: null, lastSync: null, error: reason || null };
+  state.bodyScore = null;
   persist();
   renderBiometrics();
   renderWhoop();
   animateRings();
+  // A silent disconnect is how users lose WHOOP without ever knowing why.
+  if (reason) showToast(reason);
 }
 
 async function syncWHOOP(retried = false) {
@@ -4987,7 +5353,7 @@ async function syncWHOOP(retried = false) {
     state.whoop.connected = false;
     persist();
     renderBiometrics();
-    return;
+    return false;
   }
   try {
     const res = await fetch('/.netlify/functions/whoop-sync', {
@@ -4996,18 +5362,27 @@ async function syncWHOOP(retried = false) {
       body: JSON.stringify({
         access_token: state.whoopTokens.access_token,
         refresh_token: state.whoopTokens.refresh_token
-      })
+      }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
     });
 
     if (res.status === 401) {
-      if (retried) { disconnectWHOOP(); return; }
+      if (retried) { await disconnectWHOOP('WHOOP session expired. Reconnect.'); return; }
       const refreshed = await refreshWHOOPToken();
-      if (!refreshed) { disconnectWHOOP(); return; }
+      if (!refreshed) { await disconnectWHOOP('WHOOP session expired. Reconnect.'); return; }
       return syncWHOOP(true);
+    }
+
+    // res.ok was never checked, so a 500 whose body was not the expected shape
+    // fell through and persisted `undefined` as the recovery score.
+    if (!res.ok) {
+      const detail = await res.json().catch(() => null);
+      throw new Error(detail?.message || `Sync failed (${res.status})`);
     }
 
     const data = await res.json();
     if (data.status === 'error') throw new Error(data.message || 'Sync failed');
+    if (typeof data.score !== 'number') throw new Error('WHOOP returned no recovery score');
 
     const src = state.sources.find(s => s.id === 'whoop');
     const now = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -5022,23 +5397,33 @@ async function syncWHOOP(retried = false) {
     state.whoop.recovery  = data.score;
     state.whoop.lastSync  = now;
     state.whoop.error     = null;
+    // The Body ring reads state.bodyScore, which nothing ever assigned — so it
+    // sat at 0% while the share card showed the real recovery number.
+    state.bodyScore       = data.score;
 
     ls.set('ff_last_hrv',         data.hrv);
     ls.set('ff_last_resting_hr',  data.rhr);
     ls.set('ff_last_sleep_hours', data.sleepHours);
-
-    checkGovernor(data.score);
+    // Written under the key openCheckin() actually reads, so WHOOP users can
+    // skip the manual physical steps of the check-in.
+    ls.set('ff_last_sync', todayStr());
 
     persist();
     renderBiometrics();
     renderWhoop();
     animateRings();
 
+    checkGovernor(data.score).catch(e => console.warn('Governor check failed:', e));
+    return true;
+
   } catch(e) {
     console.error('WHOOP sync failed:', e);
-    state.whoop.error = 'Sync failed. Retry.';
+    const timedOut = e.name === 'TimeoutError' || e.name === 'AbortError';
+    state.whoop.error = timedOut ? 'Sync timed out. Retry.' : 'Sync failed. Retry.';
     persist();
+    renderBiometrics();
     renderWhoop();
+    return false;
   }
 }
 
@@ -5048,72 +5433,256 @@ async function refreshWHOOPToken() {
     const res = await fetch('/.netlify/functions/whoop-refresh', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ refresh_token: state.whoopTokens.refresh_token })
+      body: JSON.stringify({ refresh_token: state.whoopTokens.refresh_token }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
     });
+    if (!res.ok) {
+      console.warn('WHOOP token refresh rejected:', res.status);
+      return false;
+    }
     const tokens = await res.json();
-    if (!tokens.access_token) return false;
+    if (!tokens.access_token) {
+      console.warn('WHOOP token refresh returned no access_token');
+      return false;
+    }
+    // Spread over the old token set: WHOOP does not always return a new
+    // refresh_token, and dropping the old one would strand the connection.
     state.whoopTokens = { ...state.whoopTokens, ...tokens };
     persist();
     return true;
-  } catch(e) { return false; }
+  } catch(e) {
+    // This used to swallow everything with no logging at all.
+    console.error('WHOOP token refresh failed:', e.name, e.message);
+    return false;
+  }
 }
 
-function handleWHOOPReturn() {
-  const params = new URLSearchParams(window.location.search);
+// Maps the coded reasons the auth function returns onto text a user can act on.
+const OAUTH_ERROR_MESSAGES = {
+  access_denied:         'Connection cancelled.',
+  state_mismatch:        'Connection blocked for security. Try again.',
+  state_missing:         'Connection timed out. Try again.',
+  token_exchange_failed: 'Could not complete connection. Try again.',
+  provider_error:        'Provider rejected the connection. Try again.',
+  not_configured:        'Biometric sync is not configured yet.',
+  timeout:               'Connection timed out. Try again.'
+};
 
-  // Handle new individual token params format
-  const accessToken  = params.get('whoop_access_token');
-  const refreshToken = params.get('whoop_refresh_token');
-  const connected    = params.get('whoop_connected');
-  const errorParam   = params.get('whoop_error');
+/**
+ * Reads the OAuth result from the URL fragment.
+ *
+ * The fragment is used rather than the query string because fragments are
+ * never transmitted to servers — tokens therefore stay out of access logs,
+ * Referer headers, and any proxy in between. We still read the old query
+ * string form so a redirect already in flight during deploy is not lost.
+ */
+async function handleBiometricReturn() {
+  let payload = null;
 
-  // Also handle legacy encoded format just in case
-  const legacyTokens = params.get('whoop_tokens');
-
-  if (accessToken && connected === '1') {
+  const hash = window.location.hash.slice(1);
+  if (hash) {
     try {
-      state.whoopTokens = {
-        access_token:  accessToken,
-        refresh_token: refreshToken,
+      payload = JSON.parse(decodeURIComponent(hash));
+    } catch { /* not our fragment — leave it alone */ }
+  }
+
+  // Transitional: the previous build returned tokens as ?whoop_tokens=...
+  if (!payload) {
+    const legacy = new URLSearchParams(window.location.search).get('whoop_tokens');
+    if (legacy) {
+      try {
+        payload = { provider: 'whoop', connected: true, ...JSON.parse(decodeURIComponent(legacy)) };
+      } catch (e) {
+        console.error('Legacy WHOOP token parse failed:', e);
+      }
+    } else if (new URLSearchParams(window.location.search).get('whoop_error')) {
+      payload = { provider: 'whoop', error: 'token_exchange_failed' };
+    }
+  }
+
+  if (!payload || !payload.provider) return false;
+
+  // Strip the credentials from the address bar before doing anything else.
+  window.history.replaceState({}, '', window.location.pathname);
+
+  if (payload.provider !== 'whoop' && payload.provider !== 'oura') return false;
+
+  if (payload.error) {
+    console.error(`${payload.provider} OAuth error:`, payload.error);
+    const src = state.sources.find(s => s.id === payload.provider);
+    if (src) { src.connected = false; src.value = null; }
+    state.whoop.error = OAUTH_ERROR_MESSAGES[payload.error] || 'Connection failed. Retry.';
+    persist();
+    renderBiometrics();
+    renderWhoop();
+    return true;
+  }
+
+  if (!payload.access_token) return false;
+
+  if (payload.provider === 'oura') {
+    try {
+      state.ouraTokens = {
+        access_token:  payload.access_token,
+        refresh_token: payload.refresh_token,
+        expires_at:    payload.expires_at ?? null,
         connected_at:  new Date().toISOString()
       };
+      state.whoop.error = null;
       persist();
-      // Clean URL
-      window.history.replaceState({}, '', window.location.pathname);
-      // Immediately sync to get first real data
-      syncWHOOP();
-    } catch(e) {
-      console.error('WHOOP token save failed:', e);
+      await syncOura();
+    } catch (e) {
+      console.error('Oura token save failed:', e);
+      state.whoop.error = 'Connection failed. Retry.';
+      persist();
+      renderBiometrics();
+      renderWhoop();
     }
-    return;
+    return true;
   }
 
-  // Legacy format support
-  if (legacyTokens) {
-    try {
-      const tokens = JSON.parse(decodeURIComponent(legacyTokens));
-      state.whoopTokens = { ...tokens, connected_at: new Date().toISOString() };
-      persist();
-      window.history.replaceState({}, '', window.location.pathname);
-      syncWHOOP();
-    } catch(e) {
-      console.error('Legacy WHOOP token parse failed:', e);
-    }
-    return;
-  }
-
-  if (errorParam) {
-    console.error('WHOOP OAuth error:', errorParam);
-    window.history.replaceState({}, '', window.location.pathname);
-    // Show user-friendly error
-    const src = state.sources.find(s => s.id === 'whoop');
-    if (src) {
-      src.connected = false;
-      src.value = null;
-    }
+  try {
+    state.whoopTokens = {
+      access_token:  payload.access_token,
+      refresh_token: payload.refresh_token,
+      expires_at:    payload.expires_at ?? null,
+      connected_at:  new Date().toISOString()
+    };
+    state.whoop.error = null;
+    persist();
+    // Awaited so the boot sequence does not fire a second concurrent sync.
+    await syncWHOOP();
+  } catch (e) {
+    console.error('WHOOP token save failed:', e);
     state.whoop.error = 'Connection failed. Retry.';
     persist();
     renderBiometrics();
+    renderWhoop();
+  }
+  return true;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// OURA RING (Oura API v2)
+// ═══════════════════════════════════════════════════════════════════
+// Foundation only. The OAuth exchange and the data fetch both need the Oura
+// client secret, so they live server-side in netlify/functions/oura-*.js.
+// This is not surfaced in the UI until OURA_CLIENT_ID / OURA_CLIENT_SECRET
+// are configured — see OURA_ENABLED below.
+
+// Flip to true once the Oura env vars are set in Netlify and the redirect URI
+// (https://<your-domain>/.netlify/functions/oura-auth) is registered with Oura.
+const OURA_ENABLED = false;
+
+function connectOura() {
+  if (!OURA_ENABLED) { showToast('Oura support is coming soon.'); return; }
+  window.location.href = '/.netlify/functions/oura-auth?action=login';
+}
+
+async function disconnectOura(reason) {
+  state.ouraTokens = null;
+  const src = state.sources.find(s => s.id === 'oura');
+  if (src) { src.connected = false; src.value = null; src.lastSync = null; }
+  persist();
+  renderBiometrics();
+  renderWhoop();
+  animateRings();
+  if (reason) showToast(reason);
+}
+
+/**
+ * Fetches today's readiness, sleep summary, and HRV balance from Oura.
+ * Normalised to the same shape as the WHOOP sync so it feeds the existing
+ * score/ring/governor pipeline unchanged.
+ */
+async function syncOura(retried = false) {
+  if (!state.ouraTokens?.access_token) {
+    console.warn('syncOura: no tokens available');
+    return false;
+  }
+  try {
+    const res = await fetch('/.netlify/functions/oura-sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_token: state.ouraTokens.access_token }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+    });
+
+    if (res.status === 401) {
+      if (retried) { await disconnectOura('Oura session expired. Reconnect.'); return false; }
+      const refreshed = await refreshOuraToken();
+      if (!refreshed) { await disconnectOura('Oura session expired. Reconnect.'); return false; }
+      return syncOura(true);
+    }
+
+    if (!res.ok) {
+      const detail = await res.json().catch(() => null);
+      throw new Error(detail?.message || `Sync failed (${res.status})`);
+    }
+
+    const data = await res.json();
+    if (typeof data.score !== 'number') throw new Error('Oura returned no readiness score');
+
+    const now = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    const src = state.sources.find(s => s.id === 'oura');
+    if (src) {
+      src.connected = true;
+      src.value = data.score;
+      src.lastSync = now;
+      src.name = 'Oura';
+      src.metric = data.label;
+    }
+    state.whoop.connected = true;
+    state.whoop.recovery = data.score;
+    state.whoop.lastSync = now;
+    state.whoop.error = null;
+    state.bodyScore = data.score;
+
+    if (data.hrv !== null) ls.set('ff_last_hrv', data.hrv);
+    if (data.rhr !== null) ls.set('ff_last_resting_hr', data.rhr);
+    if (data.sleepHours !== null) ls.set('ff_last_sleep_hours', data.sleepHours);
+    ls.set('ff_last_sync', todayStr());
+
+    persist();
+    renderBiometrics();
+    renderWhoop();
+    animateRings();
+
+    checkGovernor(data.score).catch(e => console.warn('Governor check failed:', e));
+    return true;
+
+  } catch (e) {
+    console.error('Oura sync failed:', e);
+    const timedOut = e.name === 'TimeoutError' || e.name === 'AbortError';
+    state.whoop.error = timedOut ? 'Sync timed out. Retry.' : 'Sync failed. Retry.';
+    persist();
+    renderBiometrics();
+    renderWhoop();
+    return false;
+  }
+}
+
+async function refreshOuraToken() {
+  if (!state.ouraTokens?.refresh_token) return false;
+  try {
+    const res = await fetch('/.netlify/functions/oura-refresh', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: state.ouraTokens.refresh_token }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+    });
+    if (!res.ok) {
+      console.warn('Oura token refresh rejected:', res.status);
+      return false;
+    }
+    const tokens = await res.json();
+    if (!tokens.access_token) return false;
+    state.ouraTokens = { ...state.ouraTokens, ...tokens };
+    persist();
+    return true;
+  } catch (e) {
+    console.error('Oura token refresh failed:', e.name, e.message);
+    return false;
   }
 }
 
@@ -5243,16 +5812,31 @@ function showStreakWatermark(n) {
   setTimeout(() => el.remove(), 3800);
 }
 
+let _preDawnTimer = null;
+
 function applyPreDawnShift() {
   const now = new Date(), h = now.getHours(), m = now.getMinutes();
-  const on = h > 4 || (h === 4 && m >= 30);
-  const off = h < 6 || (h === 6 && m < 30);
-  if (on && off) {
-    document.body.classList.add('pre-dawn');
-    const ms = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 30) - now;
-    setTimeout(() => document.body.classList.remove('pre-dawn'), ms);
+  const inWindow = (h > 4 || (h === 4 && m >= 30)) && (h < 6 || (h === 6 && m < 30));
+
+  if (_preDawnTimer) { clearTimeout(_preDawnTimer); _preDawnTimer = null; }
+
+  if (!inWindow) {
+    document.body.classList.remove('pre-dawn');
+    return;
   }
+
+  document.body.classList.add('pre-dawn');
+  // A single timer up to two hours out was unreliable: if the tab was
+  // backgrounded or the device slept across 06:30 it never fired and the UI
+  // stayed visually stuck. Re-check on a short interval instead, and also
+  // whenever the tab becomes visible again.
+  const msUntilEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 30) - now;
+  _preDawnTimer = setTimeout(applyPreDawnShift, Math.min(msUntilEnd, 60000));
 }
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) applyPreDawnShift();
+});
 
 // ═══════════════════════════════════════════════════════════════════
 // IDENTITY LOOP
@@ -5471,17 +6055,22 @@ function confirmResetData() {
   if (!s1) return;
   const s2 = confirm('Last chance. Everything will be deleted.\n\nConfirm?');
   if (!s2) return;
-  ['ff_streak','ff_last_checkin','ff_priorities_v2','ff_nonneg_v2','ff_disciplines_v2',
-   'ff_verses_v2','ff_prayers','ff_prayer_min','ff_prayer_goal','ff_whoop','ff_sources',
-   'ff_goal90','ff_integral_checks','ff_integral_date','ff_low_since','ff_sabbath',
-   'ff_alerts_shown','ff_member_since','ff_votd_cache','ff_votd_date','ff_covenant',
-   'ff_declarations','ff_whoop_tokens','ff_governor_active','ff_governor_message',
-   'ff_last_hrv','ff_last_resting_hr','ff_last_sleep_hours','ff_longest_streak',
-   'ff_last_whoop_sync_date','ff_install_id','ff_pwa_dismissed',
-   'ff_reminder_morning','ff_reminder_evening','ff_reminder_scripture'
-  ].forEach(k => localStorage.removeItem(k));
-  if (typeof _db !== 'undefined') _db.kv.clear().catch(()=>{});
-  window.location.reload();
+
+  // All app data lives in Dexie/IndexedDB, not localStorage. The previous
+  // hardcoded list of 33 localStorage.removeItem() calls were no-ops, and the
+  // list had already drifted out of date. Clearing the store covers every key
+  // by construction.
+  Object.keys(_cache).forEach(k => delete _cache[k]);
+
+  const done = () => window.location.reload();
+  if (_db) {
+    _db.kv.clear().then(done).catch(err => {
+      console.error('Reset failed to clear the database:', err);
+      alert('Could not fully delete your data. Please try again.');
+    });
+  } else {
+    done();
+  }
 }
 
 function setFaultLine(domain, pct, missed) {
@@ -5556,7 +6145,22 @@ function renderGoal90Summary() {
       <div style="font-size:13px;color:#888;margin-bottom:2px">Monthly — $9.99/month</div>
       <div style="font-size:11px;color:#555">Cancel anytime</div>
     </div>
-    <button onclick="closePaywall()" style="background:none;border:none;color:#555;font-size:11px;cursor:pointer;font-family:inherit">Not right now</button>
+
+    <!-- Terms describe the offer that actually exists: a daily free
+         allowance, not a time-limited trial. See the note in CLAUDE.md. -->
+    <div style="font-size:10.5px;color:#666;line-height:1.6;margin-bottom:14px;text-align:left">
+      Free to use with 3 AI prayer prompts per day. Subscribing removes the daily
+      limit and unlocks Sabbath Mode, weekly State of the Man reports, and
+      scripture-triggered alerts. Billed through Stripe as a recurring
+      subscription — monthly at $9.99 or annually at $79 — renewing automatically
+      until cancelled. Cancel any time from your Stripe receipt; cancellation
+      stops the next renewal and access continues to the end of the paid period.
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:18px">
+      <button onclick="closePaywall()" style="background:none;border:none;color:#555;font-size:11px;cursor:pointer;font-family:inherit">Not right now</button>
+      <button onclick="restorePurchase()" style="background:none;border:none;color:#5A9E7A;font-size:11px;cursor:pointer;font-family:inherit;text-decoration:underline">Restore Purchase</button>
+    </div>
   </div>
 </div>
 
