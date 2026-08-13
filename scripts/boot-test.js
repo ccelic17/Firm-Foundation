@@ -207,6 +207,68 @@ function check(name, pass, detail) {
     check('B: state.bodyScore assigned (Body ring no longer stuck at 0)',
       bodyResult.score === bodyResult.recovery && bodyResult.score === 68, JSON.stringify(bodyResult));
 
+    // The check-in above left its modal open; it would swallow later clicks.
+    await page.evaluate(() => closeBodyModal());
+    await page.waitForTimeout(100);
+
+    // Restored Today-tab mount points must exist AND populate.
+    await page.click('.tab[data-tab="today"]');
+    await page.waitForTimeout(150);
+    const mounts = await page.evaluate(() => {
+      animateRings();
+      const strip = document.getElementById('domain-strip');
+      const bar = document.getElementById('system-bar');
+      return {
+        stripCards: strip ? strip.children.length : -1,
+        barFilled: bar ? bar.innerHTML.includes('System Coherence') : false
+      };
+    });
+    check('B: #domain-strip renders 4 domain cards', mounts.stripCards === 4, JSON.stringify(mounts));
+    check('B: #system-bar renders coherence bar', mounts.barFilled, JSON.stringify(mounts));
+
+    // 7-day trial: real logic, not just copy.
+    const trial = await page.evaluate(() => {
+      const out = {};
+      out.startedOnBoot = ls.get('ff_trial_started', null) !== null;
+      out.inTrialFresh = isInTrial();
+      out.accessFresh = hasFullAccess();
+      out.daysFresh = trialDaysRemaining();
+      // Rewind the clock 8 days — trial must lapse and access must close.
+      ls.set('ff_trial_started', Date.now() - 8 * 86400000);
+      out.inTrialExpired = isInTrial();
+      out.accessExpired = hasFullAccess();
+      out.daysExpired = trialDaysRemaining();
+      // A paid subscription must restore access even after expiry.
+      grantSubscription('cs_test_trial');
+      out.accessAfterPaying = hasFullAccess();
+      ls.set('ff_subscribed', false);
+      ls.set('ff_trial_started', Date.now());
+      return out;
+    });
+    check('B: trial starts on first launch', trial.startedOnBoot, JSON.stringify(trial));
+    check('B: fresh install has full access for 7 days',
+      trial.inTrialFresh && trial.accessFresh && trial.daysFresh === 7, JSON.stringify(trial));
+    check('B: trial lapses on day 8 and access closes',
+      !trial.inTrialExpired && !trial.accessExpired && trial.daysExpired === 0, JSON.stringify(trial));
+    check('B: paying restores access after trial expiry', trial.accessAfterPaying, JSON.stringify(trial));
+
+    // Paywall copy must track trial state rather than advertising a stale offer.
+    const copy = await page.evaluate(() => {
+      ls.set('ff_trial_started', Date.now() - 8 * 86400000);
+      showPaywall();
+      const expired = document.getElementById('paywall-terms').textContent;
+      ls.set('ff_trial_started', Date.now());
+      showPaywall();
+      const active = document.getElementById('paywall-terms').textContent;
+      const eyebrow = document.getElementById('paywall-eyebrow').textContent;
+      closePaywall();
+      return { expired, active, eyebrow };
+    });
+    check('B: paywall states trial has ended when expired',
+      /trial has ended/i.test(copy.expired) && /3 AI prayer prompts per day/i.test(copy.expired), copy.expired);
+    check('B: paywall shows days remaining during trial',
+      /7 days remaining/i.test(copy.active) && /left in your trial/i.test(copy.eyebrow), copy.eyebrow + ' || ' + copy.active);
+
     // Subscription unlock.
     check('B: subscription unlock works', await page.evaluate(() => {
       const before = isSubscribed();
@@ -230,6 +292,30 @@ function check(name, pass, detail) {
     check('B: no unexpected console errors', leftover.length === 0, leftover.join(' | '));
 
     await browser.close();
+  }
+
+  // ── Asset integrity (filesystem, no browser needed) ─────────────────
+  {
+    const manifest = JSON.parse(fs.readFileSync(path.join(REPO, 'manifest.json'), 'utf8'));
+    const missing = manifest.icons
+      .map(i => i.src.replace(/^\//, ''))
+      .filter(rel => !fs.existsSync(path.join(REPO, rel)));
+    check('assets: every manifest icon exists on disk', missing.length === 0, missing.join(', '));
+
+    // Real image files, not empty placeholders.
+    const png192 = fs.readFileSync(path.join(REPO, 'assets/icon-192.png'));
+    const png512 = fs.readFileSync(path.join(REPO, 'assets/icon-512.png'));
+    const ico = fs.readFileSync(path.join(REPO, 'assets/favicon.ico'));
+    const isPng = b => b.slice(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+    check('assets: icon-192.png is a valid PNG of the right size',
+      isPng(png192) && png192.readUInt32BE(16) === 192 && png192.readUInt32BE(20) === 192);
+    check('assets: icon-512.png is a valid PNG of the right size',
+      isPng(png512) && png512.readUInt32BE(16) === 512 && png512.readUInt32BE(20) === 512);
+    check('assets: favicon.ico is a valid ICO', ico.readUInt32LE(0) === 0x00010000);
+
+    // Nothing may still point at the deleted logo filenames.
+    const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+    check('assets: no stale firm_foundation_logo references', !/firm_foundation_logo/.test(html));
   }
 
   let failed = 0;

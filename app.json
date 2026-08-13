@@ -6,7 +6,7 @@
     "scheme": "firmfoundation",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "icon": "./assets/firm_foundation_logo_1024.png",
+    "icon": "./assets/icon-512.png",
     "splash": {
       "backgroundColor": "#0C0F1A"
     },

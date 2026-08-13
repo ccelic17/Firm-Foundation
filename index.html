@@ -14,12 +14,15 @@
 <meta property="og:description" content="The daily discipline app built for Christian men. Body. Spirit. Mind. AI coaching, scripture, 90-day goals, and streak accountability.">
 <meta property="og:url" content="https://thefirmfoundation.app">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://thefirmfoundation.app/assets/firm_foundation_logo_1024.png">
+<meta property="og:image" content="https://thefirmfoundation.app/assets/icon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Firm Foundation — Don't Drift.">
 <meta name="twitter:description" content="The daily discipline app for Christian men who take body, spirit, and mind seriously.">
 <meta name="theme-color" content="#C4911A">
 <link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/assets/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
 <link rel="canonical" href="https://thefirmfoundation.app">
 <template id="__bundler_thumbnail" data-bg-color="#04060E">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
@@ -784,7 +787,7 @@ body.pre-dawn{
 </div>
 
 <div class="brand-header">
-  <img src="./assets/firm_foundation_logo_1024.png" alt="Firm Foundation" height="28" style="object-fit:contain;" onerror="this.onerror=null;this.src='./assets/firm_foundation_logo_1024.svg';">
+  <img src="./assets/icon-192.png" alt="Firm Foundation" height="28" style="object-fit:contain;" onerror="this.style.display='none'">
   <span class="brand-name">Firm Foundation</span>
   <span class="proto-tag">Body · Spirit · Mind</span>
   <span class="proto-badge">v1.0</span>
@@ -872,6 +875,13 @@ body.pre-dawn{
         </div>
         <div id="loop-insight"></div>
         <!-- /OLD-RINGS-REMOVED -->
+
+        <!-- Mount points for renderDomainStrip() and renderSystemBar(). Both
+             renderers and all their CSS already existed but had nowhere to
+             draw, so they were permanent no-ops. animateRings() populates
+             these on every render. -->
+        <div class="domain-strip" id="domain-strip"></div>
+        <div class="system-bar" id="system-bar"></div>
 
         <div class="sw" style="padding-bottom:0;">
           <div class="section-label">
@@ -1729,7 +1739,7 @@ body.pre-dawn{
       </div>
       <div class="simple-body">
         <div style="text-align:center;margin-bottom:20px;">
-          <img src="./assets/firm_foundation_logo_1024.png" alt="Firm Foundation" height="48" style="object-fit:contain;margin-bottom:12px;" onerror="this.style.display='none'">
+          <img src="./assets/icon-192.png" alt="Firm Foundation" height="48" style="object-fit:contain;margin-bottom:12px;" onerror="this.style.display='none'">
           <div style="font-family:var(--fd);font-size:22px;font-weight:900;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Firm Foundation</div>
           <div style="font-size:11px;color:var(--ts);margin-top:4px;letter-spacing:1px;">BODY · SPIRIT · MIND</div>
         </div>
@@ -4040,7 +4050,7 @@ async function getAIPrayerPrompt(){
   const todayD = new Date().toDateString();
   const usage = ls.get('ff_ai_prompt_usage', {date:'',count:0});
   const count = usage.date === todayD ? usage.count : 0;
-  if(count >= 3 && !isSubscribed()){
+  if(count >= 3 && !hasFullAccess()){
     showPaywall(); return;
   }
   const btn = document.getElementById('ai-prayer-btn');
@@ -4286,7 +4296,35 @@ function renderAnniversary(){
 // ═════════════════════════════════════════════════════════════════
 function showPaywall(){
   const el = document.getElementById('paywall-overlay');
-  if(el) el.style.display='flex';
+  if(!el) return;
+
+  // Terms track reality: during the trial say how long is left, afterwards
+  // describe the actual free tier. Never advertise a trial that has expired
+  // or one the user is not on.
+  const eyebrow = document.getElementById('paywall-eyebrow');
+  const terms   = document.getElementById('paywall-terms');
+  const inTrial = isInTrial();
+  const daysLeft = trialDaysRemaining();
+
+  if (eyebrow) {
+    eyebrow.textContent = inTrial
+      ? `✦ ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} left in your trial`
+      : '✦ God Moved';
+  }
+
+  if (terms) {
+    const trialLine = inTrial
+      ? `You are on a free ${TRIAL_DAYS}-day trial with full access — ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} remaining. When it ends you keep the app with 3 AI prayer prompts per day.`
+      : `Your free ${TRIAL_DAYS}-day trial has ended. The app stays free with 3 AI prayer prompts per day.`;
+    terms.textContent =
+      `${trialLine} Subscribing removes the daily limit and unlocks Sabbath Mode, ` +
+      `weekly State of the Man reports, and scripture-triggered alerts. Billed through ` +
+      `Stripe as a recurring subscription — monthly at $9.99 or annually at $79 — renewing ` +
+      `automatically until cancelled. Cancel any time from your Stripe receipt; cancellation ` +
+      `stops the next renewal and access continues to the end of the paid period.`;
+  }
+
+  el.style.display='flex';
 }
 function closePaywall(){
   const el = document.getElementById('paywall-overlay');
@@ -4308,8 +4346,39 @@ const STRIPE_LINKS = {
   monthly: 'https://buy.stripe.com/YOUR_LIVE_MONTHLY_LINK'
 };
 
+const TRIAL_DAYS = 7;
+
 function isSubscribed() {
   return !!ls.get('ff_subscribed', false);
+}
+
+/** Starts the trial clock. Called once, on first launch. */
+function startTrialIfNeeded() {
+  if (!ls.get('ff_trial_started', null)) {
+    ls.set('ff_trial_started', Date.now());
+  }
+}
+
+function trialDaysRemaining() {
+  const started = ls.get('ff_trial_started', null);
+  if (!started) return TRIAL_DAYS;
+  const elapsedDays = (Date.now() - started) / 86400000;
+  return Math.max(0, Math.ceil(TRIAL_DAYS - elapsedDays));
+}
+
+function isInTrial() {
+  if (isSubscribed()) return false;
+  const started = ls.get('ff_trial_started', null);
+  if (!started) return false;
+  return (Date.now() - started) < TRIAL_DAYS * 86400000;
+}
+
+/**
+ * The single access check. Everything gated should call this rather than
+ * isSubscribed(), so the trial actually grants access.
+ */
+function hasFullAccess() {
+  return isSubscribed() || isInTrial();
 }
 
 function grantSubscription(sessionId) {
@@ -4852,6 +4921,8 @@ initDB().then(() => {
     const btn = document.querySelector(`.tab[data-tab="${lastTab}"]`);
     if(btn) switchTab(lastTab, btn);
   }
+  // Trial clock starts on first launch, before any gate can be hit.
+  startTrialIfNeeded();
   // First-launch onboarding
   if(!ls.get('ff_onboarded', false)){
     setTimeout(showOnboarding, 500);
@@ -6134,7 +6205,7 @@ function renderGoal90Summary() {
 <!-- ═══ PAYWALL OVERLAY ═══ -->
 <div id="paywall-overlay" style="display:none;position:fixed;inset:0;background:#000000dd;z-index:9999;align-items:flex-end;justify-content:center;font-family:'DM Sans',sans-serif">
   <div style="background:#0d1117;border:0.5px solid #5A9E7A44;border-radius:20px 20px 0 0;padding:28px 24px 40px;max-width:420px;width:100%;text-align:center">
-    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5A9E7A;margin-bottom:12px">✦ God Moved</div>
+    <div id="paywall-eyebrow" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5A9E7A;margin-bottom:12px">✦ God Moved</div>
     <div style="font-size:22px;font-weight:500;color:#DEDAD4;line-height:1.3;margin-bottom:10px">You've experienced what this is for.</div>
     <div style="font-size:13px;color:#888;line-height:1.65;margin-bottom:24px">Keep building your testimony. Unlock unlimited AI prayer prompts, Sabbath Mode, weekly State of the Man reports, and scripture-triggered alerts.</div>
     <div style="background:#0a1a0a;border:1.5px solid #5A9E7A;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer" onclick="handleSubscribe('annual')">
@@ -6148,7 +6219,7 @@ function renderGoal90Summary() {
 
     <!-- Terms describe the offer that actually exists: a daily free
          allowance, not a time-limited trial. See the note in CLAUDE.md. -->
-    <div style="font-size:10.5px;color:#666;line-height:1.6;margin-bottom:14px;text-align:left">
+    <div id="paywall-terms" style="font-size:10.5px;color:#666;line-height:1.6;margin-bottom:14px;text-align:left">
       Free to use with 3 AI prayer prompts per day. Subscribing removes the daily
       limit and unlocks Sabbath Mode, weekly State of the Man reports, and
       scripture-triggered alerts. Billed through Stripe as a recurring
