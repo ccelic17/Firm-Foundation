@@ -1,32 +1,15 @@
 {
   "name": "firm-foundation",
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "private": true,
+  "description": "Firm Foundation — a daily discipline PWA. Single-file HTML/CSS/JS app plus Netlify functions. No build step.",
   "scripts": {
-    "start": "expo start",
-    "ios": "expo start --ios",
-    "android": "expo start --android"
+    "check:functions": "for f in netlify/functions/*.js netlify/functions/lib/*.js; do node --check \"$f\" || exit 1; done && echo 'functions OK'",
+    "check:app": "node scripts/check-html-js.js index.html",
+    "check:boot": "node scripts/boot-test.js",
+    "check": "npm run check:functions && npm run check:app && npm run check:boot"
   },
-  "dependencies": {
-    "@expo/vector-icons": "^14.0.2",
-    "@react-native-async-storage/async-storage": "1.23.1",
-    "@supabase/supabase-js": "^2.45.4",
-    "expo": "~51.0.28",
-    "expo-constants": "~16.0.2",
-    "expo-linking": "~6.3.1",
-    "expo-router": "~3.5.23",
-    "expo-secure-store": "~13.0.2",
-    "expo-status-bar": "~1.12.1",
-    "expo-web-browser": "~13.0.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.74.5",
-    "react-native-safe-area-context": "4.10.5",
-    "react-native-screens": "3.31.1",
-    "react-native-svg": "15.2.0",
-    "react-native-url-polyfill": "^2.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.24.0"
+  "engines": {
+    "node": ">=18"
   }
 }
