@@ -1,0 +1,14 @@
+node_modules/
+netlify/functions/node_modules/
+
+# Netlify local dev
+.netlify/
+
+# Playwright
+test-results/
+playwright-report/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp

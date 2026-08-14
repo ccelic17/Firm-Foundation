@@ -10,34 +10,32 @@ const {
   jsonError
 } = require('./lib/oauth');
 
-const PROVIDER = 'whoop';
-const STATE_COOKIE = 'whoop_oauth_state';
-const REDIRECT_URI = redirectUri('whoop-auth');
+const PROVIDER = 'oura';
+const STATE_COOKIE = 'oura_oauth_state';
+const REDIRECT_URI = redirectUri('oura-auth');
 
-const AUTH_URL = 'https://api.prod.whoop.com/oauth/oauth2/auth';
-const TOKEN_URL = 'https://api.prod.whoop.com/oauth/oauth2/token';
+// Oura API v2 OAuth endpoints.
+const AUTH_URL = 'https://cloud.ouraring.com/oauth/authorize';
+const TOKEN_URL = 'https://api.ouraring.com/oauth/token';
 
-// WHOOP rejects the whole request if any scope is unavailable to the app,
-// so these must match what the WHOOP developer dashboard grants.
-const SCOPES = 'read:recovery read:cycles read:workout read:sleep offline';
+// daily_readiness covers the readiness score; daily_sleep the sleep summary;
+// heartrate backs the HRV/resting-HR figures the app displays.
+const SCOPES = 'daily heartrate workout personal';
 
 exports.handler = async (event) => {
   const { code, action, state, error: providerError } = event.queryStringParameters || {};
 
-  // ── Step 1: send the user to WHOOP ──────────────────────────────────
+  // ── Step 1: send the user to Oura ───────────────────────────────────
   if (action === 'login') {
-    if (!process.env.WHOOP_CLIENT_ID) {
-      console.error('[whoop-auth] WHOOP_CLIENT_ID is not configured');
+    if (!process.env.OURA_CLIENT_ID) {
+      console.error('[oura-auth] OURA_CLIENT_ID is not configured');
       return redirectWithError(PROVIDER, 'not_configured');
     }
 
-    // Bind the callback to this browser. Without this, an attacker can feed
-    // the user a callback URL carrying their own code and silently link the
-    // victim's account to the attacker's WHOOP data.
     const oauthState = createState();
 
     const params = new URLSearchParams({
-      client_id: process.env.WHOOP_CLIENT_ID,
+      client_id: process.env.OURA_CLIENT_ID,
       redirect_uri: REDIRECT_URI,
       response_type: 'code',
       scope: SCOPES,
@@ -55,12 +53,11 @@ exports.handler = async (event) => {
     };
   }
 
-  // ── Step 2: WHOOP redirects back here ───────────────────────────────
+  // ── Step 2: Oura redirects back here ────────────────────────────────
   const expiredCookie = { 'Set-Cookie': clearStateCookie(STATE_COOKIE) };
 
-  // The user denied consent, or WHOOP itself failed.
   if (providerError) {
-    console.warn('[whoop-auth] provider returned error:', providerError);
+    console.warn('[oura-auth] provider returned error:', providerError);
     const code = providerError === 'access_denied' ? 'access_denied' : 'provider_error';
     return redirectWithError(PROVIDER, code, expiredCookie);
   }
@@ -69,13 +66,12 @@ exports.handler = async (event) => {
     const expectedState = readCookie(event, STATE_COOKIE);
 
     if (!expectedState) {
-      // Cookie expired, was blocked, or the user took >10 min at the WHOOP screen.
-      console.warn('[whoop-auth] no state cookie present on callback');
+      console.warn('[oura-auth] no state cookie present on callback');
       return redirectWithError(PROVIDER, 'state_missing', expiredCookie);
     }
 
     if (!statesMatch(state, expectedState)) {
-      console.error('[whoop-auth] state mismatch — possible CSRF attempt');
+      console.error('[oura-auth] state mismatch — possible CSRF attempt');
       return redirectWithError(PROVIDER, 'state_mismatch', expiredCookie);
     }
 
@@ -86,8 +82,8 @@ exports.handler = async (event) => {
         body: new URLSearchParams({
           grant_type: 'authorization_code',
           code,
-          client_id: process.env.WHOOP_CLIENT_ID,
-          client_secret: process.env.WHOOP_CLIENT_SECRET,
+          client_id: process.env.OURA_CLIENT_ID,
+          client_secret: process.env.OURA_CLIENT_SECRET,
           redirect_uri: REDIRECT_URI
         }),
         signal: AbortSignal.timeout(9000)
@@ -98,15 +94,13 @@ exports.handler = async (event) => {
       try {
         tokens = JSON.parse(raw);
       } catch {
-        console.error('[whoop-auth] token endpoint returned non-JSON:', tokenRes.status, raw.slice(0, 300));
+        console.error('[oura-auth] token endpoint returned non-JSON:', tokenRes.status, raw.slice(0, 300));
         return redirectWithError(PROVIDER, 'token_exchange_failed', expiredCookie);
       }
 
       if (!tokenRes.ok || !tokens.access_token) {
-        // Log the real reason — previously every failure collapsed to a bare
-        // whoop_error=1 with the cause discarded, which made this unfixable.
         console.error(
-          '[whoop-auth] token exchange failed:',
+          '[oura-auth] token exchange failed:',
           tokenRes.status,
           tokens.error || '(no error field)',
           tokens.error_description || ''
@@ -120,15 +114,13 @@ exports.handler = async (event) => {
           access_token: tokens.access_token,
           refresh_token: tokens.refresh_token,
           expires_in: tokens.expires_in,
-          // Absolute expiry so the client can refresh proactively instead of
-          // waiting to discover expiry via a 401.
           expires_at: tokens.expires_in ? Date.now() + tokens.expires_in * 1000 : null
         },
         expiredCookie
       );
     } catch (e) {
       const timedOut = e.name === 'TimeoutError' || e.name === 'AbortError';
-      console.error('[whoop-auth] token exchange threw:', e.name, e.message);
+      console.error('[oura-auth] token exchange threw:', e.name, e.message);
       return redirectWithError(PROVIDER, timedOut ? 'timeout' : 'token_exchange_failed', expiredCookie);
     }
   }

@@ -1,6 +1,6 @@
 const { jsonError } = require('./lib/oauth');
 
-const TOKEN_URL = 'https://api.prod.whoop.com/oauth/oauth2/token';
+const TOKEN_URL = 'https://api.ouraring.com/oauth/token';
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return jsonError(405, 'Method not allowed');
@@ -22,11 +22,8 @@ exports.handler = async (event) => {
       body: new URLSearchParams({
         grant_type: 'refresh_token',
         refresh_token,
-        client_id: process.env.WHOOP_CLIENT_ID,
-        client_secret: process.env.WHOOP_CLIENT_SECRET,
-        // WHOOP requires the offline scope to be re-requested on refresh,
-        // otherwise the response comes back without a new refresh_token.
-        scope: 'offline'
+        client_id: process.env.OURA_CLIENT_ID,
+        client_secret: process.env.OURA_CLIENT_SECRET
       }),
       signal: AbortSignal.timeout(9000)
     });
@@ -36,21 +33,19 @@ exports.handler = async (event) => {
     try {
       tokens = JSON.parse(raw);
     } catch {
-      console.error('[whoop-refresh] non-JSON from WHOOP:', res.status, raw.slice(0, 300));
-      return jsonError(502, 'WHOOP returned an unreadable response');
+      console.error('[oura-refresh] non-JSON from Oura:', res.status, raw.slice(0, 300));
+      return jsonError(502, 'Oura returned an unreadable response');
     }
 
-    // Previously this returned 200 with WHOOP's error body attached, so an
-    // expired grant looked like a success to the caller.
     if (!res.ok || !tokens.access_token) {
       console.error(
-        '[whoop-refresh] refresh failed:',
+        '[oura-refresh] refresh failed:',
         res.status,
         tokens.error || '(no error field)',
         tokens.error_description || ''
       );
       const expired = res.status === 400 || res.status === 401;
-      return jsonError(expired ? 401 : 502, expired ? 'Refresh token expired' : 'WHOOP refresh failed');
+      return jsonError(expired ? 401 : 502, expired ? 'Refresh token expired' : 'Oura refresh failed');
     }
 
     return {
@@ -65,7 +60,7 @@ exports.handler = async (event) => {
     };
   } catch (e) {
     const timedOut = e.name === 'TimeoutError' || e.name === 'AbortError';
-    console.error('[whoop-refresh] threw:', e.name, e.message);
-    return jsonError(timedOut ? 504 : 500, timedOut ? 'WHOOP refresh timed out' : e.message);
+    console.error('[oura-refresh] threw:', e.name, e.message);
+    return jsonError(timedOut ? 504 : 500, timedOut ? 'Oura refresh timed out' : e.message);
   }
 };
