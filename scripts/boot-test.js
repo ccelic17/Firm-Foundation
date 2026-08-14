@@ -347,6 +347,41 @@ function check(name, pass, detail) {
     check('assets: no stale firm_foundation_logo references', !/firm_foundation_logo/.test(html));
   }
 
+  // ── OAuth/Stripe return routing ─────────────────────────────────────
+  // This class of bug is invisible to the browser suite: the functions send
+  // the browser somewhere, and if that somewhere does not serve index.html
+  // the return handler never runs and the payload is silently discarded.
+  // Cross-check the redirect target against netlify.toml's actual rewrites.
+  {
+    const oauth = require(path.join(REPO, 'netlify/functions/lib/oauth.js'));
+    const toml = fs.readFileSync(path.join(REPO, 'netlify.toml'), 'utf8');
+
+    // Parse the [[redirects]] blocks into from -> to pairs.
+    const rewrites = [];
+    const blockRe = /\[\[redirects\]\]([\s\S]*?)(?=\[\[|\[build|$)/g;
+    let b;
+    while ((b = blockRe.exec(toml)) !== null) {
+      const from = /from\s*=\s*"([^"]+)"/.exec(b[1]);
+      const to = /to\s*=\s*"([^"]+)"/.exec(b[1]);
+      if (from && to) rewrites.push({ from: from[1], to: to[1] });
+    }
+
+    const target = oauth.APP_PATH;
+    const match = rewrites.find(r => r.from === target);
+    const servesApp = match && match.to.endsWith('index.html');
+
+    check('routing: OAuth return path serves the app, not the landing page',
+      servesApp,
+      `APP_PATH="${target}" resolves to "${match ? match.to : '(no rewrite — serves the file at that path)'}"`);
+
+    // Guard the specific regression: "/" is rewritten to the marketing page,
+    // which has no JavaScript and cannot process a return payload.
+    const rootRewrite = rewrites.find(r => r.from === '/');
+    check('routing: APP_PATH is not the landing-page route',
+      !(rootRewrite && target === '/'),
+      rootRewrite ? `"/" rewrites to ${rootRewrite.to}` : '"/" has no rewrite');
+  }
+
   let failed = 0;
   for (const r of results) {
     if (!r.pass) failed++;

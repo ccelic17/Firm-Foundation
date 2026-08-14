@@ -4,7 +4,21 @@
 
 Single-file HTML/CSS/JS PWA (`index.html`) deployed on Netlify with serverless functions. No build step. No framework. No bundler. The entire app — all HTML, all CSS (~500 lines), all JS (~4000 lines) — lives in `index.html`.
 
-The landing page is `landing.html`. The app is `index.html`, served at `/app` and `/`.
+## Routing — read before touching any redirect
+
+Per `netlify.toml`:
+
+| Path | Serves |
+|---|---|
+| `/` | **`landing.html`** — static marketing page, **no executable JavaScript** |
+| `/app` | `index.html` — the actual app |
+
+**Anything that redirects a user back into the app must target `/app`, never `/`.** A return to `/` lands on the marketing page, so `handleBiometricReturn()` and `handleSubscriptionReturn()` never run and the payload is silently discarded. This applies to:
+
+- OAuth returns — governed by `APP_PATH` in `netlify/functions/lib/oauth.js`
+- Stripe payment-link post-payment redirects — configured in the Stripe dashboard, must be `https://thefirmfoundation.app/app?payment=success&session_id={CHECKOUT_SESSION_ID}`
+
+`scripts/boot-test.js` asserts this by cross-checking `APP_PATH` against the `netlify.toml` rewrites.
 
 ---
 

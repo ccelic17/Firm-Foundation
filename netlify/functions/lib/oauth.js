@@ -9,6 +9,15 @@ const { randomBytes, timingSafeEqual } = require('node:crypto');
 // Overridable per-environment so the redirect target is not hardcoded.
 const APP_ORIGIN = process.env.APP_ORIGIN || 'https://thefirmfoundation.app';
 
+// The path that actually serves the app.
+//
+// This MUST NOT be "/" — netlify.toml rewrites "/" to landing.html, which is a
+// static marketing page with no executable JavaScript. Returning there drops
+// the OAuth payload on the floor: handleBiometricReturn() never runs, the
+// tokens are discarded, and the connection appears to fail for no reason.
+// Keep this in sync with the "/app" -> "/index.html" rewrite in netlify.toml.
+const APP_PATH = process.env.APP_PATH || '/app';
+
 const STATE_MAX_AGE_SECONDS = 600; // 10 minutes is plenty for a login round-trip
 
 function appOrigin() {
@@ -63,7 +72,7 @@ function redirectFragment(payload, extraHeaders) {
   const fragment = encodeURIComponent(JSON.stringify(payload));
   return {
     statusCode: 302,
-    headers: { Location: `${APP_ORIGIN}/#${fragment}`, ...(extraHeaders || {}) },
+    headers: { Location: `${APP_ORIGIN}${APP_PATH}#${fragment}`, ...(extraHeaders || {}) },
     body: ''
   };
 }
@@ -86,6 +95,7 @@ function jsonError(statusCode, message) {
 
 module.exports = {
   APP_ORIGIN,
+  APP_PATH,
   appOrigin,
   redirectUri,
   createState,
