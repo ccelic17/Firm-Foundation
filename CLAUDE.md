@@ -203,6 +203,8 @@ Tab switching: `switchTab(id, btn)`. Journal sub-tabs: `switchJTab(el)`.
 | `OURA_CLIENT_SECRET` | `oura-auth.js`, `oura-refresh.js` | Oura OAuth client secret |
 | `APP_ORIGIN` | all OAuth functions | Optional. Redirect origin; defaults to `https://thefirmfoundation.app` |
 | `CLAUDE_TIMEOUT_MS` | `claude.js` | Optional. Defaults to 9000 — must stay under the Netlify function timeout |
+| `STRIPE_SECRET_KEY` | `restore.js` | Live secret key. Without it Restore Purchase returns 503 and tells the user to contact support |
+| `STRIPE_TIMEOUT_MS` | `restore.js` | Optional. Defaults to 6000 — must stay under the Netlify function timeout |
 
 > Terra integration removed — Phase 2.
 

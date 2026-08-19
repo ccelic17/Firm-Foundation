@@ -4440,27 +4440,61 @@ function handleSubscriptionReturn() {
 }
 
 /**
- * Restores access on a new device. There is no backend to verify against, so
- * this re-checks the local flag and otherwise points the user at support
- * rather than pretending to restore something it cannot see.
+ * Restores access on a new device by asking Stripe whether this email has a
+ * live subscription.
+ *
+ * The previous version told the user "we will match it against your Stripe
+ * receipt" and "check your email shortly", then only wrote a local flag —
+ * no email was ever sent and nothing reached Stripe. Someone who had paid and
+ * reinstalled was left waiting on a message that did not exist.
+ *
+ * The check runs in netlify/functions/restore.js so the Stripe secret key
+ * never reaches the browser.
  */
-function restorePurchase() {
+async function restorePurchase() {
   if (isSubscribed()) {
     showToast('Subscription already active.');
     closePaywall();
     return;
   }
-  const email = prompt(
-    'Enter the email address you used at checkout.\n\n' +
-    'We will match it against your Stripe receipt and restore access.'
-  );
-  if (!email) return;
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) {
+
+  const entered = prompt('Enter the email address you used at checkout.');
+  if (!entered) return;
+
+  const email = entered.trim();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     showToast('That does not look like a valid email.');
     return;
   }
-  ls.set('ff_restore_requested', { email: email.trim(), at: new Date().toISOString() });
-  showToast('Restore requested. Check your email shortly.');
+
+  showToast('Checking your subscription\u2026');
+  try {
+    const res = await fetch('/.netlify/functions/restore', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+    });
+    const data = await res.json();
+
+    if (data.status === 'error') {
+      showToast(data.message || 'Could not check your subscription.');
+      return;
+    }
+
+    if (data.subscribed) {
+      grantSubscription(null);
+      closePaywall();
+      showToast('Subscription restored. Welcome back.');
+      return;
+    }
+
+    // Say what was actually found rather than implying something is coming.
+    showToast('No active subscription found for that email.');
+  } catch (err) {
+    console.error('[restore] request failed:', err);
+    showToast('Could not reach the server. Check your connection and try again.');
+  }
 }
 
 // ═════════════════════════════════════════════════════════════════
