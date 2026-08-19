@@ -52,7 +52,7 @@ The brief assumed React Native / Expo / TypeScript and four local reference repo
 - _(+ this session's follow-up commit: mount points, trial, icons, `.brain/`)_
 
 ### Open — needs the user
-- **Live Stripe links** (placeholders now; `handleSubscribe` refuses to open one). Set post-payment redirect to `…/?payment=success&session_id={CHECKOUT_SESSION_ID}`.
+- **Live Stripe links** (placeholders now; `handleSubscribe` refuses to open one). Set post-payment redirect to `…/app?payment=success&session_id={CHECKOUT_SESSION_ID}` — `/app`, never `/`, which serves the JS-free landing page.
 - **Real brand icons** to replace the generated placeholders in `assets/`.
 - **SRI hash for Dexie** — unpkg is proxy-blocked so it couldn't be computed; command left in a `TODO(security)` comment.
 - **`@anthropic-ai/sdk` pinned `^0.30.0`** — old, unverifiable to bump in-container.

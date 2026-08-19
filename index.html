@@ -4339,8 +4339,13 @@ function closePaywall(){
 // Paste the live payment links from the Stripe dashboard here.
 //
 // Each link must have its "After payment" redirect configured to return to
-// https://thefirmfoundation.app/?payment=success&session_id={CHECKOUT_SESSION_ID}
+// https://thefirmfoundation.app/app?payment=success&session_id={CHECKOUT_SESSION_ID}
 // or the unlock below will never fire.
+//
+// The "/app" is load-bearing. netlify.toml rewrites "/" to landing.html, a
+// static marketing page with no executable JavaScript — a payment returning
+// there never runs handleSubscriptionReturn(), so the customer is charged and
+// never unlocked, with nothing in the console to explain why.
 const STRIPE_LINKS = {
   annual:  'https://buy.stripe.com/YOUR_LIVE_ANNUAL_LINK',
   monthly: 'https://buy.stripe.com/YOUR_LIVE_MONTHLY_LINK'
