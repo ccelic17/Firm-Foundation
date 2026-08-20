@@ -4334,11 +4334,11 @@ function closePaywall(){
 // SUBSCRIPTION
 // ═══════════════════════════════════════════════════════════════════
 //
-// ⚠️ REPLACE BEFORE LAUNCH. These are placeholders — the previous values were
-// Stripe *test-mode* links (buy.stripe.com/test_…), which take no real money.
-// Paste the live payment links from the Stripe dashboard here.
+// Live Stripe payment links (account acct_1TVjJrKBSBoIzmup). Verified live
+// mode, not buy.stripe.com/test_… — test links take no real money, which is
+// what was here before.
 //
-// Each link must have its "After payment" redirect configured to return to
+// Each link's "After payment" redirect is configured to return to
 // https://thefirmfoundation.app/app?payment=success&session_id={CHECKOUT_SESSION_ID}
 // or the unlock below will never fire.
 //
@@ -4346,9 +4346,16 @@ function closePaywall(){
 // static marketing page with no executable JavaScript — a payment returning
 // there never runs handleSubscriptionReturn(), so the customer is charged and
 // never unlocked, with nothing in the console to explain why.
+//
+// Both links were first created with after_completion.type = hosted_confirmation,
+// which shows Stripe's own thank-you page and never returns the browser at all.
+// That failure is invisible from this repo, so if you touch the links, re-read
+// them back from Stripe and confirm type is "redirect" — do not trust the
+// dashboard form. Note the two are mutually exclusive: adding a Stripe
+// confirmation message removes the redirect, and with it the unlock.
 const STRIPE_LINKS = {
-  annual:  'https://buy.stripe.com/YOUR_LIVE_ANNUAL_LINK',
-  monthly: 'https://buy.stripe.com/YOUR_LIVE_MONTHLY_LINK'
+  annual:  'https://buy.stripe.com/5kQfZib5lgxNbVM1Baasg00',
+  monthly: 'https://buy.stripe.com/fZu9AUddtgxNaRI1Baasg01'
 };
 
 const TRIAL_DAYS = 7;

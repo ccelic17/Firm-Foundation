@@ -307,15 +307,51 @@ function check(name, pass, detail) {
       return before === false && after === true;
     }));
 
-    // Placeholder Stripe links must refuse to open.
-    check('B: placeholder Stripe link refuses to open', await page.evaluate(() => {
-      let opened = false;
+    // Checkout must open the configured live link, and the placeholder guard
+    // must still fire if anyone reintroduces one. The stub returns a truthy
+    // window: handleSubscribe() falls back to window.location.href when
+    // window.open returns null, which would navigate this page to Stripe.
+    const checkout = await page.evaluate(() => {
       const orig = window.open;
-      window.open = () => { opened = true; return null; };
+      let openedWith = null;
+      window.open = (url) => { openedWith = url; return {}; };
+
       handleSubscribe('annual');
+      const annual = openedWith;
+      openedWith = null;
+      handleSubscribe('monthly');
+      const monthly = openedWith;
+
+      // Guard still works: put a placeholder back and confirm nothing opens.
+      const real = STRIPE_LINKS.annual;
+      STRIPE_LINKS.annual = 'https://buy.stripe.com/YOUR_LIVE_ANNUAL_LINK';
+      openedWith = null;
+      handleSubscribe('annual');
+      const placeholderOpened = openedWith;
+      STRIPE_LINKS.annual = real;
+
       window.open = orig;
-      return opened === false;
-    }));
+      return { annual, monthly, placeholderOpened };
+    });
+
+    check('B: checkout opens the configured annual link',
+      typeof checkout.annual === 'string' && checkout.annual.startsWith('https://buy.stripe.com/'),
+      String(checkout.annual));
+    check('B: checkout opens the configured monthly link',
+      typeof checkout.monthly === 'string' && checkout.monthly.startsWith('https://buy.stripe.com/'),
+      String(checkout.monthly));
+
+    // Test-mode links take no real money. That is what shipped here once.
+    check('B: Stripe links are live mode, not test mode',
+      !/buy\.stripe\.com\/test_/.test(checkout.annual + ' ' + checkout.monthly),
+      checkout.annual + ' | ' + checkout.monthly);
+
+    check('B: annual and monthly are different links',
+      checkout.annual !== checkout.monthly,
+      checkout.annual + ' | ' + checkout.monthly);
+
+    check('B: placeholder Stripe link refuses to open',
+      checkout.placeholderOpened === null, String(checkout.placeholderOpened));
 
     const leftover = realErrors(errors);
     check('B: no unexpected console errors', leftover.length === 0, leftover.join(' | '));
