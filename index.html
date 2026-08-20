@@ -2230,6 +2230,7 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
 }
 
 async function bibleSearch() {
+  if (!consumeAllowance('ff_allow_search', 3, 'day')) { showPaywall(); return; }
   const q = (document.getElementById('bible-search').value || '').trim();
   if (!q) return;
   const resultEl = document.getElementById('bible-search-result');
@@ -2719,6 +2720,12 @@ function clearGoalPlan(){
 async function generateGoalPlan(){
   const goal = document.getElementById('goal-input').value.trim();
   if(!goal){ document.getElementById('goal-input').focus(); return; }
+
+  // Gated here rather than inside aiDecomposeGoal(), which owns the offline
+  // fallback — that path must stay reachable when the network is down.
+  // Weekly rather than once ever, so a free user can still revise a goal.
+  if (!consumeAllowance('ff_allow_goal', 1, 'week')) { showPaywall(); return; }
+
   const btn = document.getElementById('goal-generate-btn');
   btn.disabled = true;
   btn.textContent = 'Decomposing…';
@@ -2973,6 +2980,7 @@ function filterVerses(){
   });
 }
 async function aiVerseSearch(){
+  if (!consumeAllowance('ff_allow_search', 3, 'day')) { showPaywall(); return; }
   const q = (document.getElementById('verse-search').value || '').trim();
   if(!q){ document.getElementById('verse-search').focus(); return; }
   const btn = document.getElementById('verse-ai-btn');
@@ -4045,14 +4053,61 @@ function submitCheckin(){
 // ═══════════════════════════════════════════════════════════════════
 // AI PRAYER PROMPT
 // ═══════════════════════════════════════════════════════════════════
-async function getAIPrayerPrompt(){
-  // Soft limit: 3 free per day
-  const todayD = new Date().toDateString();
-  const usage = ls.get('ff_ai_prompt_usage', {date:'',count:0});
-  const count = usage.date === todayD ? usage.count : 0;
-  if(count >= 3 && !hasFullAccess()){
-    showPaywall(); return;
+/**
+ * Metered access to the AI features, which are the only things in the app that
+ * cost money per use. Everything with zero marginal cost — check-ins, streaks,
+ * journal, Bible reader, Sabbath Mode, biometrics — stays free, because that is
+ * what builds the daily habit that makes a subscription worth buying.
+ *
+ * The daily-cached calls (opening greeting, governor) are deliberately NOT
+ * metered: they fire at most once a day each and are the reason people come
+ * back, so capping them would degrade the free product to no real saving.
+ *
+ * Returns true and records the use, or false when the allowance is spent.
+ * Callers show the paywall and return.
+ */
+function consumeAllowance(key, limit, period) {
+  if (hasFullAccess()) return true;
+
+  const now = new Date();
+  // Window id: the day, or the Monday of the current week. Comparing ids
+  // rather than storing an expiry means a clock change cannot strand a user
+  // in a window that never ends.
+  let windowId;
+  if (period === 'week') {
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+    windowId = 'w' + monday.toDateString();
+  } else {
+    windowId = 'd' + now.toDateString();
   }
+
+  const usage = ls.get(key, { window: '', count: 0 });
+  const count = usage.window === windowId ? usage.count : 0;
+  if (count >= limit) return false;
+
+  ls.set(key, { window: windowId, count: count + 1 });
+  return true;
+}
+
+/** Remaining uses in the current window, for copy that quotes a number. */
+function allowanceLeft(key, limit, period) {
+  if (hasFullAccess()) return Infinity;
+  const usage = ls.get(key, { window: '', count: 0 });
+  const now = new Date();
+  let windowId;
+  if (period === 'week') {
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+    windowId = 'w' + monday.toDateString();
+  } else {
+    windowId = 'd' + now.toDateString();
+  }
+  return Math.max(0, limit - (usage.window === windowId ? usage.count : 0));
+}
+
+async function getAIPrayerPrompt(){
+  if (!consumeAllowance('ff_allow_prompt', 3, 'day')) { showPaywall(); return; }
   const btn = document.getElementById('ai-prayer-btn');
   const txt = document.getElementById('ai-prayer-text');
   btn.textContent = 'Generating prompt.';
@@ -4065,7 +4120,6 @@ async function getAIPrayerPrompt(){
     txt.textContent = (reply || '').trim() || 'Lord, show me one area today where I can be more faithful than yesterday.';
     txt.classList.add('shown');
     btn.textContent = 'Another →';
-    ls.set('ff_ai_prompt_usage', {date: todayD, count: count+1});
   } catch(e){
     txt.textContent = 'Lord, show me one area today where I can be more faithful than yesterday.';
     txt.classList.add('shown');
@@ -4313,12 +4367,15 @@ function showPaywall(){
   }
 
   if (terms) {
+    const freeTier = 'the app stays free — every check-in, your streak, the journal, ' +
+      'the Bible reader, Sabbath Mode and your biometrics — with 3 AI prayer prompts ' +
+      'and 3 scripture searches a day, and one Council session a week.';
     const trialLine = inTrial
-      ? `You are on a free ${TRIAL_DAYS}-day trial with full access — ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} remaining. When it ends you keep the app with 3 AI prayer prompts per day.`
-      : `Your free ${TRIAL_DAYS}-day trial has ended. The app stays free with 3 AI prayer prompts per day.`;
+      ? `You are on a free ${TRIAL_DAYS}-day trial with full access — ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} remaining. When it ends, ${freeTier}`
+      : `Your free ${TRIAL_DAYS}-day trial has ended, and ${freeTier}`;
     terms.textContent =
-      `${trialLine} Subscribing removes the daily limit and unlocks Sabbath Mode, ` +
-      `weekly State of the Man reports, and scripture-triggered alerts. Billed through ` +
+      `${trialLine} Subscribing removes those limits: unlimited Council sessions, ` +
+      `prayer prompts, scripture search and 90-day plans. Billed through ` +
       `Stripe as a recurring subscription — monthly at $9.99 or annually at $79 — renewing ` +
       `automatically until cancelled. Cancel any time from your Stripe receipt; cancellation ` +
       `stops the next renewal and access continues to the end of the paid period.`;
@@ -5063,6 +5120,13 @@ function _councilContext() {
 async function askTheCouncil() {
   const q = document.getElementById('council-question')?.value?.trim();
   if (!q) { document.getElementById('council-question')?.focus(); return; }
+
+  // Five mentors answer in parallel, so one question is five Claude calls —
+  // the most expensive interaction in the app. Checked before the button
+  // changes state, otherwise a refused question leaves it stuck on
+  // "Consulting..." with nothing coming back.
+  if (!consumeAllowance('ff_allow_council', 1, 'week')) { showPaywall(); return; }
+
   const btn = document.getElementById('council-ask-btn');
   const responsesEl = document.getElementById('council-responses');
   const cardsEl = document.getElementById('council-response-cards');
@@ -6253,7 +6317,7 @@ function renderGoal90Summary() {
   <div style="background:#0d1117;border:0.5px solid #5A9E7A44;border-radius:20px 20px 0 0;padding:28px 24px 40px;max-width:420px;width:100%;text-align:center">
     <div id="paywall-eyebrow" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5A9E7A;margin-bottom:12px">✦ God Moved</div>
     <div style="font-size:22px;font-weight:500;color:#DEDAD4;line-height:1.3;margin-bottom:10px">You've experienced what this is for.</div>
-    <div style="font-size:13px;color:#888;line-height:1.65;margin-bottom:24px">Keep building your testimony. Unlock unlimited AI prayer prompts, Sabbath Mode, weekly State of the Man reports, and scripture-triggered alerts.</div>
+    <div style="font-size:13px;color:#888;line-height:1.65;margin-bottom:24px">Keep building your testimony. Unlimited sessions with The Council, unlimited prayer prompts, unlimited scripture search, and unlimited 90-day plans.</div>
     <div style="background:#0a1a0a;border:1.5px solid #5A9E7A;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer" onclick="handleSubscribe('annual')">
       <div style="font-size:14px;font-weight:500;color:#82C9A0;margin-bottom:2px">One Year Covenant — $79</div>
       <div style="font-size:11px;color:#5A9E7A">$6.58/month · Save 34%</div>
@@ -6266,9 +6330,8 @@ function renderGoal90Summary() {
     <!-- Terms describe the offer that actually exists: a daily free
          allowance, not a time-limited trial. See the note in CLAUDE.md. -->
     <div id="paywall-terms" style="font-size:10.5px;color:#666;line-height:1.6;margin-bottom:14px;text-align:left">
-      Free to use with 3 AI prayer prompts per day. Subscribing removes the daily
-      limit and unlocks Sabbath Mode, weekly State of the Man reports, and
-      scripture-triggered alerts. Billed through Stripe as a recurring
+      Free to use, with 3 AI prayer prompts and 3 scripture searches a day and one
+      Council session a week. Subscribing removes those limits. Billed through Stripe as a recurring
       subscription — monthly at $9.99 or annually at $79 — renewing automatically
       until cancelled. Cancel any time from your Stripe receipt; cancellation
       stops the next renewal and access continues to the end of the paid period.
