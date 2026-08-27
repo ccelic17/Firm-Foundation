@@ -2,12 +2,13 @@
   "name": "firm-foundation",
   "version": "1.0.0",
   "private": true,
-  "description": "Firm Foundation — a daily discipline PWA. Single-file HTML/CSS/JS app plus Netlify functions. No build step.",
+  "description": "Firm Foundation \u2014 a daily discipline PWA. Single-file HTML/CSS/JS app plus Netlify functions. No build step.",
   "scripts": {
     "check:functions": "for f in netlify/functions/*.js netlify/functions/lib/*.js; do node --check \"$f\" || exit 1; done && echo 'functions OK'",
     "check:app": "node scripts/check-html-js.js index.html",
     "check:boot": "node scripts/boot-test.js",
-    "check": "npm run check:functions && npm run check:app && npm run check:boot"
+    "check": "npm run check:functions && npm run check:app && npm run check:boot",
+    "build:legal": "node scripts/build-legal.js"
   },
   "engines": {
     "node": ">=18"

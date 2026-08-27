@@ -164,9 +164,31 @@ function check(name, pass, detail) {
       window.fetch = (u, o) => { sent = JSON.parse(o.body); return Promise.reject(new Error('stub')); };
       try { await window.claude.complete({ system: 'PERSONA_MARKER', messages: [{ role: 'user', content: 'hi' }] }); } catch {}
       window.fetch = orig;
-      return sent && sent.system.startsWith('You operate inside a Christian') && sent.system.includes('PERSONA_MARKER');
+      return sent && {
+        // Safety leads, so it cannot be buried under the directness rules.
+        safetyFirst: sent.system.startsWith('SAFETY'),
+        hasCrisis: /988/.test(sent.system) && /findahelpline/.test(sent.system),
+        hasDoctrine: sent.system.includes('You operate inside a Christian'),
+        keepsPersona: sent.system.includes('PERSONA_MARKER')
+      };
     });
-    check('B: guardrail prepended to every call', guardApplied);
+    check('B: guardrail prepended to every call',
+      guardApplied && guardApplied.hasDoctrine && guardApplied.keepsPersona,
+      JSON.stringify(guardApplied));
+
+    // The mentors are instructed to be direct and never to punt. Without an
+    // explicit override, a man in crisis gets confrontation rather than a
+    // route to real help — so the safety block must lead and must name
+    // where to go.
+    check('B: crisis safety overrides the directness rules',
+      guardApplied && guardApplied.safetyFirst,
+      JSON.stringify(guardApplied));
+    check('B: guardrail carries crisis resources',
+      guardApplied && guardApplied.hasCrisis,
+      JSON.stringify(guardApplied));
+
+    check('B: punting rule carves out the safety case', await page.evaluate(() =>
+      /does not apply to the SAFETY section/i.test(THEOLOGICAL_GUARDRAIL)));
 
     // All five Council personas still present.
     check('B: five Council mentors', await page.evaluate(() => COUNCIL_MENTORS.length) === 5);
@@ -520,6 +542,26 @@ function check(name, pass, detail) {
     const startServesApp = startRewrite
       ? startRewrite.to.endsWith('index.html')
       : mf.start_url.endsWith('index.html');
+    // The published policy pages are generated from PRIVACY.md / TERMS.md.
+    // If they drift, users read a policy that no longer describes the app —
+    // which is the specific liability a privacy policy is meant to remove.
+    const legal = require(path.join(REPO, 'scripts/build-legal.js'));
+    for (const pg of legal.PAGES) {
+      const md = fs.readFileSync(path.join(REPO, pg.md), 'utf8');
+      const expected = legal.page(pg.title, legal.render(md));
+      const onDisk = fs.existsSync(path.join(REPO, pg.html))
+        ? fs.readFileSync(path.join(REPO, pg.html), 'utf8') : '';
+      check(`legal: ${pg.html} matches ${pg.md}`, onDisk === expected,
+        onDisk ? 'stale — run node scripts/build-legal.js' : 'missing');
+    }
+
+    // Both must be reachable on the domain, or the in-app links 404.
+    for (const route of ['/privacy', '/terms']) {
+      const r = rewrites.find(x => x.from === route);
+      check(`legal: ${route} is served`, !!r && r.to.endsWith('.html'),
+        r ? r.to : 'no rewrite');
+    }
+
     check('routing: installed PWA launches into the app, not the landing page',
       startServesApp,
       `start_url="${mf.start_url}" resolves to "${startRewrite ? startRewrite.to : mf.start_url}"`);

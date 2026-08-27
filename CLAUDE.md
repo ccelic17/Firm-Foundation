@@ -212,6 +212,33 @@ Stripe payment links are hardcoded in `index.html` (search `buy.stripe.com`). Re
 
 ---
 
+## Legal Pages
+
+`PRIVACY.md` and `TERMS.md` are the source of truth. `privacy.html` / `terms.html` are
+**generated** — never hand-edit them. Change the markdown, then:
+
+```
+npm run build:legal
+```
+
+`scripts/boot-test.js` regenerates and compares, so a stale page fails the suite. Served
+at `/privacy` and `/terms` via `netlify.toml`, and linked from Profile and the landing page.
+
+Both documents describe the app's real data flows. If you add a third party, change what
+is sent to Claude, or alter the billing or cancellation path, update `PRIVACY.md` /
+`TERMS.md` in the same commit — an inaccurate policy is worse than no policy.
+
+## AI Safety Guardrail
+
+`THEOLOGICAL_GUARDRAIL` in `index.html` opens with a **SAFETY** block that overrides
+everything after it. The mentors are instructed to be direct and never to punt; without
+that override, a user in crisis gets confrontation instead of a route to real help. The
+block must stay first, must keep naming 988 and findahelpline.com, and the punting rule
+must keep its carve-out. Three assertions in the boot test enforce this — do not weaken
+them.
+
+---
+
 ## Common Pitfalls
 
 1. **`signal` placement in `claude.js`** — must be in the options object (second arg), not the params object (first arg). Already fixed. Do not regress.
