@@ -18,9 +18,13 @@ const fs = require('fs');
 const path = require('path');
 
 const REPO = path.join(__dirname, '..');
+const ORIGIN = 'https://thefirmfoundation.app';
+
 const PAGES = [
-  { md: 'PRIVACY.md', html: 'privacy.html', title: 'Privacy Policy' },
-  { md: 'TERMS.md', html: 'terms.html', title: 'Terms of Service' }
+  { md: 'PRIVACY.md', html: 'privacy.html', title: 'Privacy Policy', path: '/privacy',
+    desc: 'What Firm Foundation collects, what stays on your device, and every third party that receives data.' },
+  { md: 'TERMS.md', html: 'terms.html', title: 'Terms of Service', path: '/terms',
+    desc: 'Free and paid tiers, billing and cancellation, and the limits of the AI in Firm Foundation.' }
 ];
 
 const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -96,13 +100,24 @@ function render(md) {
   return out.join('\n');
 }
 
-const page = (title, body) => `<!doctype html>
+const page = (title, body, path = '', desc = '') => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${title} — Firm Foundation</title>
-<meta name="description" content="${title} for Firm Foundation.">
+<meta name="description" content="${desc || title + ' for Firm Foundation.'}">
+<link rel="canonical" href="${ORIGIN}${path}">
+<meta property="og:title" content="${title} — Firm Foundation">
+<meta property="og:description" content="${desc || title + ' for Firm Foundation.'}">
+<meta property="og:url" content="${ORIGIN}${path}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="${ORIGIN}/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Firm Foundation — Body. Spirit. Mind.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#C4911A">
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,6 +153,7 @@ const page = (title, body) => `<!doctype html>
 <a class="back" href="/app">← Back to the app</a>
 ${body}
 <footer>
+  <a href="/">Home</a> · <a href="/app">The app</a> ·
   <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> ·
   <a href="mailto:support@thefirmfoundation.app">support@thefirmfoundation.app</a>
 </footer>
@@ -149,7 +165,7 @@ ${body}
 let changed = 0;
 for (const p of PAGES) {
   const md = fs.readFileSync(path.join(REPO, p.md), 'utf8');
-  const html = page(p.title, render(md));
+  const html = page(p.title, render(md), p.path, p.desc);
   const dest = path.join(REPO, p.html);
   const current = fs.existsSync(dest) ? fs.readFileSync(dest, 'utf8') : null;
   if (current !== html) { fs.writeFileSync(dest, html); changed++; console.log(`wrote ${p.html}`); }

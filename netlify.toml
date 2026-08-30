@@ -27,3 +27,10 @@
   from = "/"
   to = "/landing.html"
   status = 200
+
+# Must stay last: Netlify matches redirects in order, so a catch-all placed
+# above the real routes would swallow them.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

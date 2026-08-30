@@ -548,12 +548,91 @@ function check(name, pass, detail) {
     const legal = require(path.join(REPO, 'scripts/build-legal.js'));
     for (const pg of legal.PAGES) {
       const md = fs.readFileSync(path.join(REPO, pg.md), 'utf8');
-      const expected = legal.page(pg.title, legal.render(md));
+      const expected = legal.page(pg.title, legal.render(md), pg.path, pg.desc);
       const onDisk = fs.existsSync(path.join(REPO, pg.html))
         ? fs.readFileSync(path.join(REPO, pg.html), 'utf8') : '';
       check(`legal: ${pg.html} matches ${pg.md}`, onDisk === expected,
         onDisk ? 'stale — run node scripts/build-legal.js' : 'missing');
     }
+
+    // ── SEO surface ──────────────────────────────────────────────────
+    // /app and / previously shipped byte-identical titles, descriptions and
+    // canonicals, so the app declared itself a duplicate of the marketing
+    // page. Distinctness is the assertion that would have caught it.
+    const SEO_PAGES = [
+      { file: 'landing.html', canonical: 'https://thefirmfoundation.app' },
+      { file: 'index.html',   canonical: 'https://thefirmfoundation.app/app' },
+      { file: 'privacy.html', canonical: 'https://thefirmfoundation.app/privacy' },
+      { file: 'terms.html',   canonical: 'https://thefirmfoundation.app/terms' },
+      { file: '404.html',     canonical: 'https://thefirmfoundation.app/404' }
+    ];
+    const titles = new Map(), canons = new Map();
+    for (const pg of SEO_PAGES) {
+      const html = fs.readFileSync(path.join(REPO, pg.file), 'utf8');
+      const title = (/<title>([^<]*)<\/title>/.exec(html) || [])[1] || '';
+      const canon = (/<link rel="canonical" href="([^"]+)"/.exec(html) || [])[1] || '';
+      const h1s = (html.match(/<h1[\s>]/g) || []).length;
+
+      check(`seo: ${pg.file} has exactly one <h1>`, h1s === 1, `found ${h1s}`);
+      check(`seo: ${pg.file} canonical is its own path`, canon === pg.canonical, canon || 'missing');
+      check(`seo: ${pg.file} has a title and description`,
+        title.length > 10 && /<meta name="description" content="[^"]{20,}"/.test(html), title);
+
+      titles.set(pg.file, title);
+      canons.set(pg.file, canon);
+    }
+    check('seo: every page title is unique',
+      new Set(titles.values()).size === titles.size,
+      [...titles.values()].join(' | '));
+    check('seo: no two pages share a canonical',
+      new Set(canons.values()).size === canons.size,
+      [...canons.values()].join(' | '));
+
+    // The card is summary_large_image, which renders 1200x630. The 512 square
+    // icon that was here before cropped on every platform.
+    const ogPath = path.join(REPO, 'assets/og-image.png');
+    check('seo: og-image exists at 1200x630', (() => {
+      if (!fs.existsSync(ogPath)) return false;
+      const buf = fs.readFileSync(ogPath);
+      return buf.readUInt32BE(16) === 1200 && buf.readUInt32BE(20) === 630;
+    })(), 'assets/og-image.png');
+
+    for (const f of ['robots.txt', 'sitemap.xml', 'llms.txt', '404.html']) {
+      check(`seo: ${f} exists`, fs.existsSync(path.join(REPO, f)));
+    }
+
+    // A sitemap advertising a URL that does not resolve is worse than none.
+    {
+      const xml = fs.readFileSync(path.join(REPO, 'sitemap.xml'), 'utf8');
+      const locs = [...xml.matchAll(/<loc>https:\/\/thefirmfoundation\.app([^<]*)<\/loc>/g)]
+        .map(m => m[1] || '/');
+      const resolves = p => p === '/' || rewrites.some(r => r.from === p);
+      const broken = locs.filter(p => !resolves(p));
+      check('seo: every sitemap URL resolves through netlify.toml',
+        locs.length > 0 && broken.length === 0, broken.join(', ') || `${locs.length} URLs`);
+    }
+
+    // Structured data claimed price 0 after the app started charging.
+    {
+      const html = fs.readFileSync(path.join(REPO, 'landing.html'), 'utf8');
+      const raw = (/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(html) || [])[1];
+      let ld = null;
+      try { ld = JSON.parse(raw); } catch {}
+      const offers = ld && [].concat(ld.offers || []);
+      const prices = (offers || []).map(o => o.price);
+      check('seo: JSON-LD parses and prices match what is charged',
+        !!ld && prices.includes('9.99') && prices.includes('79.00'),
+        JSON.stringify(prices));
+    }
+
+    // Leftover scaffolding from whatever originally generated index.html.
+    check('seo: no bundler placeholder left in index.html',
+      !fs.readFileSync(path.join(REPO, 'index.html'), 'utf8').includes('__bundler_thumbnail'));
+
+    // The catch-all must be last, or it swallows /app, /privacy and /terms.
+    check('seo: 404 catch-all is the last redirect',
+      rewrites.length > 0 && rewrites[rewrites.length - 1].from === '/*',
+      rewrites.map(r => r.from).join(' → '));
 
     // Both must be reachable on the domain, or the in-app links 404.
     for (const route of ['/privacy', '/terms']) {
