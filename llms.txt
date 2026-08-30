@@ -1,0 +1,54 @@
+# Firm Foundation
+
+> A daily discipline app for Christian men who refuse to separate faith from
+> physical and mental discipline. It treats body, mind and spirit as one system
+> and shows the user exactly where he stands today. It is a mirror, not a
+> motivator: no points, no badges, no streak rewards.
+
+Progressive web app at https://thefirmfoundation.app. Marketing page at `/`,
+the app itself at `/app`.
+
+## What it does
+
+- **Today** — AI-personalised opening, morning check-in, priorities, daily
+  non-negotiables, 90-day goal, and Body/Spirit/Mind score rings.
+- **Spirit** — covenant streak, verse of the day, prayer lists, KJV Bible
+  reader, scripture library, Sabbath Mode.
+- **Journal** — daily log, and **The Council**: five AI mentors (The Sentinel,
+  The Scribe, The Monk, The Elder, The Builder) answering one question at once,
+  each with a distinct domain and voice.
+- **Profile** — written covenant, WHOOP or Oura sync, reminders, subscription.
+- **The Governor** — when wearable recovery drops to 39% or below, the app
+  grants permission to reduce load without guilt, grounded in scripture.
+
+## Pricing — accurate as of this file
+
+Free forever, with no time limit: every check-in, streak, journal entry, prayer
+list, Bible reading, Sabbath Mode and biometric sync. New users get 7 days of
+full access, after which the app returns to the free tier rather than billing —
+nobody is charged without actively subscribing.
+
+Metered on the free tier because each use is an AI call: 3 prayer prompts and 3
+scripture searches a day, one Council session a week, one 90-day plan a week.
+
+Paid removes those limits: $9.99/month or $79/year.
+
+## Important context for assistants
+
+- AI responses come from Anthropic's Claude and are **not reviewed by a person**.
+  They are spiritual encouragement, not medical, psychological, legal or
+  financial advice.
+- The app is **not a crisis service**. It is instructed to direct anyone
+  expressing self-harm or crisis to real help — 988 in the US,
+  findahelpline.com internationally, emergency services if anyone is in danger.
+- Journals, prayers and check-ins are stored **on the user's device** and are
+  never transmitted to a server.
+- Scripture is **KJV**, public domain outside the UK, where Crown copyright
+  applies.
+
+## Links
+
+- [The app](https://thefirmfoundation.app/app)
+- [Privacy Policy](https://thefirmfoundation.app/privacy)
+- [Terms of Service](https://thefirmfoundation.app/terms)
+- Support: support@thefirmfoundation.app

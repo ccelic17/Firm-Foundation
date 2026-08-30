@@ -1,0 +1,8 @@
+# Firm Foundation — https://thefirmfoundation.app
+User-agent: *
+Allow: /
+
+# Backend endpoints. No crawlable content, and some accept POST only.
+Disallow: /.netlify/functions/
+
+Sitemap: https://thefirmfoundation.app/sitemap.xml

@@ -6,15 +6,18 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Firm Foundation — Body. Spirit. Mind. | Daily Discipline App for Christian Men</title>
-<meta name="description" content="The daily discipline app for Christian men who refuse to drift. Track your body, spirit, and mind. AI prayer coaching, scripture, 90-day goals, and streak accountability — all in one place.">
+<title>Your Daily Discipline — Firm Foundation</title>
+<meta name="description" content="Open your daily check-in, domain scores, streak, and The Council. The Firm Foundation app for men who have already decided.">
 <meta name="keywords" content="Christian men app, spiritual disciplines tracker, faith and fitness app, Christian accountability app, daily disciplines Christian, body spirit mind app, 90 day Christian challenge, Christian men morning routine">
 <meta name="author" content="Firm Foundation">
-<meta property="og:title" content="Firm Foundation — Don't Drift.">
+<meta property="og:title" content="Your Daily Discipline — Firm Foundation">
 <meta property="og:description" content="The daily discipline app built for Christian men. Body. Spirit. Mind. AI coaching, scripture, 90-day goals, and streak accountability.">
-<meta property="og:url" content="https://thefirmfoundation.app">
+<meta property="og:url" content="https://thefirmfoundation.app/app">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://thefirmfoundation.app/assets/icon-512.png">
+<meta property="og:image" content="https://thefirmfoundation.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Firm Foundation — Body. Spirit. Mind.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Firm Foundation — Don't Drift.">
 <meta name="twitter:description" content="The daily discipline app for Christian men who take body, spirit, and mind seriously.">
@@ -23,21 +26,7 @@
 <link rel="icon" href="/assets/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/icon-192.png">
-<link rel="canonical" href="https://thefirmfoundation.app">
-<template id="__bundler_thumbnail" data-bg-color="#04060E">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#04060E"/>
-    <g transform="translate(600 400)" fill="none" stroke-width="22" stroke-linecap="round">
-      <circle r="220" stroke="#1A2544" stroke-dasharray="1152 1382"  transform="rotate(135)"/>
-      <circle r="220" stroke="#27AE60" stroke-dasharray="900 1382" transform="rotate(135)"/>
-      <circle r="170" stroke="#1A2544" stroke-dasharray="890 1068" transform="rotate(135)"/>
-      <circle r="170" stroke="#F5C842" stroke-dasharray="600 1068" transform="rotate(135)"/>
-      <circle r="120" stroke="#1A2544" stroke-dasharray="628 754" transform="rotate(135)"/>
-      <circle r="120" stroke="#2E6FD4" stroke-dasharray="450 754" transform="rotate(135)"/>
-    </g>
-    <text x="600" y="730" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" letter-spacing="6" fill="#F5C842">FIRM FOUNDATION</text>
-  </svg>
-</template>
+<link rel="canonical" href="https://thefirmfoundation.app/app">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
@@ -786,6 +775,7 @@ body.pre-dawn{
   <button onclick="document.getElementById('pwa-banner').style.display='none';ls.set('ff_pwa_dismissed','1')" style="background:rgba(245,200,66,0.12);color:#F5C842;border:1px solid rgba(245,200,66,0.22);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">Dismiss</button>
 </div>
 
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0">Firm Foundation — your daily discipline</h1>
 <div class="brand-header">
   <img src="./assets/icon-192.png" alt="Firm Foundation" height="28" style="object-fit:contain;" onerror="this.style.display='none'">
   <span class="brand-name">Firm Foundation</span>
@@ -1274,6 +1264,10 @@ body.pre-dawn{
             </button>
           </div>
           <div id="council-responses" style="padding:0 22px;display:none">
+            <div style="font-size:10px;color:var(--ts);line-height:1.55;margin-bottom:12px;padding:8px 10px;border-left:2px solid var(--border)">
+              AI-generated. Not reviewed by a person, and not medical, psychological or
+              professional advice. Check any scripture against your Bible.
+            </div>
             <div style="font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--ts);text-transform:uppercase;margin-bottom:10px">✦ Council Speaks</div>
             <div id="council-response-cards"></div>
             <button id="council-save-btn" onclick="saveCouncilToJournal(this)"
@@ -1336,6 +1330,27 @@ body.pre-dawn{
           <div class="mysys-arch" onclick="openArchOverlay()">
             <span><span class="mysys-arch-glyphs">◈◉◎✦</span> &nbsp; View the integrated architecture</span>
             <span style="color:var(--ts);">›</span>
+          </div>
+        </div>
+
+        <!-- ═══ LEGAL ═══ -->
+        <!-- Reachable in two taps. A policy nobody can find protects nobody. -->
+        <div style="margin:0 22px 18px;padding-top:16px;border-top:1px solid var(--border)">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ts);margin-bottom:10px">Legal</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+            <a href="/privacy" style="font-size:12px;color:var(--tm);text-decoration:underline">Privacy Policy</a>
+            <a href="/terms" style="font-size:12px;color:var(--tm);text-decoration:underline">Terms of Service</a>
+            <a href="mailto:support@thefirmfoundation.app" style="font-size:12px;color:var(--tm);text-decoration:underline">Support</a>
+          </div>
+          <div style="font-size:10.5px;color:var(--ts);line-height:1.6">
+            AI responses are generated by Anthropic's Claude and are not reviewed by a person.
+            They are spiritual encouragement, not medical, psychological, legal or financial advice,
+            and are no substitute for your pastor, your doctor, or a licensed counsellor.
+            Verify every scripture reference against your Bible.
+            <br><br>
+            <strong style="color:var(--tm)">If you are in crisis, this app is not the place.</strong>
+            In the US call or text 988. Anywhere, findahelpline.com. If anyone is in immediate
+            danger, contact emergency services.
           </div>
         </div>
 
@@ -2230,6 +2245,7 @@ async function loadBibleChapter(bookName, ch, totalChapters) {
 }
 
 async function bibleSearch() {
+  if (!consumeAllowance('ff_allow_search', 3, 'day')) { showPaywall(); return; }
   const q = (document.getElementById('bible-search').value || '').trim();
   if (!q) return;
   const resultEl = document.getElementById('bible-search-result');
@@ -2719,6 +2735,12 @@ function clearGoalPlan(){
 async function generateGoalPlan(){
   const goal = document.getElementById('goal-input').value.trim();
   if(!goal){ document.getElementById('goal-input').focus(); return; }
+
+  // Gated here rather than inside aiDecomposeGoal(), which owns the offline
+  // fallback — that path must stay reachable when the network is down.
+  // Weekly rather than once ever, so a free user can still revise a goal.
+  if (!consumeAllowance('ff_allow_goal', 1, 'week')) { showPaywall(); return; }
+
   const btn = document.getElementById('goal-generate-btn');
   btn.disabled = true;
   btn.textContent = 'Decomposing…';
@@ -2973,6 +2995,7 @@ function filterVerses(){
   });
 }
 async function aiVerseSearch(){
+  if (!consumeAllowance('ff_allow_search', 3, 'day')) { showPaywall(); return; }
   const q = (document.getElementById('verse-search').value || '').trim();
   if(!q){ document.getElementById('verse-search').focus(); return; }
   const btn = document.getElementById('verse-ai-btn');
@@ -4045,14 +4068,61 @@ function submitCheckin(){
 // ═══════════════════════════════════════════════════════════════════
 // AI PRAYER PROMPT
 // ═══════════════════════════════════════════════════════════════════
-async function getAIPrayerPrompt(){
-  // Soft limit: 3 free per day
-  const todayD = new Date().toDateString();
-  const usage = ls.get('ff_ai_prompt_usage', {date:'',count:0});
-  const count = usage.date === todayD ? usage.count : 0;
-  if(count >= 3 && !hasFullAccess()){
-    showPaywall(); return;
+/**
+ * Metered access to the AI features, which are the only things in the app that
+ * cost money per use. Everything with zero marginal cost — check-ins, streaks,
+ * journal, Bible reader, Sabbath Mode, biometrics — stays free, because that is
+ * what builds the daily habit that makes a subscription worth buying.
+ *
+ * The daily-cached calls (opening greeting, governor) are deliberately NOT
+ * metered: they fire at most once a day each and are the reason people come
+ * back, so capping them would degrade the free product to no real saving.
+ *
+ * Returns true and records the use, or false when the allowance is spent.
+ * Callers show the paywall and return.
+ */
+function consumeAllowance(key, limit, period) {
+  if (hasFullAccess()) return true;
+
+  const now = new Date();
+  // Window id: the day, or the Monday of the current week. Comparing ids
+  // rather than storing an expiry means a clock change cannot strand a user
+  // in a window that never ends.
+  let windowId;
+  if (period === 'week') {
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+    windowId = 'w' + monday.toDateString();
+  } else {
+    windowId = 'd' + now.toDateString();
   }
+
+  const usage = ls.get(key, { window: '', count: 0 });
+  const count = usage.window === windowId ? usage.count : 0;
+  if (count >= limit) return false;
+
+  ls.set(key, { window: windowId, count: count + 1 });
+  return true;
+}
+
+/** Remaining uses in the current window, for copy that quotes a number. */
+function allowanceLeft(key, limit, period) {
+  if (hasFullAccess()) return Infinity;
+  const usage = ls.get(key, { window: '', count: 0 });
+  const now = new Date();
+  let windowId;
+  if (period === 'week') {
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+    windowId = 'w' + monday.toDateString();
+  } else {
+    windowId = 'd' + now.toDateString();
+  }
+  return Math.max(0, limit - (usage.window === windowId ? usage.count : 0));
+}
+
+async function getAIPrayerPrompt(){
+  if (!consumeAllowance('ff_allow_prompt', 3, 'day')) { showPaywall(); return; }
   const btn = document.getElementById('ai-prayer-btn');
   const txt = document.getElementById('ai-prayer-text');
   btn.textContent = 'Generating prompt.';
@@ -4065,7 +4135,6 @@ async function getAIPrayerPrompt(){
     txt.textContent = (reply || '').trim() || 'Lord, show me one area today where I can be more faithful than yesterday.';
     txt.classList.add('shown');
     btn.textContent = 'Another →';
-    ls.set('ff_ai_prompt_usage', {date: todayD, count: count+1});
   } catch(e){
     txt.textContent = 'Lord, show me one area today where I can be more faithful than yesterday.';
     txt.classList.add('shown');
@@ -4313,12 +4382,15 @@ function showPaywall(){
   }
 
   if (terms) {
+    const freeTier = 'the app stays free — every check-in, your streak, the journal, ' +
+      'the Bible reader, Sabbath Mode and your biometrics — with 3 AI prayer prompts ' +
+      'and 3 scripture searches a day, and one Council session a week.';
     const trialLine = inTrial
-      ? `You are on a free ${TRIAL_DAYS}-day trial with full access — ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} remaining. When it ends you keep the app with 3 AI prayer prompts per day.`
-      : `Your free ${TRIAL_DAYS}-day trial has ended. The app stays free with 3 AI prayer prompts per day.`;
+      ? `You are on a free ${TRIAL_DAYS}-day trial with full access — ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} remaining. When it ends, ${freeTier}`
+      : `Your free ${TRIAL_DAYS}-day trial has ended, and ${freeTier}`;
     terms.textContent =
-      `${trialLine} Subscribing removes the daily limit and unlocks Sabbath Mode, ` +
-      `weekly State of the Man reports, and scripture-triggered alerts. Billed through ` +
+      `${trialLine} Subscribing removes those limits: unlimited Council sessions, ` +
+      `prayer prompts, scripture search and 90-day plans. Billed through ` +
       `Stripe as a recurring subscription — monthly at $9.99 or annually at $79 — renewing ` +
       `automatically until cancelled. Cancel any time from your Stripe receipt; cancellation ` +
       `stops the next renewal and access continues to the end of the paid period.`;
@@ -4334,16 +4406,28 @@ function closePaywall(){
 // SUBSCRIPTION
 // ═══════════════════════════════════════════════════════════════════
 //
-// ⚠️ REPLACE BEFORE LAUNCH. These are placeholders — the previous values were
-// Stripe *test-mode* links (buy.stripe.com/test_…), which take no real money.
-// Paste the live payment links from the Stripe dashboard here.
+// Live Stripe payment links (account acct_1TVjJrKBSBoIzmup). Verified live
+// mode, not buy.stripe.com/test_… — test links take no real money, which is
+// what was here before.
 //
-// Each link must have its "After payment" redirect configured to return to
-// https://thefirmfoundation.app/?payment=success&session_id={CHECKOUT_SESSION_ID}
+// Each link's "After payment" redirect is configured to return to
+// https://thefirmfoundation.app/app?payment=success&session_id={CHECKOUT_SESSION_ID}
 // or the unlock below will never fire.
+//
+// The "/app" is load-bearing. netlify.toml rewrites "/" to landing.html, a
+// static marketing page with no executable JavaScript — a payment returning
+// there never runs handleSubscriptionReturn(), so the customer is charged and
+// never unlocked, with nothing in the console to explain why.
+//
+// Both links were first created with after_completion.type = hosted_confirmation,
+// which shows Stripe's own thank-you page and never returns the browser at all.
+// That failure is invisible from this repo, so if you touch the links, re-read
+// them back from Stripe and confirm type is "redirect" — do not trust the
+// dashboard form. Note the two are mutually exclusive: adding a Stripe
+// confirmation message removes the redirect, and with it the unlock.
 const STRIPE_LINKS = {
-  annual:  'https://buy.stripe.com/YOUR_LIVE_ANNUAL_LINK',
-  monthly: 'https://buy.stripe.com/YOUR_LIVE_MONTHLY_LINK'
+  annual:  'https://buy.stripe.com/5kQfZib5lgxNbVM1Baasg00',
+  monthly: 'https://buy.stripe.com/fZu9AUddtgxNaRI1Baasg01'
 };
 
 const TRIAL_DAYS = 7;
@@ -4435,27 +4519,61 @@ function handleSubscriptionReturn() {
 }
 
 /**
- * Restores access on a new device. There is no backend to verify against, so
- * this re-checks the local flag and otherwise points the user at support
- * rather than pretending to restore something it cannot see.
+ * Restores access on a new device by asking Stripe whether this email has a
+ * live subscription.
+ *
+ * The previous version told the user "we will match it against your Stripe
+ * receipt" and "check your email shortly", then only wrote a local flag —
+ * no email was ever sent and nothing reached Stripe. Someone who had paid and
+ * reinstalled was left waiting on a message that did not exist.
+ *
+ * The check runs in netlify/functions/restore.js so the Stripe secret key
+ * never reaches the browser.
  */
-function restorePurchase() {
+async function restorePurchase() {
   if (isSubscribed()) {
     showToast('Subscription already active.');
     closePaywall();
     return;
   }
-  const email = prompt(
-    'Enter the email address you used at checkout.\n\n' +
-    'We will match it against your Stripe receipt and restore access.'
-  );
-  if (!email) return;
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) {
+
+  const entered = prompt('Enter the email address you used at checkout.');
+  if (!entered) return;
+
+  const email = entered.trim();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     showToast('That does not look like a valid email.');
     return;
   }
-  ls.set('ff_restore_requested', { email: email.trim(), at: new Date().toISOString() });
-  showToast('Restore requested. Check your email shortly.');
+
+  showToast('Checking your subscription\u2026');
+  try {
+    const res = await fetch('/.netlify/functions/restore', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+    });
+    const data = await res.json();
+
+    if (data.status === 'error') {
+      showToast(data.message || 'Could not check your subscription.');
+      return;
+    }
+
+    if (data.subscribed) {
+      grantSubscription(null);
+      closePaywall();
+      showToast('Subscription restored. Welcome back.');
+      return;
+    }
+
+    // Say what was actually found rather than implying something is coming.
+    showToast('No active subscription found for that email.');
+  } catch (err) {
+    console.error('[restore] request failed:', err);
+    showToast('Could not reach the server. Check your connection and try again.');
+  }
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -5017,6 +5135,13 @@ function _councilContext() {
 async function askTheCouncil() {
   const q = document.getElementById('council-question')?.value?.trim();
   if (!q) { document.getElementById('council-question')?.focus(); return; }
+
+  // Five mentors answer in parallel, so one question is five Claude calls —
+  // the most expensive interaction in the app. Checked before the button
+  // changes state, otherwise a refused question leaves it stuck on
+  // "Consulting..." with nothing coming back.
+  if (!consumeAllowance('ff_allow_council', 1, 'week')) { showPaywall(); return; }
+
   const btn = document.getElementById('council-ask-btn');
   const responsesEl = document.getElementById('council-responses');
   const cardsEl = document.getElementById('council-response-cards');
@@ -5148,7 +5273,32 @@ function renderCouncilHistory() {
 // scattered across nine call sites, so enforcing this at the single transport
 // choke point below is the only way it cannot be forgotten or bypassed by a
 // prompt added later.
-const THEOLOGICAL_GUARDRAIL = `You operate inside a Christian discipleship app built on historic, orthodox Protestant doctrine. These convictions are settled and are not open questions to be re-litigated with the user:
+const THEOLOGICAL_GUARDRAIL = `SAFETY — THIS SECTION OVERRIDES EVERYTHING BELOW IT
+
+If a user expresses suicidal thoughts, self-harm, intent to harm another person, abuse
+being done to them, or a mental-health crisis, the instructions about directness,
+challenge and never punting DO NOT APPLY. In that moment you are not a mentor pushing a
+man harder. Respond like this instead:
+
+- Lead with warmth and take him seriously. Never minimise it, never treat it as a
+  discipline failure, weakness, or a spiritual test he is failing.
+- Say plainly that this needs a real person, not an app, and name where to go:
+  in the US, call or text 988 (Suicide & Crisis Lifeline); anywhere, findahelpline.com
+  lists local services; if anyone is in immediate danger, emergency services.
+- Encourage him toward the people around him — his pastor, his doctor, his wife, a
+  friend who can sit with him tonight. Here, pointing him to a person is the RIGHT
+  answer, not the evasion the rules below forbid.
+- Do not lecture, do not issue a challenge, do not assign a discipline, and do not use
+  scripture to correct him. Scripture may comfort, never confront, in this moment.
+- Stay with him. Do not refuse to engage or end the conversation abruptly — being shut
+  out is its own harm.
+
+This is a discipleship app, not a medical or crisis service, and nothing you say is a
+substitute for professional help.
+
+---
+
+You operate inside a Christian discipleship app built on historic, orthodox Protestant doctrine. These convictions are settled and are not open questions to be re-litigated with the user:
 
 THE EXCLUSIVITY OF CHRIST \u2014 NON-NEGOTIABLE
 - Jesus Christ is the only way to salvation. There is no other. Salvation is by grace alone, through faith alone, in Christ alone.
@@ -5160,7 +5310,7 @@ Do not use, or reword, any of these moves:
 - Universalist hedging: "all paths lead to God", "many roads up the same mountain", "God saves people through other religions too".
 - Mystical deflection that empties the claim of content: "God's reach exceeds our categories", "who are we to say", "that's beyond human knowing" \u2014 used to avoid answering.
 - Relativism: "that's true for you", "it depends on your tradition", "different Christians believe different things" offered as a way to avoid stating the orthodox position.
-- Punting: refusing to answer, redirecting to "ask your pastor", or retreating into "it's complicated" when the question has a clear biblical answer.
+- Punting: refusing to answer, redirecting to "ask your pastor", or retreating into "it's complicated" when the question has a clear biblical answer. (This does not apply to the SAFETY section above — in a crisis, directing him to a real person is correct.)
 - False balance: presenting the orthodox position and a heterodox one as equally weighted options.
 
 HOW TO DELIVER IT
@@ -6207,7 +6357,7 @@ function renderGoal90Summary() {
   <div style="background:#0d1117;border:0.5px solid #5A9E7A44;border-radius:20px 20px 0 0;padding:28px 24px 40px;max-width:420px;width:100%;text-align:center">
     <div id="paywall-eyebrow" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5A9E7A;margin-bottom:12px">✦ God Moved</div>
     <div style="font-size:22px;font-weight:500;color:#DEDAD4;line-height:1.3;margin-bottom:10px">You've experienced what this is for.</div>
-    <div style="font-size:13px;color:#888;line-height:1.65;margin-bottom:24px">Keep building your testimony. Unlock unlimited AI prayer prompts, Sabbath Mode, weekly State of the Man reports, and scripture-triggered alerts.</div>
+    <div style="font-size:13px;color:#888;line-height:1.65;margin-bottom:24px">Keep building your testimony. Unlimited sessions with The Council, unlimited prayer prompts, unlimited scripture search, and unlimited 90-day plans.</div>
     <div style="background:#0a1a0a;border:1.5px solid #5A9E7A;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer" onclick="handleSubscribe('annual')">
       <div style="font-size:14px;font-weight:500;color:#82C9A0;margin-bottom:2px">One Year Covenant — $79</div>
       <div style="font-size:11px;color:#5A9E7A">$6.58/month · Save 34%</div>
@@ -6220,9 +6370,8 @@ function renderGoal90Summary() {
     <!-- Terms describe the offer that actually exists: a daily free
          allowance, not a time-limited trial. See the note in CLAUDE.md. -->
     <div id="paywall-terms" style="font-size:10.5px;color:#666;line-height:1.6;margin-bottom:14px;text-align:left">
-      Free to use with 3 AI prayer prompts per day. Subscribing removes the daily
-      limit and unlocks Sabbath Mode, weekly State of the Man reports, and
-      scripture-triggered alerts. Billed through Stripe as a recurring
+      Free to use, with 3 AI prayer prompts and 3 scripture searches a day and one
+      Council session a week. Subscribing removes those limits. Billed through Stripe as a recurring
       subscription — monthly at $9.99 or annually at $79 — renewing automatically
       until cancelled. Cancel any time from your Stripe receipt; cancellation
       stops the next renewal and access continues to the end of the paid period.
